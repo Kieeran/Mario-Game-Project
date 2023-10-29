@@ -190,8 +190,8 @@ int WINAPI WinMain(
 	_In_ HINSTANCE hInstance,
 	_In_opt_ HINSTANCE hPrevInstance,
 	_In_ LPSTR lpCmdLine,
-	_In_ int nCmdShow
-) {
+	_In_ int nCmdShow) 
+{
 	HWND hWnd = CreateGameWindow(hInstance, nCmdShow, SCREEN_WIDTH, SCREEN_HEIGHT);
 
 	SetDebugWindow(hWnd);
@@ -200,9 +200,8 @@ int WINAPI WinMain(
 	game->Init(hWnd, hInstance);
 	game->InitKeyboard();
 
-
 	//IMPORTANT: this is the only place where a hardcoded file name is allowed ! 
-	game->Load(L"mario-sample.txt");  
+	game->Load(L"mario-sample.txt");	//use function "Load" from class CGame
 
 	SetWindowPos(hWnd, 0, 0, 0, SCREEN_WIDTH*2, SCREEN_HEIGHT*2, SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
 

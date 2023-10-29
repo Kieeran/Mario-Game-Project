@@ -14,8 +14,7 @@
 
 using namespace std;
 
-CPlayScene::CPlayScene(int id, LPCWSTR filePath):
-	CScene(id, filePath)
+CPlayScene::CPlayScene(int id, LPCWSTR filePath):CScene(id, filePath)
 {
 	player = NULL;
 	key_handler = new CSampleKeyHandler(this);
@@ -38,7 +37,7 @@ void CPlayScene::_ParseSection_SPRITES(string line)
 
 	if (tokens.size() < 6) return; // skip invalid lines
 
-	int ID = atoi(tokens[0].c_str());
+	int ID = atoi(tokens[0].c_str());	//atoi: convert string to integer
 	int l = atoi(tokens[1].c_str());
 	int t = atoi(tokens[2].c_str());
 	int r = atoi(tokens[3].c_str());
@@ -171,9 +170,9 @@ void CPlayScene::LoadAssets(LPCWSTR assetFile)
 	int section = ASSETS_SECTION_UNKNOWN;
 
 	char str[MAX_SCENE_LINE];
-	while (f.getline(str, MAX_SCENE_LINE))
+	while (f.getline(str, MAX_SCENE_LINE))		//get the info of every line of the file text until the end
 	{
-		string line(str);
+		string line(str);						//line = the line contain info
 
 		if (line[0] == '#') continue;	// skip comment lines	
 

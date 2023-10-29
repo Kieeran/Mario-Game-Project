@@ -38,7 +38,4 @@ void CGameObject::RenderBoundingBox()
 	CGame::GetInstance()->Draw(x - cx, y - cy, bbox, &rect, BBOX_ALPHA);
 }
 
-CGameObject::~CGameObject()
-{
-
-}
+CGameObject::~CGameObject(){}
