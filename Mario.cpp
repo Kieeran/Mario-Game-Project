@@ -12,7 +12,7 @@
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 {
-	//avoid mario's droping out of the world at the left edge at the beginning of the stage
+	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	this->GetPosition(this->x, this->y);
 	if (this->x < 20)
 		this->x = 20;
