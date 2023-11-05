@@ -2,15 +2,14 @@
 
 void CCloud::Render()
 {
-	CAnimations* animations = CAnimations::GetInstance();
-	animations->Get(ID_ANI_CLOUD)->Render(x, y);
-	//RenderBoundingBox();
+	CSprites* s = CSprites::GetInstance();
+	s->Get(this->spriteId)->Draw(x, y);
 }
 
 void CCloud::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x - CLOUD_BBOX_WIDTH / 2;
-	t = y - CLOUD_BBOX_HEIGHT / 2;
-	r = l + CLOUD_BBOX_WIDTH;
-	b = t + CLOUD_BBOX_HEIGHT;
+	l = 0;
+	t = 0;
+	r = 1;
+	b = 1;
 }
