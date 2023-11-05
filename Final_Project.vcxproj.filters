@@ -90,6 +90,9 @@
     <ClInclude Include="Cloud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BigGrass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -159,6 +162,9 @@
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="Ground.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BigGrass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

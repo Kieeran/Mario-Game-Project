@@ -6,10 +6,11 @@ cloud1.txt
 brick.txt
 Cloud.txt
 Ground.txt
+BigGrass.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Cloud
+# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Cloud, 7 = Big grass
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # MARIO
@@ -35,13 +36,44 @@ Ground.txt
 4	160	80
 4	180	80
 
-#Cloud
+#CLOUD
 6	40	40
 
-#Platform
+#GROUND
 5 	0	180	16	16	32	510000	520000	530000
 #5	140	140	16	16	26	51000	52000	53000
 
-#Portal 
+#BIG GRASS
+7	50	164	330000
+7	66	164	370000
+7	82	164	370000
+7	98	164	370000
+7	114	164	350000
+7	130	164	360000
+7	146	164	370000
+7	162	164	340000
+
+7	50	148	330000
+7	66	148	350000
+7	82	148	360000
+7	98	148	370000
+7	114	148	340000
+7	130	148	330000
+7	146	148	350000
+7	162	148	360000
+
+7	50	132	310000
+7	66	132	360000
+7	82	132	340000
+7	98	132	310000
+7	114	132	320000
+7	130	132	310000
+7	146	132	320000
+
+7	66	116	310000
+7	82	116	320000
+
+
+#PORTAL 
 50	200	160	216	180	1
 

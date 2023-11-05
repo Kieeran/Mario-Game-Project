@@ -11,6 +11,7 @@
 #include "Platform.h"
 
 #include "Cloud.h"
+#include "BigGrass.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -121,7 +122,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x,y); break;
 	//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	//case OBJECT_TYPE_CLOUD: obj = new CCloud(x, y); break;
-
+	case OBJECT_TYPE_BIGGRASS: 
+	{
+		int spriteId = atoi(tokens[3].c_str());
+		obj = new CBigGrass(x, y, spriteId);
+		break;
+	}
 	case OBJECT_TYPE_PLATFORM:
 	{
 
