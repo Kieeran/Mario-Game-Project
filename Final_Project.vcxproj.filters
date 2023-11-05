@@ -93,6 +93,12 @@
     <ClInclude Include="BigGrass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SmallGrass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MysBox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -165,6 +171,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BigGrass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallGrass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MysBox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
