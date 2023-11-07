@@ -8,6 +8,7 @@ Ground.txt
 BigGrass.txt
 SmallGrass.txt
 MysBox.txt
+Boxes.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -54,6 +55,11 @@ MysBox.txt
 
 9	181	116	600000
 9	197	116	600000
+
+#BOXES
+
+10	282	100	16	3	5	700021	700051	
+10	250	132	16	3	3	700011	700051	
 
 #BIG GRASS
 7	20	164	330000

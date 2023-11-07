@@ -13,8 +13,6 @@ protected:
 public:
 	CBigGrass(float x, float y, int spriteId) : CGameObject(x, y) 
 	{
-		this->x = x;
-		this->y = y;
 		this->spriteId = spriteId;
 	}
 	void Render();
