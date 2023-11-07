@@ -8,7 +8,7 @@
 class CBoxes : public CGameObject
 {
 protected:
-	float lengthSide;
+	float lengthCellSide;
 	int lengthWidth;
 	int lengthHeight;
 	int spriteIdTopLeft, spriteIdTopMiddle, spriteIdTopRight,
@@ -18,13 +18,13 @@ protected:
 
 public:
 	CBoxes(float x, float y,
-		float lengthSide, int lengthWidth, int lengthHeight,
+		float lengthCellSide, int lengthWidth, int lengthHeight,
 		int spriteIdTopLeft, int spriteIdTopMiddle, int spriteIdTopRight,
 		int spriteIdMiddleLeft, int spriteIdCenter, int spriteIdMiddleRight,
 		int spriteIdBottomLeft, int spriteIdBottomMiddle, int spriteIdBottomRight,
 		int spriteIdShadowTop, int spriteIdShadowRest) :CGameObject(x, y)
 	{
-		this->lengthSide = lengthSide;
+		this->lengthCellSide = lengthCellSide;
 		this->lengthWidth = lengthWidth;
 		this->lengthHeight = lengthHeight;
 		this->spriteIdTopLeft = spriteIdTopLeft;

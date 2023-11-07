@@ -15,6 +15,7 @@
 #include "SmallGrass.h"
 #include "MysBox.h"
 #include "Boxes.h"
+#include "Pipe.h"
 
 #include "SampleKeyEventHandler.h"
 
@@ -141,18 +142,35 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	case OBJECT_TYPE_BOXES:
 	{
-		float length_Side = atoi(tokens[3].c_str());
+		float length_Cell_Side = atoi(tokens[3].c_str());
 		int length_Width = atoi(tokens[4].c_str());
 		int length_Height = atoi(tokens[5].c_str());
 		int sprite_TopLeft = atoi(tokens[6].c_str());
 		int spriteShadow_Top = atoi(tokens[7].c_str());
 		obj = new CBoxes(
 			x, y,
-			length_Side, length_Width, length_Height,
+			length_Cell_Side, length_Width, length_Height,
 			sprite_TopLeft, sprite_TopLeft + 1, sprite_TopLeft + 2,
 			sprite_TopLeft + 3, sprite_TopLeft + 4, sprite_TopLeft + 5,
 			sprite_TopLeft + 6, sprite_TopLeft + 7, sprite_TopLeft + 8,
 			spriteShadow_Top, spriteShadow_Top + 1
+		);
+
+		break;
+	}
+
+	case OBJECT_TYPE_PIPE:
+	{
+		int length_Cell_Side = atoi(tokens[3].c_str());
+		int length_Height = atoi(tokens[4].c_str());
+		int spriteId_TopLeft = atoi(tokens[5].c_str());
+
+		obj = new CPipe(
+			x, y,
+			length_Cell_Side,
+			length_Height,
+			spriteId_TopLeft, spriteId_TopLeft + 1,
+			spriteId_TopLeft + 2, spriteId_TopLeft + 3
 		);
 
 		break;
