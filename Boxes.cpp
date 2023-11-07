@@ -36,7 +36,7 @@ void CBoxes::Render()
 	}
 
 	//Render the shadow of the box
-	xx = x + this->lengthCellSide * this->lengthWidth - 5;
+	xx = x + this->lengthCellSide * this->lengthWidth - 3;
 	yy = y;
 	s->Get(this->spriteIdShadowTop)->Draw(xx, yy);
 	for (int i = 1; i <= this->lengthHeight - 1; i++)
