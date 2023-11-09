@@ -16,8 +16,6 @@ Pipe.txt
 # type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Cloud, 7 = Big grass
 # See OBJECT_TYPE constants in AssetIDs.h
 
-# MARIO
-0	30	165
 
 #COIN
 4	100	120
@@ -166,4 +164,7 @@ Pipe.txt
 
 #PORTAL 
 50	200	160	216	180	1
+
+# MARIO
+0	30	165
 

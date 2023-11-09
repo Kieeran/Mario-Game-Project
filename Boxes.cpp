@@ -1,5 +1,34 @@
 #include "Boxes.h"
 
+#include "Sprite.h"
+#include "Sprites.h"
+
+#include "Textures.h"
+
+void CBoxes::RenderBoundingBox()
+{
+	D3DXVECTOR3 p(x, y, 0);
+	RECT rect;
+
+	//LPTEXTURE bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+	LPTEXTURE bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
+
+	float l, t, r, b;
+
+	GetBoundingBox(l, t, r, b);
+	rect.left = 0;
+	rect.top = 0;
+	rect.right = (int)r - (int)l;
+	rect.bottom = (int)b - (int)t;
+
+	float cx, cy;
+	CGame::GetInstance()->GetCamPos(cx, cy);
+
+	float xx = x - this->lengthCellSide / 2 + rect.right / 2;
+
+	CGame::GetInstance()->Draw(xx - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
+}
+
 void CBoxes::Render()
 {
 	if (this->lengthWidth <= 0 || this->lengthHeight <= 0)return;
@@ -47,10 +76,14 @@ void CBoxes::Render()
 
 void CBoxes::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = 0;
-	t = 0;
-	r = 1;
-	b = 1;
+	l = x + 3.5f - this->lengthCellSide / 2;
+	t = y - this->lengthCellSide / 2;
+	r = l + this->lengthCellSide * this->lengthWidth;
+	b = t + this->lengthCellSide * this->lengthHeight;
+	/*l = x - this->cellWidth / 2;
+	t = y - this->cellHeight / 2;
+	r = l + this->cellWidth * this->length;
+	b = t + this->cellHeight;*/
 }
 int CBoxes::IsDirectionColliable(float nx, float ny)
 {
