@@ -52,3 +52,8 @@ void CBoxes::GetBoundingBox(float& l, float& t, float& r, float& b)
 	r = 1;
 	b = 1;
 }
+int CBoxes::IsDirectionColliable(float nx, float ny)
+{
+	if (nx == 0 && ny == -1) return 1;
+	else return 0;
+}
