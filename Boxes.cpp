@@ -65,7 +65,7 @@ void CBoxes::Render()
 	}
 
 	//Render the shadow of the box
-	xx = x + this->lengthCellSide * this->lengthWidth - 3;
+	xx = x + this->lengthCellSide * this->lengthWidth;
 	yy = y;
 	s->Get(this->spriteIdShadowTop)->Draw(xx, yy);
 	for (int i = 1; i <= this->lengthHeight - 1; i++)
@@ -80,10 +80,6 @@ void CBoxes::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - this->lengthCellSide / 2;
 	r = l + this->lengthCellSide * this->lengthWidth;
 	b = t + this->lengthCellSide * this->lengthHeight;
-	/*l = x - this->cellWidth / 2;
-	t = y - this->cellHeight / 2;
-	r = l + this->cellWidth * this->length;
-	b = t + this->cellHeight;*/
 }
 int CBoxes::IsDirectionColliable(float nx, float ny)
 {

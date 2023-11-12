@@ -5,17 +5,17 @@
 #include "Animations.h"
 
 #define ID_ANI_CLOUD 100000
-
+#define CELL_CLOUD_SIDE 16
 class CCloud : public CGameObject
 {
 protected:
-	int spriteId;
+	int nCloud;
 public:
-	CCloud(float x, float y, int spriteId) : CGameObject(x, y)
+	CCloud(float x, float y, int nCloud) : CGameObject(x, y)
 	{
 		this->x = x;
 		this->y = y;
-		this->spriteId = spriteId;
+		this->nCloud = nCloud;
 	}
 	void Render();
 	void Update(DWORD dt) {}
