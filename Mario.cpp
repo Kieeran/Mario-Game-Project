@@ -7,6 +7,7 @@
 #include "Goomba.h"
 #include "Coin.h"
 #include "Portal.h"
+#include "MysBox.h"
 
 #include "Collision.h"
 
@@ -59,6 +60,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithCoin(e);
 	else if (dynamic_cast<CPortal*>(e->obj))
 		OnCollisionWithPortal(e);
+	else if (dynamic_cast<CMysBox*>(e->obj))
+		OnCollisionWithMysBox(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -107,8 +110,16 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
+void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
+{
+	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
+	
+	//jump and hit the bottom of the box
+	if(e->ny > 0)
+		mysbox->SetState(MYSBOX_STATE_EMPTY);
+}
 //
-// Get animation ID for small Mario
+// Get animation ID for small Mario+
 //
 int CMario::GetAniIdSmall()
 {

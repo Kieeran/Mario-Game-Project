@@ -1,9 +1,9 @@
 # list of object assets to load in this scene
 [ASSETS]
-mario.txt
-coin.txt
-brick.txt
-goomba.txt
+Mario.txt
+Coin.txt
+Brick.txt
+Goomba.txt
 Cloud.txt
 Ground.txt
 BigGrass.txt
@@ -11,6 +11,7 @@ SmallGrass.txt
 MysBox.txt
 Boxes.txt
 Pipe.txt
+Hud.txt
 #
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -67,7 +68,7 @@ Pipe.txt
 #MYSTERY BOX	
 
 9	180	118	600000
-9	196	118	600000
+9	195	118	600000
 
 9	230	68	600000
 9	245	68	600000
@@ -164,6 +165,9 @@ Pipe.txt
 
 #PORTAL 
 50	200	160	216	180	1
+
+#HUD
+12	160	220
 
 #GOOMBA
 2	220	160
