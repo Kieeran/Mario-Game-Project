@@ -3,8 +3,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
-
-#define ID_ANI_COIN 11000
+#include "AssetIDs.h"
 
 #define	COIN_WIDTH 10
 #define COIN_BBOX_WIDTH 10

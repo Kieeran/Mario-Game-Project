@@ -3,8 +3,8 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "AssetIDs.h"
 
-#define ID_ANI_CLOUD 100000
 #define CELL_CLOUD_SIDE 16
 class CCloud : public CGameObject
 {

@@ -1,16 +1,14 @@
 #include "MysBox.h"
 
-CMysBox::CMysBox(float x, float y) :CGameObject(x, y)
+CMysBox::CMysBox(float x, float y, int ItemType):CGameObject()
 {
+	this->x = x;
+	this->y = y;
+	this->ItemType = ItemType;
 	SetState(MYSBOX_STATE_CARRY_OBJECT);
 	this->Unbox = true;
 	this->Origin_Y = y;
 }
-
-//void CMysBox::OnNoCollision(DWORD dt)
-//{
-//	y += vy * dt;
-//}
 
 void CMysBox::Render()
 {

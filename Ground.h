@@ -3,8 +3,8 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "AssetIDs.h"
 
-#define ID_ANI_GROUND 300000
 #define GROUND_WIDTH 16
 #define GROUND_BBOX_WIDTH 16
 #define GROUND_BBOX_HEIGHT 16

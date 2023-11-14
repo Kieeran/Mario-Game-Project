@@ -1,10 +1,8 @@
 #pragma once
 
 #include "GameObject.h"
-#define ID_ANI_PINK_BOX		600001
-#define ID_ANI_BLUE_BOX		600002
-#define ID_ANI_GREEN_BOX	600003
-#define ID_ANI_WHITE_BOX	600004
+#include "AssetIDs.h"
+
 class CBoxes : public CGameObject
 {
 protected:

@@ -13,189 +13,213 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Animation">
+      <UniqueIdentifier>{250f0e45-23e6-4fa1-8638-037a295e3715}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game">
+      <UniqueIdentifier>{a1f66397-e3f8-4367-8300-81e843cafaaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object">
+      <UniqueIdentifier>{9a60b151-de93-4df8-b83c-f92776f4e173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scene">
+      <UniqueIdentifier>{c7159328-dac3-4c24-9508-3a45bf7a013f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Other">
+      <UniqueIdentifier>{ac903c8e-c27e-4d1c-93ce-62df0d81cb55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\HUD">
+      <UniqueIdentifier>{cfdef422-d461-4cfa-836f-066cbda2f878}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Change_Object">
+      <UniqueIdentifier>{4ea40af7-2503-4716-8daa-ff0feb11c76e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Object\Unchange_Object">
+      <UniqueIdentifier>{31e9e76f-a847-49f1-a019-708559a37603}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetIDs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
     <ClInclude Include="Animation.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
     <ClInclude Include="AnimationFrame.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssetIDs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goomba.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayScene.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Portal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleKeyEventHandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Sprites.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Game</Filter>
     </ClInclude>
-    <ClInclude Include="Cloud.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\Object</Filter>
     </ClInclude>
-    <ClInclude Include="BigGrass.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayScene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="SmallGrass.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="SampleKeyEventHandler.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="MysBox.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Boxes.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files\Other</Filter>
     </ClInclude>
-    <ClInclude Include="Pipe.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="debug.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Header Files\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Hud.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="BigGrass.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Boxes.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Cloud.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Coin.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Goomba.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Mario.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MysBox.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="SmallGrass.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Animation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="debug.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goomba.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Mario.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Header Files\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="Platform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Portal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SampleKeyEventHandler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Scene.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Animations.cpp">
+      <Filter>Header Files\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Sprites.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Animation</Filter>
     </ClCompile>
     <ClCompile Include="Textures.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Header Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Header Files\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScene.cpp">
+      <Filter>Header Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SampleKeyEventHandler.cpp">
+      <Filter>Header Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Header Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Header Files\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Header Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cloud.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BigGrass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SmallGrass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MysBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Boxes.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Pipe.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Other</Filter>
     </ClCompile>
     <ClCompile Include="Hud.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="BigGrass.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Boxes.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Cloud.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Ground.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Coin.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Goomba.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Mario.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MysBox.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="SmallGrass.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

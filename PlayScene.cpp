@@ -124,9 +124,14 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
 	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
-	//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
+	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
-	case OBJECT_TYPE_MYSBOX: obj = new CMysBox(x, y); break;
+	case OBJECT_TYPE_MYSBOX: 
+	{
+		int item_type = atoi(tokens[3].c_str());
+		obj = new CMysBox(x, y, item_type); 
+		break;
+	}
 	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
 	case OBJECT_TYPE_CLOUD:
 	{
@@ -212,8 +217,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 	// General object setup
 	obj->SetPosition(x, y);
-
-
 	objects.push_back(obj);
 }
 

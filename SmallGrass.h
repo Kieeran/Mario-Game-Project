@@ -3,8 +3,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
-
-#define ID_ANI_SMALLGRASS 400000
+#include "AssetIDs.h"
 
 class CSmallGrass : public CGameObject
 {

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "AssetIDs.h"
 
 #define GOOMBA_GRAVITY 0.002f
 #define GOOMBA_WALKING_SPEED 0.05f
@@ -13,9 +14,6 @@
 
 #define GOOMBA_STATE_WALKING 100
 #define GOOMBA_STATE_DIE 200
-
-#define ID_ANI_GOOMBA_WALKING 5000
-#define ID_ANI_GOOMBA_DIE 5001
 
 class CGoomba : public CGameObject
 {

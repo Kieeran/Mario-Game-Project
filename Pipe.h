@@ -3,8 +3,8 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
+#include "AssetIDs.h"
 
-#define ID_ANI_PIPE 700000
 class CPipe : public CGameObject
 {
 protected:
