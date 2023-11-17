@@ -8,15 +8,15 @@
 #include "Coin.h"
 #include "Portal.h"
 #include "MysBox.h"
+#include "Mushroom.h"
 
 #include "Collision.h"
 
-void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
+void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	this->GetPosition(this->x, this->y);
-	if (this->x < 20)
-		this->x = 20;
+	if (this->x < 20) this->x = 20;
 
 	vy += ay * dt;
 	vx += ax * dt;
@@ -24,7 +24,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT> *coObjects)
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed
-	if ( GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME) 
+	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -61,6 +61,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CMysBox*>(e->obj))
 		OnCollisionWithMysBox(e);
+	else if (dynamic_cast<CMushroom*>(e->obj))
+		OnCollisionWithMushroom(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -115,6 +117,20 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 	}
 }
 
+void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
+{
+	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
+	if (mushroom->GetState() == MUSHROOM_STATE_SLEEP && e->ny > 0)
+	{
+		mushroom->SetState(MUSHROOM_STATE_WAKEUP);
+	}
+	else
+	{
+		this->SetLevel(MARIO_LEVEL_BIG);
+		e->obj->Delete();
+	}
+}
+
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
@@ -124,7 +140,7 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 {
 	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
-	
+
 	//jump and hit the bottom of the box
 	if (e->ny > 0)
 	{
@@ -270,14 +286,14 @@ void CMario::Render()
 	animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
-	
+
 	DebugOutTitle(L"Coins: %d", coin);
 }
 
 void CMario::SetState(int state)
 {
 	// DIE is the end state, cannot be changed! 
-	if (this->state == MARIO_STATE_DIE) return; 
+	if (this->state == MARIO_STATE_DIE) return;
 
 	switch (state)
 	{
@@ -326,7 +342,7 @@ void CMario::SetState(int state)
 			state = MARIO_STATE_IDLE;
 			isSitting = true;
 			vx = 0; vy = 0.0f;
-			y +=MARIO_SIT_HEIGHT_ADJUST;
+			y += MARIO_SIT_HEIGHT_ADJUST;
 		}
 		break;
 
@@ -354,9 +370,9 @@ void CMario::SetState(int state)
 	CGameObject::SetState(state);
 }
 
-void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom)
+void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	if (level==MARIO_LEVEL_BIG)
+	if (level == MARIO_LEVEL_BIG)
 	{
 		if (isSitting)
 		{
@@ -365,18 +381,18 @@ void CMario::GetBoundingBox(float &left, float &top, float &right, float &bottom
 			right = left + MARIO_BIG_SITTING_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_SITTING_BBOX_HEIGHT;
 		}
-		else 
+		else
 		{
-			left = x - MARIO_BIG_BBOX_WIDTH/2;
-			top = y - MARIO_BIG_BBOX_HEIGHT/2;
+			left = x - MARIO_BIG_BBOX_WIDTH / 2;
+			top = y - MARIO_BIG_BBOX_HEIGHT / 2;
 			right = left + MARIO_BIG_BBOX_WIDTH;
 			bottom = top + MARIO_BIG_BBOX_HEIGHT;
 		}
 	}
 	else
 	{
-		left = x - MARIO_SMALL_BBOX_WIDTH/2;
-		top = y - MARIO_SMALL_BBOX_HEIGHT/2;
+		left = x - MARIO_SMALL_BBOX_WIDTH / 2;
+		top = y - MARIO_SMALL_BBOX_HEIGHT / 2;
 		right = left + MARIO_SMALL_BBOX_WIDTH;
 		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
 	}
@@ -387,8 +403,12 @@ void CMario::SetLevel(int l)
 	// Adjust position to avoid falling off platform
 	if (this->level == MARIO_LEVEL_SMALL)
 	{
-		y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+		this->y += (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
 	}
-	level = l;
+	if (this->level == MARIO_LEVEL_BIG)
+	{
+		this->y -= (MARIO_BIG_BBOX_HEIGHT - MARIO_SMALL_BBOX_HEIGHT) / 2;
+	}
+	this->level = l;
 }
 

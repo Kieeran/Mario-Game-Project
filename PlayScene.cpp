@@ -16,6 +16,7 @@
 #include "MysBox.h"
 #include "Boxes.h"
 #include "Pipe.h"
+#include "Mushroom.h"
 #include "Hud.h"
 
 #include "SampleKeyEventHandler.h"
@@ -136,6 +137,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		{
 		case ITEM_TYPE_COIN:
 			item = new CCoin(x, y, HIDDEN_COIN_TYPE);
+			objects.push_back(item);
+			break;
+		case ITEM_TYPE_MUSHROOM:
+			item = new CMushroom(x, y);
 			objects.push_back(item);
 			break;
 		}

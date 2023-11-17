@@ -132,6 +132,9 @@
     <ClInclude Include="Pipe.h">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
+    <ClInclude Include="Mushroom.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="Pipe.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Mushroom.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

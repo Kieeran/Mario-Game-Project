@@ -148,6 +148,7 @@
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Mario.h" />
+    <ClInclude Include="Mushroom.h" />
     <ClInclude Include="MysBox.h" />
     <ClInclude Include="Pipe.h" />
     <ClInclude Include="Platform.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
+    <ClCompile Include="Mushroom.cpp" />
     <ClCompile Include="MysBox.cpp" />
     <ClCompile Include="Pipe.cpp" />
     <ClCompile Include="Platform.cpp" />
