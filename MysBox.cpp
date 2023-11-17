@@ -1,10 +1,10 @@
 #include "MysBox.h"
+#include "PlayScene.h"
 
-CMysBox::CMysBox(float x, float y, int ItemType):CGameObject()
+CMysBox::CMysBox(float x, float y) :CGameObject()
 {
 	this->x = x;
 	this->y = y;
-	this->ItemType = ItemType;
 	SetState(MYSBOX_STATE_CARRY_OBJECT);
 	this->Unbox = true;
 	this->Origin_Y = y;
@@ -24,7 +24,7 @@ void CMysBox::Render()
 
 void CMysBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->state == MYSBOX_STATE_EMPTY && this->Unbox)
+	if (this->GetState() == MYSBOX_STATE_EMPTY && this->Unbox)
 	{
 		y += vy * dt;
 		if (y <= this->Origin_Y - MYSBOX_BOUNCING_HEIGHT_MAX)
@@ -33,10 +33,13 @@ void CMysBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		if (y >= this->Origin_Y)
 		{
+			y == this->Origin_Y;
 			vy = 0;
 			this->Unbox = false;
 		}
 	}
+	if (!this->Unbox && y != this->Origin_Y)
+		y = this->Origin_Y;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

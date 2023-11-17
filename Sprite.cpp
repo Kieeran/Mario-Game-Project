@@ -40,7 +40,7 @@ void CSprite::Draw(float x, float y)
 	cy = (FLOAT)floor(cy);
 
 	D3DXMATRIX matTranslation;
-	
+
 	x = (FLOAT)floor(x);
 	y = (FLOAT)floor(y);
 

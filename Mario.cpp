@@ -48,8 +48,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		vy = 0;
 		if (e->ny < 0) isOnPlatform = true;
 	}
-	else 
-	if (e->nx != 0 && e->obj->IsBlocking())
+	else if (e->nx != 0 && e->obj->IsBlocking())
 	{
 		vx = 0;
 	}
@@ -100,8 +99,20 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
-	e->obj->Delete();
-	coin++;
+	CCoin* coins = dynamic_cast<CCoin*>(e->obj);
+	if (coins->GetCoinType() == SHOWED_COIN_TYPE)
+	{
+		e->obj->Delete();
+		coin++;
+	}
+	else
+	{
+		if (e->ny > 0)
+		{
+			coins->SetState(COIN_STATE_UNBOXING);
+			coin++;
+		}
+	}
 }
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
@@ -115,8 +126,11 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
 	
 	//jump and hit the bottom of the box
-	if(e->ny > 0)
+	if (e->ny > 0)
+	{
 		mysbox->SetState(MYSBOX_STATE_EMPTY);
+		//mysbox->SetItemState(COIN_STATE_UNBOXING);
+	}
 }
 //
 // Get animation ID for small Mario+

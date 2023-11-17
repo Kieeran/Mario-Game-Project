@@ -76,9 +76,9 @@ void CBoxes::Render()
 
 void CBoxes::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x + 3.5f - this->lengthCellSide / 2;
-	t = y - this->lengthCellSide / 2;
-	r = l + this->lengthCellSide * this->lengthWidth;
+	l = x + 2.25f - this->lengthCellSide / 2;
+	t = y - this->lengthCellSide/ 2;
+	r = l + this->lengthCellSide * this->lengthWidth - 2.25f;
 	b = t + this->lengthCellSide * this->lengthHeight;
 }
 int CBoxes::IsDirectionColliable(float nx, float ny)

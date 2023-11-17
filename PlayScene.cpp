@@ -123,13 +123,22 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x,y); break;
+	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
+	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
-	case OBJECT_TYPE_MYSBOX: 
+	case OBJECT_TYPE_MYSBOX:
 	{
 		int item_type = atoi(tokens[3].c_str());
-		obj = new CMysBox(x, y, item_type); 
+		CGameObject* item = NULL;
+		obj = new CMysBox(x, y);
+		switch (item_type)
+		{
+		case ITEM_TYPE_COIN:
+			item = new CCoin(x, y, HIDDEN_COIN_TYPE);
+			objects.push_back(item);
+			break;
+		}
 		break;
 	}
 	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
