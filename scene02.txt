@@ -1,31 +1,31 @@
 # list of object assets to load in this scene
 [ASSETS]
-mario.txt
-Coin.txt
-Brick.txt
-Goomba.txt
-Cloud.txt
-Ground.txt
-BigGrass.txt
-SmallGrass.txt
-MysBox.txt
-Boxes.txt
-Pipe.txt
-Hud.txt
-Mushroom.txt
-#
+texts\mario.txt
+texts\Coin.txt
+texts\Brick.txt
+texts\Goomba.txt
+texts\Cloud.txt
+texts\Ground.txt
+texts\BigGrass.txt
+texts\SmallGrass.txt
+texts\MysBox.txt
+texts\Boxes.txt
+texts\Pipe.txt
+texts\Hud.txt
+texts\Mushroom.txt
+texts\FireFlower.txt
+
 [OBJECTS]
 # type	x	y	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba, 3 = Koopas, 6 = Cloud, 7 = Big grass
 # See OBJECT_TYPE constants in AssetIDs.h
 
-#CLOUD
+# Cloud
 6	140	39	2
 6	338	30	1
 6	670	40	1
 6	750	76	3
 
-#SMALL GRASS
+# Small grass
 
 8	164	164
 8	180	164
@@ -41,8 +41,8 @@ Mushroom.txt
 8	1015	150
 8	1030	150
 
-#BIG GRASS
-#BIG GRASS 1
+# Big grass
+# Big grass 1
 7	20	164	30503
 7	36	164	30507
 7	52	164	30507
@@ -72,7 +72,7 @@ Mushroom.txt
 7	36	116	30501
 7	52	116	30502
 
-#BIG GRASS 2
+# Big grass 2
 
 7	815	150	30501
 7	830	150	30506
@@ -111,15 +111,15 @@ Mushroom.txt
 7	875	105	30501
 7	890	105	30502
 
-#Brick
+# Brick
 
 #1	40	40
 
-#PIPE
-11	362	132	16	3	30901
+# Pipe
+11	362	134	15	3	30901
 
-#Boxes
-#The coordinates of x and y are the top-left cube's coordinates
+# Boxes
+# The coordinates of x and y are the top-left cube's coordinates
 
 10	277	105	15	3	5	30811	30840
 10	245	135	15	3	3	30801	30840
@@ -129,18 +129,18 @@ Mushroom.txt
 10	416	135	15	5	3	30821	30840
 10	523	150	15	6	2	30821	30840
 
-#Platform
+# Platform
 5 	0	180	15	15	42	30401	30402	30403
 
 5	630	165	15	15	29	30401	30402	30403
 5	630	180	15	15	29	30404	30405	30406
 
-#COIN
+# Coin
 4	70	160
 4	90	160
 4	525	50
 
-#MYSTERY BOX	
+# Mystery box
 
 9	180	118	1
 9	195	118	1
@@ -154,8 +154,12 @@ Mushroom.txt
 
 9	705	116	1
 
-#GOOMBA
-#2	220	160
+# Fire flower
+
+13	50	50
+
+# Gooba
+2	220	160
 
 # Mario
 0	30	165

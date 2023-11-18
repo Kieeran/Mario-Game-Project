@@ -5,7 +5,7 @@
 #include "Animations.h"
 #include "AssetIDs.h"
 
-#define COIN_BOUCING_SPEED	0.2f
+#define COIN_BOUCING_SPEED	0.3f
 #define COIN_BOUNCING_HEIGHT_MAX	50.0f
 
 #define SHOWED_COIN_TYPE	0

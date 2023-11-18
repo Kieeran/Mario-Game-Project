@@ -120,12 +120,15 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
 	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
-	if (mushroom->GetState() == MUSHROOM_STATE_SLEEP && e->ny > 0)
+	if (mushroom->GetState() == MUSHROOM_STATE_SLEEP)
 	{
-		mushroom->SetState(MUSHROOM_STATE_WAKEUP);
+		if (e->ny > 0) {
+			mushroom->SetState(MUSHROOM_STATE_WAKEUP);
+		}
 	}
 	else
 	{
+		this->SetPosition(x, y - 16);
 		this->SetLevel(MARIO_LEVEL_BIG);
 		e->obj->Delete();
 	}

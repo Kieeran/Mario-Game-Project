@@ -39,6 +39,9 @@ public:
 	virtual void Delete() { isDeleted = true;  }
 	bool IsDeleted() { return isDeleted; }
 
+	float GetX() { return this->x; }
+	float GetY() { return this->y; }
+
 	void RenderBoundingBox();
 
 	CGameObject();

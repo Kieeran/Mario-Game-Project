@@ -4,7 +4,8 @@ CMushroom::CMushroom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
-	//SetState(MUSHROOM_STATE_SLEEP);
+	this->vy = 0;
+	this->Origin_Y = y;
 	SetState(MUSHROOM_STATE_SLEEP);
 }
 
@@ -38,29 +39,48 @@ void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->GetState() == MUSHROOM_STATE_WAKEUP)
+	if (this->GetState() == MUSHROOM_STATE_WALKING)
 	{
 		vx += ax * dt;
 		vy += ay * dt;
 	}
-
+	else if (this->GetState() == MUSHROOM_STATE_WAKEUP)
+	{
+		if (Origin_Y - y < MUSHROOM_RISEUP_HEIGHT_MAX)
+		{
+			vy = -MUSHROOM_RISEUP_SPEED;
+			vx = 0;
+		}
+		else
+		{
+			this->SetState(MUSHROOM_STATE_WALKING);
+		}
+	}
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CMushroom::Render()
 {
-	if (this->GetState() == MUSHROOM_STATE_WAKEUP)
-		CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
+	if (this->GetState() == MUSHROOM_STATE_SLEEP)return;
+	CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
 }
 
 void CMushroom::SetState(int state)
 {
-	CGameObject::SetState(state);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	switch (state)
 	{
-	case MUSHROOM_STATE_WAKEUP:
-		vx = MUSHROOM_WALKING_SPEED;
+	case MUSHROOM_STATE_WALKING:
+		if (this->x < mario->GetX())
+		{
+			vx = -MUSHROOM_WALKING_SPEED;
+		}
+		else
+		{
+			vx = MUSHROOM_WALKING_SPEED;
+		}
 		break;
 	}
+	CGameObject::SetState(state);
 }
