@@ -4,41 +4,111 @@ CFireFlower::CFireFlower(float x, float y) :CGameObject()
 {
 	this->x = x;
 	this->y = y;
-	/*this->SetState(COIN_STATE_NOT_UNBOX);
+	this->SetState(FIREFLOWER_STATE_SLEEP);
 	this->Origin_Y = y;
-	this->collected = false;*/
+	this->rising = false;
+	this->sleeping = false;
 }
+
 void CFireFlower::Render()
 {
-	/*CAnimations* animations = CAnimations::GetInstance();
-	if (this->coin_type == SHOWED_COIN_TYPE)
+	if (state == FIREFLOWER_STATE_SLEEP)return;
+	CAnimations* animations = CAnimations::GetInstance();
+	CSprites* s = CSprites::GetInstance();
+	switch (state)
 	{
-		animations->Get(ID_ANI_SHOWED_COIN)->Render(x, y);
+	case FIREFLOWER_STATE_LOOKDOWN_LEFT:				//fire flower rise up look down left
+		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_LEFT)->Render(x, y);
+		return;
+	case FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT:			//fire flower look down left
+		s->Get(ID_SPRITE_FIREFLOWER_1)->Draw(x, y);
+		return;
+	case FIREFLOWER_STATE_LOOKUP_LEFT:					//fire flower rise up look up left
+		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_LEFT)->Render(x, y);
+		return;
+	case FIREFLOWER_STATE_IDLE_LOOKUP_LEFT:				//fire flower look up left
+		s->Get(ID_SPRITE_FIREFLOWER_3)->Draw(x, y);
+		return;
+
+	case FIREFLOWER_STATE_LOOKDOWN_RIGHT:				//fire flower rise up look down right
+		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_RIGHT)->Render(x, y);
+		return;
+	case FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT:			//fire flower look down right
+		s->Get(ID_SPRITE_FIREFLOWER_8)->Draw(x, y);
+		return;
+	case FIREFLOWER_STATE_LOOKUP_RIGHT:					//fire flower rise up look up right
+		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_RIGHT)->Render(x, y);
+		break;
+	case FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT:			//fire flower look up right
+		s->Get(ID_SPRITE_FIREFLOWER_6)->Draw(x, y);
+		return;
 	}
-	if (this->coin_type == HIDDEN_COIN_TYPE && this->state == COIN_STATE_UNBOXING)
-	{
-		animations->Get(ID_ANI_HIDDEN_COIN)->Render(x, y);
-	}*/
 	//RenderBoundingBox();
-	CAnimations::GetInstance()->Get(ID_ANI_FIREFLOWER_FACELEFT)->Render(x, y);
 }
 
 void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	/*if (this->coin_type == HIDDEN_COIN_TYPE && this->state == COIN_STATE_UNBOXING)
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (this->x > mario->GetX() && this->y < mario->GetY())
 	{
-		y += vy * dt;
-		if (y <= this->Origin_Y - COIN_BOUNCING_HEIGHT_MAX)
+		if (rising || sleeping)
+			SetState(FIREFLOWER_STATE_LOOKDOWN_LEFT);
+		else
+			SetState(FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT);
+	}
+	else if (this->x > mario->GetX() && this->y > mario->GetY())
+	{
+		if (rising || sleeping)
+			SetState(FIREFLOWER_STATE_LOOKUP_LEFT);
+		else
+			SetState(FIREFLOWER_STATE_IDLE_LOOKUP_LEFT);
+	}
+	else if (this->x < mario->GetX() && this->y < mario->GetY())
+	{
+		if (rising || sleeping)
+			SetState(FIREFLOWER_STATE_LOOKDOWN_RIGHT);
+		else
+			SetState(FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT);
+	}
+	else if (this->x < mario->GetX() && this->y > mario->GetY())
+	{
+		if (rising || sleeping)
+			SetState(FIREFLOWER_STATE_LOOKUP_RIGHT);
+		else
+			SetState(FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT);
+	}
+
+	if (abs(this->x - mario->GetX()) <= FIREFLOWER_TRIGGER_DISTANCE)
+	{
+		rising = true;
+		sleeping = false;
+	}
+	else
+	{
+		rising = false;
+		sleeping = true;
+	}
+
+	if (rising)
+	{
+		y -= vy * dt;
+		if (this->Origin_Y - this->y >= FIREFLOWER_RISEUP_HEIGHT_MAX)
 		{
-			vy *= -1;
-		}
-		if (y >= this->Origin_Y)
-		{
-			this->collected = true;
+			this->y = this->Origin_Y - FIREFLOWER_RISEUP_HEIGHT_MAX;
+			rising = false;
 		}
 	}
-	if (this->collected)
-		this->Delete();*/
+	else
+	{
+		y += vy * dt;
+		if (this->y >= this->Origin_Y)
+		{
+			this->y = this->Origin_Y;
+			sleeping = false;
+			SetState(FIREFLOWER_STATE_SLEEP);
+		}
+	}
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
@@ -52,11 +122,13 @@ void CFireFlower::GetBoundingBox(float& l, float& t, float& r, float& b)
 }
 void CFireFlower::SetState(int state)
 {
-	/*CGameObject::SetState(state);
-	switch (state)
+	CGameObject::SetState(state);
+	if (state == FIREFLOWER_STATE_SLEEP)
 	{
-	case COIN_STATE_UNBOXING:
-		vy = -COIN_BOUCING_SPEED;
-		break;
-	}*/
+		vy = 0;
+	}
+	else
+	{
+		vy = FIREFLOWER_RISEUP_SPEED;
+	}
 }

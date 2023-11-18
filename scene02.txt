@@ -116,7 +116,7 @@ texts\FireFlower.txt
 #1	40	40
 
 # Pipe
-11	362	134	15	3	30901
+11	365	150	15	3	30901
 
 # Boxes
 # The coordinates of x and y are the top-left cube's coordinates
@@ -136,9 +136,9 @@ texts\FireFlower.txt
 5	630	180	15	15	29	30404	30405	30406
 
 # Coin
-4	70	160
-4	90	160
-4	525	50
+#4	70	160
+#4	90	160
+#4	525	50
 
 # Mystery box
 
@@ -156,10 +156,10 @@ texts\FireFlower.txt
 
 # Fire flower
 
-13	50	50
+#13	50	50
 
 # Gooba
-2	220	160
+#2	220	160
 
 # Mario
 0	30	165

@@ -74,11 +74,11 @@ void CMushroom::SetState(int state)
 	case MUSHROOM_STATE_WALKING:
 		if (this->x < mario->GetX())
 		{
-			vx = -MUSHROOM_WALKING_SPEED;
+			vx = MUSHROOM_WALKING_SPEED;
 		}
 		else
 		{
-			vx = MUSHROOM_WALKING_SPEED;
+			vx = -MUSHROOM_WALKING_SPEED;
 		}
 		break;
 	}

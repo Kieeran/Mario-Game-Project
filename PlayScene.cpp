@@ -129,7 +129,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
-	case OBJECT_TYPE_FIREFLOWER: obj = new CFireFlower(x, y); break;
 	case OBJECT_TYPE_MYSBOX:
 	{
 		int item_type = atoi(tokens[3].c_str());
@@ -161,7 +160,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CBigGrass(x, y, spriteId);
 		break;
 	}
-
+	
 	case OBJECT_TYPE_BOXES:
 	{
 		float length_Cell_Side = atoi(tokens[3].c_str());
@@ -195,6 +194,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			spriteId_TopLeft + 2, spriteId_TopLeft + 3
 		);
 
+		CGameObject* fireflower = new CFireFlower(x, y);
+		objects.push_back(fireflower);
 		break;
 	}
 
