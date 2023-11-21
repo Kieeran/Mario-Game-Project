@@ -138,6 +138,15 @@
     <ClInclude Include="FireFlower.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
+    <ClInclude Include="FireBullet.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Koomba.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Detector.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -231,6 +240,15 @@
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
     <ClCompile Include="FireFlower.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBullet.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Koomba.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Detector.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>

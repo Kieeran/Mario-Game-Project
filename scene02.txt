@@ -14,6 +14,8 @@ texts\Pipe.txt
 texts\Hud.txt
 texts\Mushroom.txt
 texts\FireFlower.txt
+texts\FireBullet.txt
+texts\Koomba.txt
 
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -157,6 +159,9 @@ texts\FireFlower.txt
 # Fire flower
 
 #13	50	50
+
+# Koomba
+#14	50	50
 
 # Gooba
 #2	220	160

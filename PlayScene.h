@@ -28,6 +28,11 @@ protected:
 public: 
 	CPlayScene(int id, LPCWSTR filePath);	//init function
 
+	void AddObject(LPGAMEOBJECT object)
+	{
+		objects.push_back(object);
+	}
+
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();

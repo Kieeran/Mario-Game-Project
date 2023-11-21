@@ -18,6 +18,9 @@
 #include "Pipe.h"
 #include "Mushroom.h"
 #include "FireFlower.h"
+#include "FireBullet.h"
+#include "Koomba.h"
+
 #include "Hud.h"
 
 #include "SampleKeyEventHandler.h"
@@ -129,6 +132,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
+	case OBJECT_TYPE_KOOMBA: obj = new CKoomba(x, y); break;
 	case OBJECT_TYPE_MYSBOX:
 	{
 		int item_type = atoi(tokens[3].c_str());
@@ -193,7 +197,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			spriteId_TopLeft, spriteId_TopLeft + 1,
 			spriteId_TopLeft + 2, spriteId_TopLeft + 3
 		);
-
 		CGameObject* fireflower = new CFireFlower(x, y);
 		objects.push_back(fireflower);
 		break;

@@ -19,4 +19,4 @@ height	270
 21	textures\items.png
 22	textures\tileset.png
 23	textures\hud.png
-24	textures\misc4.png
+24	textures\projectiles.png

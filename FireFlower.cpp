@@ -1,15 +1,5 @@
 #include "FireFlower.h"
 
-CFireFlower::CFireFlower(float x, float y) :CGameObject()
-{
-	this->x = x;
-	this->y = y;
-	this->SetState(FIREFLOWER_STATE_SLEEP);
-	this->Origin_Y = y;
-	this->rising = false;
-	this->sleeping = false;
-}
-
 void CFireFlower::Render()
 {
 	if (state == FIREFLOWER_STATE_SLEEP)return;
@@ -48,6 +38,7 @@ void CFireFlower::Render()
 
 void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (this->x > mario->GetX() && this->y < mario->GetY())
 	{
@@ -78,14 +69,36 @@ void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetState(FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT);
 	}
 
-	if (abs(this->x - mario->GetX()) <= FIREFLOWER_TRIGGER_DISTANCE)
+	if (GetTickCount64() - reload > TIME_BULLET_DELETE && reload != 0)
 	{
-		rising = true;
-		sleeping = false;
+		reload = 0;
 	}
-	else
+
+	if (IsMarioOnTriggerDistance() && rising_start == 0)
 	{
-		rising = false;
+		rising_start = GetTickCount64();
+		rising = true;
+	}
+
+	if (GetTickCount64() - rising_start > FIREFLOWER_RISING_TIME && rising_start != 0)	
+	{
+		if (IsMarioOnTriggerDistance() && !sleeping)
+		{
+			if (reload == 0)
+			{
+				CFireBullet* bullet = new CFireBullet(x, y, Up, Left);
+				scene->AddObject(bullet);
+				reload = GetTickCount64();
+				waiting = GetTickCount64();
+			}
+		}
+		else
+			sleeping = true;
+	}
+
+	if (GetTickCount64() - waiting > FIREFLOWER_WAITING_TIME && waiting != 0)
+	{
+		waiting = 0;
 		sleeping = true;
 	}
 
@@ -98,7 +111,7 @@ void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			rising = false;
 		}
 	}
-	else
+	else if (sleeping)
 	{
 		y += vy * dt;
 		if (this->y >= this->Origin_Y)
@@ -106,6 +119,7 @@ void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			this->y = this->Origin_Y;
 			sleeping = false;
 			SetState(FIREFLOWER_STATE_SLEEP);
+			rising_start = 0;
 		}
 	}
 
@@ -123,11 +137,29 @@ void CFireFlower::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CFireFlower::SetState(int state)
 {
 	CGameObject::SetState(state);
-	if (state == FIREFLOWER_STATE_SLEEP)
+	switch (state)
 	{
+	case FIREFLOWER_STATE_SLEEP:
 		vy = 0;
+		break;
+	case FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT:
+		Up = false;
+		Left = true;
+		break;
+	case FIREFLOWER_STATE_IDLE_LOOKUP_LEFT:
+		Up = true;
+		Left = true;
+		break;
+	case FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT:
+		Up = false;
+		Left = false;
+		break;
+	case FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT:
+		Up = true;
+		Left = false;
+		break;
 	}
-	else
+	if (state != FIREFLOWER_STATE_SLEEP)
 	{
 		vy = FIREFLOWER_RISEUP_SPEED;
 	}

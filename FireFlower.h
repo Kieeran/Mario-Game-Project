@@ -6,12 +6,16 @@
 #include "AssetIDs.h"
 #include "Mario.h"
 #include "Playscene.h"
+#include "FireBullet.h"
 
-//#define FIREFLOWER_RISEUP_SPEED 0.06f
 #define FIREFLOWER_RISEUP_SPEED 0.03f
 #define FIREFLOWER_RISEUP_HEIGHT_MAX 38.0f
 
-#define FIREFLOWER_TRIGGER_DISTANCE	115.0f
+#define FIREFLOWER_TRIGGER_DISTANCE	100.0f
+#define FIREFLOWER_TRIGGER_DISTANCE_LIMIT 30.0f
+
+#define FIREFLOWER_RISING_TIME		2000
+#define FIREFLOWER_WAITING_TIME		1000
 
 #define FIREFLOWER_BBOX_WIDTH 16
 #define FIREFLOWER_BBOX_HEIGHT 32
@@ -33,13 +37,34 @@ protected:
 	float Origin_Y;
 	bool rising;
 	bool sleeping;
-	bool finish_riseup;
-	bool finish_risedown;
+	bool Up;
+	bool Left;
+	ULONGLONG reload;
+	ULONGLONG rising_start;
+	ULONGLONG waiting;
 
 	void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+	bool IsMarioOnTriggerDistance()
+	{
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		return abs(this->x - mario->GetX()) <= FIREFLOWER_TRIGGER_DISTANCE &&
+			abs(this->x - mario->GetX()) >= 30;
+	}
 public:
-	CFireFlower(float x, float y);
+	CFireFlower(float x, float y)
+	{
+		this->x = x;
+		this->y = y;
+		this->SetState(FIREFLOWER_STATE_SLEEP);
+		this->Origin_Y = y;
+		this->rising = false;
+		this->sleeping = false;
+		this->Up = false;
+		this->Left = false;
+		this->rising_start = 0;
+		this->reload = -1;
+	}
 	void SetState(int state);
 };

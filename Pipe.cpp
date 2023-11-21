@@ -18,8 +18,8 @@ void CPipe::Render()
 
 void CPipe::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x - lenthCellSide;
+	l = x - lenthCellSide + 3.0f;
 	t = y - lenthCellSide * lengthHeight / 2;
-	r = l + lenthCellSide * 2;
+	r = l + lenthCellSide * 2 - 3.0f;
 	b = t + lenthCellSide * lengthHeight;
 }

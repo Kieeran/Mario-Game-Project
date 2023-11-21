@@ -142,12 +142,15 @@
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="debug.h" />
+    <ClInclude Include="Detector.h" />
+    <ClInclude Include="FireBullet.h" />
     <ClInclude Include="FireFlower.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyEventHandler.h" />
+    <ClInclude Include="Koomba.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="MysBox.h" />
@@ -174,6 +177,8 @@
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="debug.cpp" />
+    <ClCompile Include="Detector.cpp" />
+    <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="FireFlower.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -181,6 +186,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Ground.h" />
     <ClCompile Include="Hud.cpp" />
+    <ClCompile Include="Koomba.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Mushroom.cpp" />

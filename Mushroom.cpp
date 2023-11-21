@@ -4,6 +4,7 @@ CMushroom::CMushroom(float x, float y) :CGameObject(x, y)
 {
 	this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
+	this->vx = 0;
 	this->vy = 0;
 	this->Origin_Y = y;
 	SetState(MUSHROOM_STATE_SLEEP);
