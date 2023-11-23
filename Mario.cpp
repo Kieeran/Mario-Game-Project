@@ -74,21 +74,12 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-
-	// jump on top >> kill Goomba and deflect a bit 
-	if (e->ny < 0)
-	{
-		if (goomba->GetState() != GOOMBA_STATE_DIE)
-		{
-			goomba->SetState(GOOMBA_STATE_DIE);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
-		}
-	}
-	else // hit by Goomba
+	if (e->ny >= 0)// hit by Goomba
 	{
 		if (untouchable == 0)
 		{
-			if (goomba->GetState() != GOOMBA_STATE_DIE)
+			if (goomba->GetState() != YELLOW_GOOMBA_STATE_DIE ||
+				goomba->GetState() != RED_GOOMBA_STATE_DIE)
 			{
 				if (level > MARIO_LEVEL_SMALL)
 				{
@@ -100,6 +91,33 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 					DebugOut(L">>> Mario DIE >>> \n");
 					SetState(MARIO_STATE_DIE);
 				}
+			}
+		}
+	}
+	else
+	{
+		if (goomba->GetGoombaType() == GOOMBA_TYPE_YELLOW)
+		{
+			// jump on top >> kill Goomba and deflect a bit 
+			if (goomba->GetState() != YELLOW_GOOMBA_STATE_DIE)
+			{
+				goomba->SetState(YELLOW_GOOMBA_STATE_DIE);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+
+		}
+		else
+		{
+			// jump on top >> kill Goomba and deflect a bit 
+			if (goomba->GetState() == RED_GOOMBA_STATE_FLYING)
+			{
+				goomba->SetState(RED_GOOMBA_STATE_WALKING);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
+			}
+			else if (goomba->GetState() == RED_GOOMBA_STATE_WALKING)
+			{
+				goomba->SetState(RED_GOOMBA_STATE_DIE);
+				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
 		}
 	}

@@ -128,11 +128,16 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_GOOMBA: obj = new CGoomba(x, y); break;
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
 	case OBJECT_TYPE_KOOMBA: obj = new CKoomba(x, y); break;
+	case OBJECT_TYPE_GOOMBA:
+	{
+		int goomba_type = atoi(tokens[3].c_str());
+		obj = new CGoomba(x, y, goomba_type);
+		break;
+	}
 	case OBJECT_TYPE_MYSBOX:
 	{
 		int item_type = atoi(tokens[3].c_str());
@@ -164,7 +169,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CBigGrass(x, y, spriteId);
 		break;
 	}
-	
+
 	case OBJECT_TYPE_BOXES:
 	{
 		float length_Cell_Side = atoi(tokens[3].c_str());
