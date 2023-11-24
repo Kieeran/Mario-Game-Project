@@ -38,9 +38,13 @@ public:
 	int GetState() { return this->state; }
 	virtual void Delete() { isDeleted = true;  }
 	bool IsDeleted() { return isDeleted; }
+	virtual bool IsPlatform() { return 0; }
 
 	float GetX() { return this->x; }
 	float GetY() { return this->y; }
+
+	void SetX(float x) { this->x = x; }
+	void SetY(float y) { this->y = y; }
 
 	void RenderBoundingBox();
 
