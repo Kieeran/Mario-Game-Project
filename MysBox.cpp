@@ -1,10 +1,10 @@
 #include "MysBox.h"
 #include "PlayScene.h"
 
-CMysBox::CMysBox(float x, float y) :CGameObject()
+CMysBox::CMysBox(float x, float y, int itemType) :CGameObject()
 {
-	this->x = x;
-	this->y = y;
+	this->ay = MYSBOX_GRAVITY;
+	this->itemType = itemType;
 	SetState(MYSBOX_STATE_CARRY_OBJECT);
 	this->Unbox = true;
 	this->Origin_Y = y;
@@ -19,27 +19,28 @@ void CMysBox::Render()
 	}
 
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	//RenderBoundingBox();
+}
+
+void CMysBox::OnNoCollision(DWORD dt)
+{
+	y += vy * dt;
 }
 
 void CMysBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (this->GetState() == MYSBOX_STATE_EMPTY && this->Unbox)
 	{
-		y += vy * dt;
-		if (y <= this->Origin_Y - MYSBOX_BOUNCING_HEIGHT_MAX)
+		vy += ay * dt;
+		if (y > this->Origin_Y)
 		{
-			vy *= -1;
-		}
-		if (y >= this->Origin_Y)
-		{
-			y == this->Origin_Y;
+			y = this->Origin_Y;
 			vy = 0;
+			ay = 0;
 			this->Unbox = false;
 		}
 	}
-	if (!this->Unbox && y != this->Origin_Y)
-		y = this->Origin_Y;
+	//if (!this->Unbox && y != this->Origin_Y)
+	//	y = this->Origin_Y;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

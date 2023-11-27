@@ -6,8 +6,8 @@
 #include "AssetIDs.h"
 #include "Coin.h"
 
-#define MYSBOX_BOUCING_SPEED	0.05f
-#define MYSBOX_BOUNCING_HEIGHT_MAX	5.0f
+#define MYSBOX_BOUCING_SPEED	0.1f
+#define MYSBOX_GRAVITY	0.001f
 
 #define	ITEM_TYPE_UNKNOWN  -1
 #define	ITEM_TYPE_COIN		1
@@ -22,16 +22,22 @@
 class CMysBox : public CGameObject
 {
 protected:
+	float ay;
 
 	float Origin_Y;
+	int itemType;
 	bool Unbox;
 
 	void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 
-public:
-	CMysBox(float x, float y);
-	virtual void SetState(int state);
+	virtual void OnNoCollision(DWORD dt);
+	virtual int IsCollidable() { return 0; }
+	virtual int IsBlocking() { return 1; }
 
+public:
+	CMysBox(float x, float y, int itemType);
+	virtual void SetState(int state);
+	int GetItemType() { return itemType; }
 };
