@@ -19,7 +19,7 @@
 #include "Mushroom.h"
 #include "FireFlower.h"
 #include "FireBullet.h"
-#include "Koomba.h"
+#include "Kooba.h"
 
 #include "Hud.h"
 
@@ -131,7 +131,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
-	case OBJECT_TYPE_KOOMBA: obj = new CKoomba(x, y); break;
+	case OBJECT_TYPE_KOOBA: obj = new CKooba(x, y); break;
 	case OBJECT_TYPE_GOOMBA:
 	{
 		int goomba_type = atoi(tokens[3].c_str());
@@ -140,20 +140,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_MYSBOX:
 	{
-		int item_type = atoi(tokens[3].c_str());
-		CGameObject* item = NULL;
-		obj = new CMysBox(x, y);
-		switch (item_type)
-		{
-		case ITEM_TYPE_COIN:
-			item = new CCoin(x, y, HIDDEN_COIN_TYPE);
-			objects.push_back(item);
-			break;
-		case ITEM_TYPE_MUSHROOM:
-			item = new CMushroom(x, y);
-			objects.push_back(item);
-			break;
-		}
+		int itemType = atoi(tokens[3].c_str());
+		obj = new CMysBox(x, y, itemType);
 		break;
 	}
 	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
@@ -185,7 +173,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			sprite_TopLeft + 6, sprite_TopLeft + 7, sprite_TopLeft + 8,
 			spriteShadow_Top, spriteShadow_Top + 1
 		);
-
 		break;
 	}
 
