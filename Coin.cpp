@@ -5,8 +5,9 @@ CCoin::CCoin(float x, float y, int coin_type) :CGameObject()
 {
 	this->x = x;
 	this->y = y;
+	this->ay = COIN_GRAVITY;
 	this->coin_type = coin_type;
-	this->SetState(COIN_STATE_NOT_UNBOX);
+	this->vy = -COIN_BOUCING_SPEED;
 	this->Origin_Y = y;
 	this->collected = false;
 }
@@ -17,23 +18,23 @@ void CCoin::Render()
 	{
 		animations->Get(ID_ANI_SHOWED_COIN)->Render(x, y);
 	}
-	if (this->coin_type == HIDDEN_COIN_TYPE && this->state == COIN_STATE_UNBOXING)
+	if (this->coin_type == HIDDEN_COIN_TYPE)
 	{
 		animations->Get(ID_ANI_HIDDEN_COIN)->Render(x, y);
 	}
-	//RenderBoundingBox();
+}
+
+void CCoin::OnNoCollision(DWORD dt)
+{
+	y += vy * dt;
 }
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->coin_type == HIDDEN_COIN_TYPE && this->state == COIN_STATE_UNBOXING)
+	if (this->coin_type == HIDDEN_COIN_TYPE)
 	{
-		y += vy * dt;
-		if (y <= this->Origin_Y - COIN_BOUNCING_HEIGHT_MAX)
-		{
-			vy *= -1;
-		}
-		if (y >= this->Origin_Y)
+		vy += ay * dt;
+		if (y > this->Origin_Y)
 		{
 			this->collected = true;
 		}
@@ -50,14 +51,4 @@ void CCoin::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - COIN_BBOX_HEIGHT / 2;
 	r = l + COIN_BBOX_WIDTH;
 	b = t + COIN_BBOX_HEIGHT;
-}
-void CCoin::SetState(int state)
-{
-	CGameObject::SetState(state);
-	switch (state)
-	{
-	case COIN_STATE_UNBOXING:
-		vy = -COIN_BOUCING_SPEED;
-		break;
-	}
 }
