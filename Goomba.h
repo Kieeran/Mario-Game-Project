@@ -11,13 +11,12 @@
 #define GOOMBA_TIME_SMALL_JUMP	750
 #define GOOMBA_TIME_FLYING	1850
 
-#define GOOMBA_JUMP_DEFLECT_SPEED 0.2f
+#define GOOMBA_JUMP_DEFLECT_SPEED 0.25f
 
 #define GOOMBA_TYPE_UNKNOWN -1
 #define GOOMBA_TYPE_YELLOW 1
 #define GOOMBA_TYPE_RED	2
 
-#define DISTANCE_SET_ACTIVE	200.0f
 #define GOOMBA_BBOX_WIDTH 16
 #define GOOMBA_BBOX_HEIGHT 14
 #define GOOMBA_BBOX_HEIGHT_DIE 7
@@ -48,7 +47,7 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; };
+	virtual int IsCollidable() { return 1; }
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
 

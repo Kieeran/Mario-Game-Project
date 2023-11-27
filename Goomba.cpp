@@ -100,7 +100,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetState(GOOMBA_STATE_SMALL_JUMP);
 			if (isOnPlatform && num_small_jump < 3)
 			{
-				vy = -GOOMBA_JUMP_DEFLECT_SPEED / 2;
+				vy = -GOOMBA_JUMP_DEFLECT_SPEED / 2.15f;
 				num_small_jump += 1;
 			}
 		}
