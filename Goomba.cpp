@@ -5,6 +5,7 @@ CGoomba::CGoomba(float x, float y, int goomba_type) :CGameObject(x, y)
 	this->goomba_type = goomba_type;
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
+	this->vx = -GOOMBA_WALKING_SPEED;
 	die_start = -1;
 	jump_start = -1;
 	SetState(GOOMBA_STATE_WALKING);
@@ -92,10 +93,16 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
+	if (vy < 0)
+	{
+		isOnPlatform = false;
+	}
+
 	if (Wing)
 	{
 		//small jump before flying
-		if (GetTickCount64() - jump_start >= GOOMBA_TIME_FLYING - GOOMBA_TIME_SMALL_JUMP)
+		if (GetTickCount64() - jump_start >= GOOMBA_TIME_FLYING - GOOMBA_TIME_SMALL_JUMP &&
+			GetTickCount64() - jump_start < GOOMBA_TIME_FLYING)
 		{
 			SetState(GOOMBA_STATE_SMALL_JUMP);
 			if (isOnPlatform && num_small_jump < 3)
@@ -105,7 +112,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		//flying
-		if (GetTickCount64() - jump_start > GOOMBA_TIME_FLYING && !IsJump)
+		if (GetTickCount64() - jump_start >= GOOMBA_TIME_FLYING && !IsJump)
 		{
 			SetState(GOOMBA_STATE_JUMP);
 			if (vx >= 0 && mario->GetX() < x)
@@ -118,21 +125,16 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			num_small_jump = 0;
 		}
-		else
+
+		if (IsJump)
 		{
-			if (IsJump)
+			if (isOnPlatform)
 			{
-				if (isOnPlatform)
-					SetState(GOOMBA_STATE_WALKING);
+				SetState(GOOMBA_STATE_WALKING);
 				jump_start = GetTickCount64();
 				IsJump = false;
 			}
 		}
-	}
-
-	if (vy < 0)
-	{
-		isOnPlatform = false;
 	}
 
 	CGameObject::Update(dt, coObjects);
@@ -149,10 +151,14 @@ int CGoomba::GetAniGoombaYellow()
 int CGoomba::GetAniGoombaRed()
 {
 	if (state == GOOMBA_STATE_SMALL_JUMP)
+	{
 		return ID_ANI_RED_GOOMBA_SMALL_JUMP;
+	}
 
 	else if (state == GOOMBA_STATE_JUMP)
+	{
 		return ID_ANI_RED_GOOMBA_JUMP;
+	}
 
 	else if (state == GOOMBA_STATE_WALKING)
 	{
@@ -173,7 +179,7 @@ void CGoomba::Render()
 		aniId = GetAniGoombaRed();
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CGoomba::SetState(int state)
@@ -189,10 +195,8 @@ void CGoomba::SetState(int state)
 		ay = 0;
 		break;
 	case GOOMBA_STATE_WALKING:
-		vx = -GOOMBA_WALKING_SPEED;
-		break;
-	case GOOMBA_STATE_SMALL_JUMP:
-		//vy = -GOOMBA_JUMP_DEFLECT_SPEED / 4;
+		if (!Wing)
+			vx = -GOOMBA_WALKING_SPEED;
 		break;
 	case GOOMBA_STATE_JUMP:
 		vy = -GOOMBA_JUMP_DEFLECT_SPEED;
