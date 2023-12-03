@@ -27,6 +27,7 @@ protected:
 	float Origin_Y;
 	int itemType;
 	bool Unbox;
+	int index;
 
 	void Render();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -37,7 +38,8 @@ protected:
 	virtual int IsBlocking() { return 1; }
 
 public:
-	CMysBox(float x, float y, int itemType);
+	CMysBox(float x, float y, int itemType, int index);
 	virtual void SetState(int state);
 	int GetItemType() { return itemType; }
+	int GetIndex() { return index; }
 };

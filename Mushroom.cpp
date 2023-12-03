@@ -7,7 +7,7 @@ CMushroom::CMushroom(float x, float y) :CGameObject(x, y)
 	this->vx = 0;
 	this->vy = 0;
 	this->Origin_Y = y;
-	SetState(MUSHROOM_STATE_SLEEP);
+	this->SetState(MUSHROOM_STATE_WAKEUP);
 }
 
 void CMushroom::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -40,12 +40,12 @@ void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->GetState() == MUSHROOM_STATE_WALKING)
+	if (state == MUSHROOM_STATE_WALKING)
 	{
 		vx += ax * dt;
 		vy += ay * dt;
 	}
-	else if (this->GetState() == MUSHROOM_STATE_WAKEUP)
+	else if (state == MUSHROOM_STATE_WAKEUP)
 	{
 		if (Origin_Y - y < MUSHROOM_RISEUP_HEIGHT_MAX)
 		{
@@ -54,7 +54,7 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 		else
 		{
-			this->SetState(MUSHROOM_STATE_WALKING);
+			SetState(MUSHROOM_STATE_WALKING);
 		}
 	}
 	CGameObject::Update(dt, coObjects);
@@ -63,7 +63,6 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMushroom::Render()
 {
-	if (this->GetState() == MUSHROOM_STATE_SLEEP)return;
 	CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
 }
 

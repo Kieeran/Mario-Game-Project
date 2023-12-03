@@ -1,13 +1,14 @@
 #include "MysBox.h"
 #include "PlayScene.h"
 
-CMysBox::CMysBox(float x, float y, int itemType) :CGameObject()
+CMysBox::CMysBox(float x, float y, int itemType, int index) :CGameObject()
 {
 	this->ay = MYSBOX_GRAVITY;
 	this->itemType = itemType;
 	SetState(MYSBOX_STATE_CARRY_OBJECT);
 	this->Unbox = true;
 	this->Origin_Y = y;
+	this->index = index;
 }
 
 void CMysBox::Render()

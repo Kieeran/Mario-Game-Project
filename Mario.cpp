@@ -11,6 +11,7 @@
 #include "Mushroom.h"
 #include "FireFlower.h"
 #include "FireBullet.h"
+#include "Kooba.h"
 
 #include "Collision.h"
 
@@ -69,6 +70,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireFlower(e);
 	else if (dynamic_cast<CFireBullet*>(e->obj))
 		OnCollisionWithFireBullet(e);
+	else if (dynamic_cast<CKooba*>(e->obj))
+		OnCollisionWithKoomba(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -121,6 +124,47 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 }
 
+void CMario::OnCollisionWithKoomba(LPCOLLISIONEVENT e)
+{
+	CKooba* kooba = dynamic_cast<CKooba*>(e->obj);
+	if (e->ny >= 0)// hit by Koomba
+	{
+		if (untouchable == 0)
+		{
+			if (level > MARIO_LEVEL_SMALL)
+			{
+				level = MARIO_LEVEL_SMALL;
+				StartUntouchable();
+			}
+			else
+			{
+				DebugOut(L">>> Mario DIE >>> \n");
+				SetState(MARIO_STATE_DIE);
+			}
+		}
+	}
+	else
+	{
+		if (kooba->GetState() == KOOBA_STATE_WALKING)
+		{
+			kooba->SetState(KOOBA_STATE_HIDE);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+		else if (kooba->GetState() == KOOBA_STATE_HIDE || kooba->GetState() == KOOBA_STATE_SHAKING)
+		{
+			kooba->SetState(KOOBA_STATE_ROLLING);
+			kooba->SetY(kooba->GetY() - 2.0f);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+		/*else if (kooba->GetState() == KOOBA_STATE_ROLLING)
+		{
+			kooba->SetState(KOOBA_STATE_WALKING);
+			kooba->SetY(kooba->GetY() - 6.0f);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}*/
+	}
+}
+
 void CMario::OnCollisionWithFireFlower(LPCOLLISIONEVENT e)
 {
 	if (untouchable == 0)
@@ -157,36 +201,44 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
-	CCoin* coins = dynamic_cast<CCoin*>(e->obj);
-	if (coins->GetCoinType() == SHOWED_COIN_TYPE)
-	{
-		e->obj->Delete();
-		coin++;
-	}
-	else
-	{
-		if (e->ny > 0)
-		{
-			coins->SetState(COIN_STATE_UNBOXING);
-			coin++;
-		}
-	}
+	e->obj->Delete();
+	coin++;
 }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
-	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
-	if (mushroom->GetState() == MUSHROOM_STATE_SLEEP)
+	this->SetPosition(x, y - 16);
+	this->SetLevel(MARIO_LEVEL_BIG);
+	e->obj->Delete();
+}
+
+void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
+{
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
+
+	//jump and hit the bottom of the box
+	if (e->ny > 0)
 	{
-		if (e->ny > 0) {
-			mushroom->SetState(MUSHROOM_STATE_WAKEUP);
+		if (mysbox->GetState() == MYSBOX_STATE_CARRY_OBJECT)
+		{
+			mysbox->SetState(MYSBOX_STATE_EMPTY);
+			int itemType = mysbox->GetItemType();
+			CGameObject* item = NULL;
+			switch (itemType)
+			{
+			case ITEM_TYPE_COIN:
+				item = new CCoin(mysbox->GetX(), mysbox->GetY(), HIDDEN_COIN_TYPE);
+				scene->AddObject(item);
+				coin++;
+				break;
+			case ITEM_TYPE_MUSHROOM:
+				item = new CMushroom(mysbox->GetX(), mysbox->GetY());
+				scene->AddObject(item, mysbox->GetIndex());
+				break;
+			}
 		}
-	}
-	else
-	{
-		this->SetPosition(x, y - 16);
-		this->SetLevel(MARIO_LEVEL_BIG);
-		e->obj->Delete();
+
 	}
 }
 
@@ -196,17 +248,6 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
-void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
-{
-	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
-
-	//jump and hit the bottom of the box
-	if (e->ny > 0)
-	{
-		mysbox->SetState(MYSBOX_STATE_EMPTY);
-		//mysbox->SetItemState(COIN_STATE_UNBOXING);
-	}
-}
 //
 // Get animation ID for small Mario+
 //
@@ -470,4 +511,3 @@ void CMario::SetLevel(int l)
 	}
 	this->level = l;
 }
-
