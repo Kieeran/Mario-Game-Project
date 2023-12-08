@@ -8,14 +8,14 @@
 #include "Goomba.h"
 //#include "Koopas.h"
 
-#define ADD_OBJECT_MODE_0	0		//push back
-#define ADD_OBJECT_MODE_1	1		//push forward
+#define ADD_OBJECT_MODE_0	0		//push begin
+#define ADD_OBJECT_MODE_1	1		//push back
 
-class CPlayScene: public CScene
+class CPlayScene : public CScene
 {
-protected: 
+protected:
 	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;					
+	LPGAMEOBJECT player;
 
 	vector<LPGAMEOBJECT> objects;
 
@@ -26,16 +26,18 @@ protected:
 	void _ParseSection_OBJECTS(string line);
 
 	void LoadAssets(LPCWSTR assetFile);
-	
-public: 
+
+public:
 	CPlayScene(int id, LPCWSTR filePath);	//init function
 
-	void AddObject(LPGAMEOBJECT object, int mode)
+	void AddObject(LPGAMEOBJECT object, int index = 0)
 	{
-		if(mode == 0)
+		if (index == 0)
+			objects.insert(objects.begin(), object);
+		else if (index == 1)
 			objects.push_back(object);
-		else
-			objects.insert(objects.begin() + 1, object);
+		else if (index > 1)
+			objects.insert(objects.begin() + index, object);
 	}
 
 	virtual void Load();
@@ -52,4 +54,3 @@ public:
 };
 
 typedef CPlayScene* LPPLAYSCENE;
-

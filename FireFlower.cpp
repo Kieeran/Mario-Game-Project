@@ -80,14 +80,14 @@ void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		rising = true;
 	}
 
-	if (GetTickCount64() - rising_start > FIREFLOWER_RISING_TIME && rising_start != 0)	
+	if (GetTickCount64() - rising_start > FIREFLOWER_RISING_TIME && rising_start != 0)
 	{
 		if (IsMarioOnTriggerDistance() && !sleeping)
 		{
 			if (reload == 0)
 			{
 				CFireBullet* bullet = new CFireBullet(x, y, Up, Left);
-				scene->AddObject(bullet);
+				scene->AddObject(bullet, ADD_OBJECT_MODE_1);
 				reload = GetTickCount64();
 				waiting = GetTickCount64();
 			}

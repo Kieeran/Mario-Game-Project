@@ -12,6 +12,7 @@
 #define	ITEM_TYPE_UNKNOWN  -1
 #define	ITEM_TYPE_COIN		1
 #define	ITEM_TYPE_MUSHROOM	2
+#define	ITEM_TYPE_LEAF		3
 
 #define MYSBOX_WIDTH 16
 #define MYSBOX_BBOX_WIDTH 16

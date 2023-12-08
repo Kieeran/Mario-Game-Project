@@ -141,7 +141,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_MYSBOX:
 	{
 		int itemType = atoi(tokens[3].c_str());
-		obj = new CMysBox(x, y, itemType);
+		obj = new CMysBox(x, y, itemType, objects.size() - 1);
 		break;
 	}
 	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
