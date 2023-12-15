@@ -58,6 +58,8 @@
 #define ID_ANI_MARIO_TAIL_BRACE_LEFT		15062
 #define ID_ANI_MARIO_TAIL_BRACE_RIGHT		15063
 
+#define ID_ANI_MARIO_TAIL_KICK_LEFT			15064
+#define ID_ANI_MARIO_TAIL_KICK_RIGHT		15065
 
 // BIG MARIO
 #define ID_ANI_MARIO_BIG_IDLE_RIGHT 400
@@ -81,6 +83,9 @@
 #define ID_ANI_MARIO_BIG_BRACE_RIGHT 1000
 #define ID_ANI_MARIO_BIG_BRACE_LEFT 1001
 
+#define ID_ANI_MARIO_BIG_KICK_LEFT		16150
+#define ID_ANI_MARIO_BIG_KICK_RIGHT		16151
+
 // SMALL MARIO
 #define ID_ANI_MARIO_SMALL_IDLE_RIGHT 1100
 #define ID_ANI_MARIO_SMALL_IDLE_LEFT 1102
@@ -99,6 +104,9 @@
 
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT 1600
 #define ID_ANI_MARIO_SMALL_JUMP_RUN_LEFT 1601
+
+#define ID_ANI_MARIO_SMALL_KICK_LEFT		16050
+#define ID_ANI_MARIO_SMALL_KICK_RIGHT		16051
 
 #define ID_ANI_MARIO_DIE 999
 
@@ -127,7 +135,8 @@
 
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
 
-#define MARIO_UNTOUCHABLE_TIME 2500
+#define MARIO_UNTOUCHABLE_TIME	2500
+#define TIME_KICK_ANIMATION		100
 
 class CMario : public CGameObject
 {
@@ -139,10 +148,13 @@ class CMario : public CGameObject
 	int level;
 	int untouchable;
 	ULONGLONG untouchable_start;
+	ULONGLONG	kick_start;
 	BOOLEAN isOnPlatform;
 	int coin;
 
 	bool isFaceLeft;
+	bool isHolding;
+	bool isKicking;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -168,9 +180,13 @@ public:
 		level = MARIO_LEVEL_SMALL;
 		untouchable = 0;
 		untouchable_start = -1;
+		kick_start = -1;
 		isOnPlatform = false;
 		coin = 0;
+
 		isFaceLeft = false;
+		isHolding = false;
+		isKicking = false;
 
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -189,6 +205,12 @@ public:
 
 	void SetLevel(int l);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
+	//void StartKicking() { kick_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+	bool GetIsKicking() { return isKicking; }
+
+
+	void SetIsKicking(bool b) { isKicking = b; }
 };

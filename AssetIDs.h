@@ -89,9 +89,27 @@
 #define ID_SPRITE_MARIO_SMALL_BRACE_LEFT (ID_SPRITE_MARIO_SMALL_BRACE + 10)
 #define ID_SPRITE_MARIO_SMALL_BRACE_RIGHT (ID_SPRITE_MARIO_SMALL_BRACE + 20)
 
+//=============================MARIO SMALL AND BIG EXTRAS=============================
+
+// small mario:	16000 -> 16099
+
+#define ID_SPRITE_MARIO_SMALL	16000
+
+// kick kooba left & right
+#define ID_SPRITE_MARIO_SMALL_KICK_LEFT		(ID_SPRITE_MARIO_SMALL + 1)
+#define ID_SPRITE_MARIO_SMALL_KICK_RIGHT	(ID_SPRITE_MARIO_SMALL + 2)
+
+// big mario: 16100 -> 16199
+
+#define ID_SPRITE_MARIO_BIG		16100
+
+// kick kooba left & right
+#define ID_SPRITE_MARIO_BIG_KICK_LEFT		(ID_SPRITE_MARIO_BIG + 1)
+#define ID_SPRITE_MARIO_BIG_KICK_RIGHT		(ID_SPRITE_MARIO_BIG + 2)
+
 //=====================================MARIO TAIL=====================================
 
-// mario tail: 15000 -> 29999
+// mario tail: 15000 -> 15999
 #define ID_SPRITE_MARIO_TAIL	15000
 // idle left & right
 #define ID_SPRITE_MARIO_TAIL_IDLE_LEFT	(ID_SPRITE_MARIO_TAIL + 1)
@@ -158,6 +176,10 @@
 // sit left & right
 #define ID_SPRITE_MARIO_TAIL_SIT_LEFT		(ID_SPRITE_MARIO_TAIL + 35)
 #define ID_SPRITE_MARIO_TAIL_SIT_RIGHT		(ID_SPRITE_MARIO_TAIL + 36)
+
+// kick kooba left & right
+#define ID_SPRITE_MARIO_TAIL_KICK_LEFT		(ID_SPRITE_MARIO_TAIL + 37)
+#define ID_SPRITE_MARIO_TAIL_KICK_RIGHT		(ID_SPRITE_MARIO_TAIL + 38)
 
 #pragma endregion 
 
