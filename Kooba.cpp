@@ -1,6 +1,9 @@
 #include "Kooba.h"
 #include "Goomba.h"
 #include "Mysbox.h"
+#include "Coin.h"
+#include "Mushroom.h"
+#include "Leaf.h"
 
 CKooba::CKooba(float x, float y) :CGameObject(x, y)
 {
@@ -94,8 +97,11 @@ void CKooba::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = -vx;
 	}
-	else if (dynamic_cast<CGoomba*>(e->obj))
+
+	if (dynamic_cast<CGoomba*>(e->obj))
 		this->OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CMysBox*>(e->obj))
+		this->OnCollisionWithMysbox(e);
 }
 
 void CKooba::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -112,7 +118,41 @@ void CKooba::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 
 void CKooba::OnCollisionWithMysbox(LPCOLLISIONEVENT e)
 {
+	if (state != KOOBA_STATE_ROLLING) return;
 
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	//DebugOut(L"Kooba rolling hit mysbox \n");
+
+	//jump and hit the sides of the box
+	if (e->nx != 0)
+	{
+		if (mysbox->GetState() == MYSBOX_STATE_CARRY_OBJECT)
+		{
+			mysbox->SetState(MYSBOX_STATE_EMPTY);
+			int itemType = mysbox->GetItemType();
+			CGameObject* item = NULL;
+			switch (itemType)
+			{
+			case ITEM_TYPE_COIN:
+				item = new CCoin(mysbox->GetX(), mysbox->GetY(), HIDDEN_COIN_TYPE);
+				scene->AddObject(item);
+				mario->SetCoinNum(mario->GetCoinNum() + 1);
+				break;
+			case ITEM_TYPE_MUSHROOM:
+				item = new CMushroom(mysbox->GetX(), mysbox->GetY());
+				scene->AddObject(item, mysbox->GetIndex());
+				break;
+			case ITEM_TYPE_LEAF:
+				item = new CLeaf(mysbox->GetX(), mysbox->GetY());
+				scene->AddObject(item, mysbox->GetIndex());
+				break;
+			}
+		}
+
+	}
 }
 
 void CKooba::Render()

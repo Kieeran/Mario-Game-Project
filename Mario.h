@@ -210,7 +210,8 @@ public:
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	bool GetIsKicking() { return isKicking; }
-
-
 	void SetIsKicking(bool b) { isKicking = b; }
+
+	int GetCoinNum() { return coin; }
+	void SetCoinNum(int coin) { this->coin = coin; }
 };
