@@ -91,7 +91,8 @@
 
 //=============================MARIO SMALL AND BIG EXTRAS=============================
 
-// small mario:	16000 -> 16099
+//=================================== small mario ===================================
+// 16000 -> 16099
 
 #define ID_SPRITE_MARIO_SMALL	16000
 
@@ -99,13 +100,32 @@
 #define ID_SPRITE_MARIO_SMALL_KICK_LEFT		(ID_SPRITE_MARIO_SMALL + 1)
 #define ID_SPRITE_MARIO_SMALL_KICK_RIGHT	(ID_SPRITE_MARIO_SMALL + 2)
 
-// big mario: 16100 -> 16199
+// hold kooba left 
+#define ID_SPRITE_MARIO_SMALL_HOLD_LEFT_1	(ID_SPRITE_MARIO_SMALL + 3)
+#define ID_SPRITE_MARIO_SMALL_HOLD_LEFT_2	(ID_SPRITE_MARIO_SMALL + 4)
+
+// hold kooba right
+#define ID_SPRITE_MARIO_SMALL_HOLD_RIGHT_1	(ID_SPRITE_MARIO_SMALL + 5)
+#define ID_SPRITE_MARIO_SMALL_HOLD_RIGHT_2	(ID_SPRITE_MARIO_SMALL + 6)
+
+//==================================== big mario ====================================
+// 16100 -> 16199
 
 #define ID_SPRITE_MARIO_BIG		16100
 
 // kick kooba left & right
 #define ID_SPRITE_MARIO_BIG_KICK_LEFT		(ID_SPRITE_MARIO_BIG + 1)
 #define ID_SPRITE_MARIO_BIG_KICK_RIGHT		(ID_SPRITE_MARIO_BIG + 2)
+
+// hold kooba left 
+#define ID_SPRITE_MARIO_BIG_HOLD_LEFT_1		(ID_SPRITE_MARIO_BIG + 3)
+#define ID_SPRITE_MARIO_BIG_HOLD_LEFT_2		(ID_SPRITE_MARIO_BIG + 4)
+#define ID_SPRITE_MARIO_BIG_HOLD_LEFT_3		(ID_SPRITE_MARIO_BIG + 5)
+
+// hold kooba right
+#define ID_SPRITE_MARIO_BIG_HOLD_RIGHT_1	(ID_SPRITE_MARIO_BIG + 6)
+#define ID_SPRITE_MARIO_BIG_HOLD_RIGHT_2	(ID_SPRITE_MARIO_BIG + 7)
+#define ID_SPRITE_MARIO_BIG_HOLD_RIGHT_3	(ID_SPRITE_MARIO_BIG + 8)
 
 //=====================================MARIO TAIL=====================================
 
@@ -180,6 +200,16 @@
 // kick kooba left & right
 #define ID_SPRITE_MARIO_TAIL_KICK_LEFT		(ID_SPRITE_MARIO_TAIL + 37)
 #define ID_SPRITE_MARIO_TAIL_KICK_RIGHT		(ID_SPRITE_MARIO_TAIL + 38)
+
+// hold kooba left 
+#define ID_SPRITE_MARIO_TAIL_HOLD_LEFT_1	(ID_SPRITE_MARIO_TAIL + 39)
+#define ID_SPRITE_MARIO_TAIL_HOLD_LEFT_2	(ID_SPRITE_MARIO_TAIL + 40)
+#define ID_SPRITE_MARIO_TAIL_HOLD_LEFT_3	(ID_SPRITE_MARIO_TAIL + 41)
+
+// hold kooba right
+#define ID_SPRITE_MARIO_TAIL_HOLD_RIGHT_1	(ID_SPRITE_MARIO_TAIL + 42)
+#define ID_SPRITE_MARIO_TAIL_HOLD_RIGHT_2	(ID_SPRITE_MARIO_TAIL + 43)
+#define ID_SPRITE_MARIO_TAIL_HOLD_RIGHT_3	(ID_SPRITE_MARIO_TAIL + 44)
 
 #pragma endregion 
 
