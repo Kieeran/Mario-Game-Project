@@ -189,7 +189,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			spriteId_TopLeft + 2, spriteId_TopLeft + 3
 		);
 		CGameObject* fireflower = new CFireFlower(x, y);
-		objects.push_back(fireflower);
+		//objects.push_back(fireflower);
 		break;
 	}
 

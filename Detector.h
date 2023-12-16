@@ -14,7 +14,6 @@ class CDetector : public CGameObject
 {
 protected:
 	float ay;
-	float Origin_Y;
 public:
 	CDetector(float x, float y);
 	void Render();
@@ -25,7 +24,4 @@ public:
 	virtual int IsBlocking() { return 0; }
 	virtual void OnNoCollision(DWORD dt);
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
-
-	float GetOriginY() { return Origin_Y; }
-	void SetOriginY(float Origin_Y) { this->Origin_Y = Origin_Y; }
 };

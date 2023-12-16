@@ -11,7 +11,7 @@
 
 
 #define KOOBA_BBOX_WIDTH 16
-#define KOOBA_BBOX_HEIGHT 20
+#define KOOBA_BBOX_HEIGHT 26
 
 #define KOOBA_SHELL_BBOX_WIDTH 16
 #define KOOBA_SHELL_BBOX_HEIGHT 16
@@ -46,10 +46,8 @@ protected:
 	int IsCollidable() { return 1; }
 	int IsBlocking() { return 0; }
 
-	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
-	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
-
+	void OnCollisionWithMysbox(LPCOLLISIONEVENT e);
 public:
 	CKooba(float x, float y);
 	virtual void SetState(int state);

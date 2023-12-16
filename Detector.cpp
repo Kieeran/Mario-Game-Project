@@ -1,15 +1,19 @@
 #include "Detector.h"
+#include "Mario.h"
+#include "Playscene.h"
 
 CDetector::CDetector(float x, float y)
 {
 	this->x = x;
 	this->y = y;
 	this->ay = DETECTOR_GRAVITY;
-	this->Origin_Y = y;
 }
 
 void CDetector::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
+
 	vy += ay * dt;
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -38,6 +42,6 @@ void CDetector::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CDetector::Render()
 {
-	CAnimations::GetInstance()->Get(ID_ANI_DETECTOR)->Render(x, y);
-	RenderBoundingBox();
+	//CAnimations::GetInstance()->Get(ID_ANI_DETECTOR)->Render(x, y);
+	//RenderBoundingBox();
 }
