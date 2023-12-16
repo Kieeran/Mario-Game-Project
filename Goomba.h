@@ -27,8 +27,8 @@
 #define GOOMBA_STATE_DIE 200
 
 #define GOOMBA_STATE_SMALL_JUMP	300
-#define GOOMBA_STATE_JUMP		400
-#define GOOMBA_STATE_DIE_UPSIDE_DOWN	500
+#define GOOMBA_STATE_JUMP 400
+#define GOOMBA_STATE_DIE_UPSIDE_DOWN 500
 
 class CGoomba : public CGameObject
 {
@@ -48,8 +48,12 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	virtual void Render();
 
-	virtual int IsCollidable() { return 1; }
+	virtual int IsCollidable()
+	{
+		return (state != GOOMBA_STATE_DIE_UPSIDE_DOWN);
+	}
 	virtual int IsBlocking() { return 0; }
+
 	virtual void OnNoCollision(DWORD dt);
 
 	virtual void OnCollisionWith(LPCOLLISIONEVENT e);

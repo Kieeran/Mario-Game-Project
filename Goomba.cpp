@@ -145,20 +145,21 @@ int CGoomba::GetAniGoombaYellow()
 {
 	if (state == GOOMBA_STATE_WALKING)
 		return ID_ANI_YELLOW_GOOMBA_WALKING;
+
 	else if (state == GOOMBA_STATE_DIE)
 		return ID_ANI_YELLOW_GOOMBA_DIE;
+
+	else if (state == GOOMBA_STATE_DIE_UPSIDE_DOWN)
+		return ID_ANI_YELLOW_GOOMBA_UPSIDE_DOWN;
+
 }
 int CGoomba::GetAniGoombaRed()
 {
 	if (state == GOOMBA_STATE_SMALL_JUMP)
-	{
 		return ID_ANI_RED_GOOMBA_SMALL_JUMP;
-	}
 
 	else if (state == GOOMBA_STATE_JUMP)
-	{
 		return ID_ANI_RED_GOOMBA_JUMP;
-	}
 
 	else if (state == GOOMBA_STATE_WALKING)
 	{
@@ -169,6 +170,9 @@ int CGoomba::GetAniGoombaRed()
 	}
 	else if (GOOMBA_STATE_DIE)
 		return ID_ANI_RED_GOOMBA_DIE;
+
+	else if (GOOMBA_STATE_DIE_UPSIDE_DOWN)
+		return ID_ANI_RED_GOOMBA_UPSIDE_DOWN;
 }
 
 void CGoomba::Render()
@@ -201,6 +205,11 @@ void CGoomba::SetState(int state)
 	case GOOMBA_STATE_JUMP:
 		vy = -GOOMBA_JUMP_DEFLECT_SPEED;
 		IsJump = true;
+		break;
+	case GOOMBA_STATE_DIE_UPSIDE_DOWN:
+		vy = -GOOMBA_JUMP_DEFLECT_SPEED;
+		vx = 0;
+		ax = 0;
 		break;
 	}
 }
