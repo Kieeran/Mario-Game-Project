@@ -17,7 +17,7 @@ public:
 		int lenthCellSide, int lengthHeight,
 		int spriteIdTopLeft, int spriteIdTopRight,
 		int spriteIdBotLeft, int spriteIdBotRight
-		) : CGameObject(x, y) 
+	) : CGameObject(x, y)
 	{
 		this->lenthCellSide = lenthCellSide;
 		this->lengthHeight = lengthHeight;

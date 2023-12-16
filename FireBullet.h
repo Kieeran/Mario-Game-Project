@@ -43,17 +43,16 @@ public:
 		{
 			vy = -BULLET_SPEED_Y;
 		}
-		else 
+		else
 		{
 			vy = BULLET_SPEED_Y;
 		}
-
 
 		if (Left)
 		{
 			vx = -BULLET_SPEED_X;
 		}
-		else 
+		else
 		{
 			vx = BULLET_SPEED_X;
 		}

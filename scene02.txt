@@ -15,7 +15,9 @@ texts\Hud.txt
 texts\Mushroom.txt
 texts\FireFlower.txt
 texts\FireBullet.txt
-texts\Koomba.txt
+texts\Kooba.txt
+texts\Leaf.txt
+texts\Detector.txt
 
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -165,10 +167,10 @@ texts\Koomba.txt
 
 # Goomba
 
-#2	220	165	1
-#2	600	165	1
-#2	870	150	1
-#2	910	150	1
+2	220	165	1
+2	600	165	1
+2	870	150	1
+2	910	150	1
 2	950	135	2
 
 # Mario

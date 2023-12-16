@@ -150,7 +150,8 @@
     <ClInclude Include="Goomba.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyEventHandler.h" />
-    <ClInclude Include="Koomba.h" />
+    <ClInclude Include="Kooba.h" />
+    <ClInclude Include="Leaf.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Mushroom.h" />
     <ClInclude Include="MysBox.h" />
@@ -186,7 +187,8 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Ground.h" />
     <ClCompile Include="Hud.cpp" />
-    <ClCompile Include="Koomba.cpp" />
+    <ClCompile Include="Kooba.cpp" />
+    <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />
     <ClCompile Include="Mushroom.cpp" />

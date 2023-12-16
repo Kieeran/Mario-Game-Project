@@ -22,7 +22,7 @@ void CMushroom::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
-};
+}
 
 void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 {

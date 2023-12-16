@@ -38,6 +38,6 @@ void CDetector::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CDetector::Render()
 {
-	//CAnimations::GetInstance()->Get(ID_ANI_DETECTOR)->Render(x, y);
-	//RenderBoundingBox();
+	CAnimations::GetInstance()->Get(ID_ANI_DETECTOR)->Render(x, y);
+	RenderBoundingBox();
 }

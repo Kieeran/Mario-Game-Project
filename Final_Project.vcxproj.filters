@@ -141,10 +141,13 @@
     <ClInclude Include="FireBullet.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
-    <ClInclude Include="Koomba.h">
+    <ClInclude Include="Detector.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
-    <ClInclude Include="Detector.h">
+    <ClInclude Include="Leaf.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Kooba.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -245,10 +248,13 @@
     <ClCompile Include="FireBullet.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
-    <ClCompile Include="Koomba.cpp">
+    <ClCompile Include="Detector.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
-    <ClCompile Include="Detector.cpp">
+    <ClCompile Include="Kooba.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Leaf.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>

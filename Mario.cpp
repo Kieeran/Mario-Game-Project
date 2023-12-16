@@ -81,7 +81,7 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	else if (dynamic_cast<CFireBullet*>(e->obj))
 		OnCollisionWithFireBullet(e);
 	else if (dynamic_cast<CKooba*>(e->obj))
-		OnCollisionWithKoomba(e);
+		OnCollisionWithKooba(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -137,7 +137,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 }
 
-void CMario::OnCollisionWithKoomba(LPCOLLISIONEVENT e)
+void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
 {
 	CKooba* kooba = dynamic_cast<CKooba*>(e->obj);
 	if (e->ny >= 0)// hit by Koomba

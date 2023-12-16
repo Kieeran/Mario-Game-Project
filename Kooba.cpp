@@ -155,7 +155,7 @@ void CKooba::Render()
 		aniId = ID_ANI_RED_KOOBA_ROLLING;
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CKooba::SetState(int state)

@@ -43,7 +43,7 @@ protected:
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 
-	int IsCollidable() { return 1; };
+	int IsCollidable() { return 1; }
 	int IsBlocking() { return 0; }
 
 	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);

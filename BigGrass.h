@@ -10,7 +10,7 @@ class CBigGrass : public CGameObject
 protected:
 	int spriteId;
 public:
-	CBigGrass(float x, float y, int spriteId) : CGameObject(x, y) 
+	CBigGrass(float x, float y, int spriteId) : CGameObject(x, y)
 	{
 		this->spriteId = spriteId;
 	}

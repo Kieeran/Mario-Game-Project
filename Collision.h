@@ -12,17 +12,17 @@ typedef CGameObject* LPGAMEOBJECT;
 struct CCollisionEvent;
 typedef CCollisionEvent* LPCOLLISIONEVENT;
 
-struct CCollisionEvent 
+struct CCollisionEvent
 {
 	LPGAMEOBJECT src_obj;		// source object : the object from which to calculate collision
 	LPGAMEOBJECT obj;			// the target object
-	
+
 	float t, nx, ny;
 
 	float dx, dy;				// *RELATIVE* movement distance between this object and obj
-	bool isDeleted;		
+	bool isDeleted;
 
-	CCollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0, 
+	CCollisionEvent(float t, float nx, float ny, float dx = 0, float dy = 0,
 		LPGAMEOBJECT obj = NULL, LPGAMEOBJECT src_obj = NULL)
 	{
 		this->t = t;
@@ -46,7 +46,7 @@ struct CCollisionEvent
 class CCollision
 {
 	static CCollision* __instance;
-public: 
+public:
 	static void SweptAABB(
 		float ml,			// move left 
 		float mt,			// move top
@@ -63,21 +63,21 @@ public:
 		float& ny);
 
 	LPCOLLISIONEVENT SweptAABB(
-		LPGAMEOBJECT objSrc, 
+		LPGAMEOBJECT objSrc,
 		DWORD dt,
-		LPGAMEOBJECT objDest); 
+		LPGAMEOBJECT objDest);
 	void Scan(
-		LPGAMEOBJECT objSrc, 
-		DWORD dt, 
-		vector<LPGAMEOBJECT>* objDests, 
+		LPGAMEOBJECT objSrc,
+		DWORD dt,
+		vector<LPGAMEOBJECT>* objDests,
 		vector<LPCOLLISIONEVENT>& coEvents);
 
 	void Filter(
 		LPGAMEOBJECT objSrc,
 		vector<LPCOLLISIONEVENT>& coEvents,
-		LPCOLLISIONEVENT &colX,
-		LPCOLLISIONEVENT &colY, 
-		int filterBlock,		
+		LPCOLLISIONEVENT& colX,
+		LPCOLLISIONEVENT& colY,
+		int filterBlock,
 		int filterX,
 		int filterY);
 

@@ -28,6 +28,7 @@
 
 #define GOOMBA_STATE_SMALL_JUMP	300
 #define GOOMBA_STATE_JUMP		400
+#define GOOMBA_STATE_DIE_UPSIDE_DOWN	500
 
 class CGoomba : public CGameObject
 {

@@ -7,7 +7,7 @@
 // 
 class CPlatform : public CGameObject
 {
-protected: 
+protected:
 	int length;				// Unit: cell 
 	float cellWidth;
 	float cellHeight;
@@ -15,7 +15,7 @@ protected:
 
 	virtual bool IsPlatform() { return 1; }
 
-public: 
+public:
 	CPlatform(float x, float y,
 		float cell_width, float cell_height, int length,
 		int sprite_id_begin, int sprite_id_middle, int sprite_id_end) :CGameObject(x, y)
@@ -32,7 +32,7 @@ public:
 	void Update(DWORD dt) {}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	void RenderBoundingBox();
-	virtual void OnNoCollision(LPCOLLISIONEVENT e) {};
+	virtual void OnNoCollision(LPCOLLISIONEVENT e) {}
 };
 
 typedef CPlatform* LPPLATFORM;
