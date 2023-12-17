@@ -32,12 +32,13 @@ class CKooba : public CGameObject
 protected:
 	float ax;
 	float ay;
-	bool isShaking;
-	bool isOnPlatform;
-	bool isSet;
 	CDetector* detector;
 
 	ULONGLONG defend_start;
+
+	bool isShaking;
+	bool isOnPlatform;
+	bool isHeld;
 
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

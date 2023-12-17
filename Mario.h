@@ -182,6 +182,7 @@ class CMario : public CGameObject
 	bool isFaceLeft;
 	bool isHolding;
 	bool isKicking;
+	bool isRunning;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);

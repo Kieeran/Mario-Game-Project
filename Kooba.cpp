@@ -14,7 +14,6 @@ CKooba::CKooba(float x, float y) :CGameObject(x, y)
 	defend_start = -1;
 	SetState(KOOBA_STATE_WALKING);
 	this->detector = new CDetector(x - KOOPA_SET_DETECTOR_X, y);
-	isSet = false;
 	scene->AddObject(detector, ADD_OBJECT_MODE_1);
 }
 

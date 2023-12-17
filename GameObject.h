@@ -25,7 +25,7 @@ protected:
 	float vx;
 	float vy;
 
-	int nx;
+	int nx;		//face left or right?
 
 	int state;
 
