@@ -44,8 +44,8 @@ void CKooba::OnNoCollision(DWORD dt)
 void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
-	//if (abs(x - mario->GetX()) >= 100) return;
+	//if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
+	if (abs(x - mario->GetX()) >= 100) return;
 
 	vy += ay * dt;
 
@@ -56,7 +56,7 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (detector->GetY() > y) {
 
 			vx = -vx;
-			detector->SetY(y - 3.0f);
+			detector->SetY(y - 10.0f);
 		}
 	}
 

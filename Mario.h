@@ -179,7 +179,6 @@ class CMario : public CGameObject
 	BOOLEAN isOnPlatform;
 	int coin;
 
-	bool isFaceLeft;
 	bool isHolding;
 	bool isKicking;
 	bool isRunning;
@@ -212,10 +211,9 @@ public:
 		isOnPlatform = false;
 		coin = 0;
 
-		isFaceLeft = false;
 		isHolding = false;
 		isKicking = false;
-
+		isRunning = false;
 	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -242,4 +240,7 @@ public:
 
 	int GetCoinNum() { return coin; }
 	void SetCoinNum(int coin) { this->coin = coin; }
+
+	bool GetIsHolding() { return isHolding; }
+	void SetIsHolding(bool isHolding) { this->isHolding = isHolding; }
 };

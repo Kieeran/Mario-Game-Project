@@ -140,7 +140,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
 {
 	CKooba* kooba = dynamic_cast<CKooba*>(e->obj);
-	if (e->ny >= 0)// hit by Koomba
+	if (e->ny >= 0)
 	{
 		if (kooba->GetState() == KOOBA_STATE_WALKING || kooba->GetState() == KOOBA_STATE_ROLLING)
 		{
@@ -163,7 +163,7 @@ void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
 			if (e->ny == 0)
 			{
 				kooba->SetState(KOOBA_STATE_ROLLING);
-				kooba->SetY(kooba->GetY() - 2.0f);
+				//kooba->SetY(kooba->GetY() - 2.0f);
 				SetIsKicking(true);
 				kick_start = GetTickCount64();
 			}
@@ -387,7 +387,6 @@ int CMario::GetAniIdTail()
 					aniId = ID_ANI_MARIO_TAIL_HOLD_RUN_LEFT;
 			}
 		}
-		
 	}
 	if (aniId == -1) aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
 
