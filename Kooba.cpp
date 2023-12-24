@@ -44,8 +44,8 @@ void CKooba::OnNoCollision(DWORD dt)
 void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	//if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
-	if (abs(x - mario->GetX()) >= 100) return;
+	if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
+	//if (abs(x - mario->GetX()) >= 100) return;
 
 	vy += ay * dt;
 
@@ -71,7 +71,25 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isShaking = false;
 		SetState(KOOBA_STATE_WALKING);
 		y -= 5.0f;
+		detector->SetY(y - 10.0f);
 		defend_start = 0;
+	}
+
+	if (mario->GetIsHolding() && isHeld)
+	{
+		x = mario->GetX() + mario->GetNX() * (MARIO_BIG_BBOX_WIDTH - 3);
+		y = mario->GetY();
+
+		vx = mario->GetVX();
+		vy = mario->GetVY();
+	}
+	else
+	{
+		if (this->isHeld)
+		{
+			ay = KOOBA_GRAVITY;
+			SetState(KOOBA_STATE_ROLLING);
+		}
 	}
 
 	//isOnPlatform = false;
@@ -122,8 +140,6 @@ void CKooba::OnCollisionWithMysbox(LPCOLLISIONEVENT e)
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-
-	//DebugOut(L"Kooba rolling hit mysbox \n");
 
 	//jump and hit the sides of the box
 	if (e->nx != 0)

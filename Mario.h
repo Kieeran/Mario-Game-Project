@@ -141,10 +141,9 @@
 
 #define GROUND_Y 160.0f
 
-
-#define	MARIO_LEVEL_SMALL	1
-#define	MARIO_LEVEL_BIG		2
 #define	MARIO_LEVEL_TAIL	3
+#define	MARIO_LEVEL_BIG		2
+#define	MARIO_LEVEL_SMALL	1
 
 #define MARIO_TAIL_BBOX_WIDTH  17
 #define MARIO_TAIL_BBOX_HEIGHT 24
@@ -164,6 +163,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME	2500
 #define TIME_KICK_ANIMATION		100
+#define TIME_MAX_HOLDING		8000
 
 class CMario : public CGameObject
 {
@@ -174,8 +174,11 @@ class CMario : public CGameObject
 
 	int level;
 	int untouchable;
+
 	ULONGLONG untouchable_start;
-	ULONGLONG	kick_start;
+	ULONGLONG kick_start;
+	ULONGLONG hold_start;
+
 	BOOLEAN isOnPlatform;
 	int coin;
 
@@ -205,12 +208,15 @@ public:
 		ay = MARIO_GRAVITY;
 
 		level = MARIO_LEVEL_SMALL;
-		untouchable = 0;
+
 		untouchable_start = -1;
+		untouchable = -1;
 		kick_start = -1;
-		isOnPlatform = false;
+		hold_start = -1;
+
 		coin = 0;
 
+		isOnPlatform = false;
 		isHolding = false;
 		isKicking = false;
 		isRunning = false;
@@ -230,8 +236,9 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	void SetLevel(int l);
+	void SetLevelLower();
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
-	//void StartKicking() { kick_start = GetTickCount64(); }
+	void StartKicking() { isKicking = true; kick_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 

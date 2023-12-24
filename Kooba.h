@@ -49,10 +49,16 @@ protected:
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithMysbox(LPCOLLISIONEVENT e);
+
 public:
 	CKooba(float x, float y);
 	virtual void SetState(int state);
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
+
+	bool GetIsHeld() { return isHeld; }
+	void SetIsHeld(bool isHeld) { this->isHeld = isHeld; }
+
+	//ULONGLONG GetDefendStart() { return defend_start; }
 };

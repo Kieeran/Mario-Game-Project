@@ -35,12 +35,15 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		untouchable = 0;
 	}
 
-	if (isKicking)
+	if (GetTickCount64() - kick_start > TIME_KICK_ANIMATION) {
+		isKicking = false;
+		kick_start = 0;
+	}
+
+	if (GetTickCount64() - hold_start > TIME_MAX_HOLDING)
 	{
-		if (GetTickCount64() - kick_start > TIME_KICK_ANIMATION) {
-			isKicking = false;
-			kick_start = 0;
-		}
+		isHolding = false;
+		hold_start = 0;
 	}
 
 	isOnPlatform = false;
@@ -140,36 +143,8 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
 {
 	CKooba* kooba = dynamic_cast<CKooba*>(e->obj);
-	if (e->ny >= 0)
-	{
-		if (kooba->GetState() == KOOBA_STATE_WALKING || kooba->GetState() == KOOBA_STATE_ROLLING)
-		{
-			if (untouchable == 0)
-			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
-			}
-		}
-		else
-		{
-			if (e->ny == 0)
-			{
-				kooba->SetState(KOOBA_STATE_ROLLING);
-				//kooba->SetY(kooba->GetY() - 2.0f);
-				SetIsKicking(true);
-				kick_start = GetTickCount64();
-			}
-		}
-	}
-	else
+
+	if (e->ny < 0)	//collision from top to bottom
 	{
 		if (kooba->GetState() == KOOBA_STATE_WALKING)
 		{
@@ -181,26 +156,32 @@ void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
 			kooba->SetState(KOOBA_STATE_ROLLING);
 			kooba->SetY(kooba->GetY() - 2.0f);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
-
-			/*if (e->ny == -1)
-			{
-				kooba->SetState(KOOBA_STATE_ROLLING);
-				kooba->SetY(kooba->GetY() - 2.0f);
-				vy = -MARIO_JUMP_DEFLECT_SPEED;
-			}
-			else if (e->ny == 0)
-			{
-				kooba->SetState(KOOBA_STATE_ROLLING);
-				kooba->SetY(kooba->GetY() - 2.0f);
-				SetIsKicking(true);
-			}*/
 		}
-		/*else if (kooba->GetState() == KOOBA_STATE_ROLLING)
+	}
+	else if (e->nx != 0)	//collision from left to right or from right to left
+	{
+		if (untouchable == 0)
 		{
-			kooba->SetState(KOOBA_STATE_WALKING);
-			kooba->SetY(kooba->GetY() - 6.0f);
-			vy = -MARIO_JUMP_DEFLECT_SPEED;
-		}*/
+			if (kooba->GetState() == KOOBA_STATE_WALKING || kooba->GetState() == KOOBA_STATE_ROLLING)
+			{
+				SetLevelLower();
+			}
+			else if (kooba->GetState() == KOOBA_STATE_HIDE || kooba->GetState() == KOOBA_STATE_SHAKING)
+			{
+				if (!isRunning)
+				{
+					kooba->SetIsHeld(false);
+					StartKicking();
+					kooba->SetState(KOOBA_STATE_ROLLING);
+				}
+				else
+				{
+					isHolding = true;
+					kooba->SetIsHeld(true);
+					hold_start = GetTickCount64();
+				}
+			}
+		}
 	}
 }
 
@@ -291,6 +272,25 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
 }
 
+void CMario::SetLevelLower()
+{
+	if (level == MARIO_LEVEL_TAIL)
+	{
+		level = MARIO_LEVEL_BIG;
+		StartUntouchable();
+	}
+	else if (level == MARIO_LEVEL_BIG)
+	{
+		level = MARIO_LEVEL_SMALL;
+		StartUntouchable();
+	}
+	else
+	{
+		DebugOut(L">>> Mario DIE >>> \n");
+		SetState(MARIO_STATE_DIE);
+	}
+}
+
 //
 // Get animation ID for tail Mario
 //
@@ -322,7 +322,7 @@ int CMario::GetAniIdTail()
 				aniId = ID_ANI_MARIO_TAIL_HOLD_JUMP_RIGHT;
 			else
 				aniId = ID_ANI_MARIO_TAIL_HOLD_JUMP_LEFT;
-		}	
+		}
 	}
 	else
 	{

@@ -52,7 +52,10 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		break;
 	case DIK_A:
 		if (mario->GetIsHolding())
+		{
 			mario->SetIsHolding(false);
+			mario->StartKicking();
+		}
 		break;
 	}
 }
