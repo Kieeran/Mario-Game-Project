@@ -17,7 +17,7 @@
 #define KOOBA_SHELL_BBOX_HEIGHT 16
 
 #define KOOPA_DEFEND_TIMEOUT 8000
-#define KOOPA_COMBACK_START 6000
+#define KOOPA_COMEBACK_START 6000
 
 #define KOOPA_SET_DETECTOR_X	(KOOBA_BBOX_WIDTH + 2) / 2
 
@@ -60,5 +60,5 @@ public:
 	bool GetIsHeld() { return isHeld; }
 	void SetIsHeld(bool isHeld) { this->isHeld = isHeld; }
 
-	//ULONGLONG GetDefendStart() { return defend_start; }
+	ULONGLONG GetDefendStart() { return defend_start; }
 };

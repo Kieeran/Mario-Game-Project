@@ -14,7 +14,8 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_DOWN:
-		mario->SetState(MARIO_STATE_SIT);
+		if (!mario->GetIsHolding() && mario->GetState() == MARIO_STATE_IDLE)
+			mario->SetState(MARIO_STATE_SIT);
 		break;
 	case DIK_S:
 		mario->SetState(MARIO_STATE_JUMP);
@@ -54,7 +55,7 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 		if (mario->GetIsHolding())
 		{
 			mario->SetIsHolding(false);
-			mario->StartKicking();
+			//mario->StartKicking();
 		}
 		break;
 	}

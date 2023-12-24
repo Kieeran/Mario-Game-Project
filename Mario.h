@@ -159,11 +159,10 @@
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
-#define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT-MARIO_BIG_SITTING_BBOX_HEIGHT)/2)
+#define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITTING_BBOX_HEIGHT) / 2)
 
 #define MARIO_UNTOUCHABLE_TIME	2500
 #define TIME_KICK_ANIMATION		100
-#define TIME_MAX_HOLDING		8000
 
 class CMario : public CGameObject
 {
@@ -200,27 +199,8 @@ class CMario : public CGameObject
 	int GetAniIdSmall();
 
 public:
-	CMario(float x, float y) : CGameObject(x, y)
-	{
-		isSitting = false;
-		maxVx = 0.0f;
-		ax = 0.0f;
-		ay = MARIO_GRAVITY;
+	CMario(float x, float y);
 
-		level = MARIO_LEVEL_SMALL;
-
-		untouchable_start = -1;
-		untouchable = -1;
-		kick_start = -1;
-		hold_start = -1;
-
-		coin = 0;
-
-		isOnPlatform = false;
-		isHolding = false;
-		isKicking = false;
-		isRunning = false;
-	}
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
 	void SetState(int state);

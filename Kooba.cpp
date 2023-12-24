@@ -60,19 +60,42 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (GetTickCount64() - defend_start > KOOPA_COMBACK_START && !isShaking && defend_start > 0)
+	if (GetTickCount64() - defend_start > KOOPA_COMEBACK_START && !isShaking && defend_start > 0)
 	{
 		isShaking = true;
 		SetState(KOOBA_STATE_SHAKING);
 	}
 
-	if (GetTickCount64() - defend_start > KOOPA_DEFEND_TIMEOUT && isShaking && defend_start > 0)
+	if (defend_start > 0)	// Koopa starts hiding in the shell
 	{
-		isShaking = false;
-		SetState(KOOBA_STATE_WALKING);
-		y -= 5.0f;
-		detector->SetY(y - 10.0f);
-		defend_start = 0;
+		if (GetTickCount64() - defend_start <= KOOPA_DEFEND_TIMEOUT)	// Koopa still hides in the shell
+		{
+			if (!mario->GetIsHolding() && isHeld)
+			{
+				mario->StartKicking();
+				SetState(KOOBA_STATE_ROLLING);
+				isHeld = false;
+				DebugOut(L">>> Drop koopa shell >>> \n");
+			}
+		}
+
+		else	// Koopa comes out of the shell
+		{
+			if (mario->GetIsHolding())
+			{
+				mario->SetIsHolding(false);
+				mario->SetLevelLower();
+				mario->StartUntouchable();
+			}
+
+			isShaking = false;
+			SetState(KOOBA_STATE_WALKING);
+			y -= 10.0f;
+			detector->SetY(y - 10.0f);
+			defend_start = 0;
+			if (isHeld)
+				isHeld = false;
+		}
 	}
 
 	if (mario->GetIsHolding() && isHeld)
@@ -83,16 +106,8 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx = mario->GetVX();
 		vy = mario->GetVY();
 	}
-	else
-	{
-		if (this->isHeld)
-		{
-			ay = KOOBA_GRAVITY;
-			SetState(KOOBA_STATE_ROLLING);
-		}
-	}
 
-	//isOnPlatform = false;
+	isOnPlatform = false;
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
