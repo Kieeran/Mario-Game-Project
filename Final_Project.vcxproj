@@ -148,6 +148,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Goomba.h" />
+    <ClInclude Include="HardBlock.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyEventHandler.h" />
     <ClInclude Include="Kooba.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="Goomba.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Ground.h" />
+    <ClCompile Include="HardBlock.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Kooba.cpp" />
     <ClCompile Include="Leaf.cpp" />
