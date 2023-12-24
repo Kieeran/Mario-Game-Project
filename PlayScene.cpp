@@ -8,6 +8,7 @@
 #include "Sprites.h"
 #include "Portal.h"
 #include "Coin.h"
+#include "Brick.h"
 #include "Platform.h"
 
 #include "Cloud.h"
@@ -20,6 +21,7 @@
 #include "FireFlower.h"
 #include "FireBullet.h"
 #include "Kooba.h"
+#include "HardBlock.h"
 
 #include "Hud.h"
 
@@ -131,6 +133,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
 	case OBJECT_TYPE_KOOBA: obj = new CKooba(x, y); break;
+	case OBJECT_TYPE_HARDBLOCK: obj = new CHardBlock(x, y); break;
 	case OBJECT_TYPE_GOOMBA:
 	{
 		int goomba_type = atoi(tokens[3].c_str());
