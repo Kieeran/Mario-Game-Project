@@ -1,46 +1,46 @@
 #include "Coin.h"
-#include "MysBox.h"
+#include "debug.h"
 
 CCoin::CCoin(float x, float y, int coin_type) :CGameObject()
 {
 	this->x = x;
 	this->y = y;
-	this->ay = COIN_GRAVITY;
 	this->coin_type = coin_type;
-	this->vy = -COIN_BOUCING_SPEED;
-	this->Origin_Y = y;
-	this->collected = false;
+	ay = COIN_GRAVITY;
+	vy = 0;
+	if (coin_type == HIDDEN_COIN_TYPE)
+		vy = -COIN_BOUCING_SPEED;
+	Origin_Y = y;
 }
 void CCoin::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
-	if (this->coin_type == SHOWED_COIN_TYPE)
+	if (coin_type == SHOWED_COIN_TYPE)
 	{
 		animations->Get(ID_ANI_SHOWED_COIN)->Render(x, y);
 	}
-	if (this->coin_type == HIDDEN_COIN_TYPE)
+	if (coin_type == HIDDEN_COIN_TYPE)
 	{
 		animations->Get(ID_ANI_HIDDEN_COIN)->Render(x, y);
 	}
+	RenderBoundingBox();
 }
 
 void CCoin::OnNoCollision(DWORD dt)
 {
-	y += vy * dt;
+	if (coin_type == HIDDEN_COIN_TYPE)
+		y += vy * dt;
 }
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (this->coin_type == HIDDEN_COIN_TYPE)
+	if (coin_type == HIDDEN_COIN_TYPE)
 	{
 		vy += ay * dt;
-		if (y > this->Origin_Y)
-		{
-			this->collected = true;
-		}
+		if (y > Origin_Y)
+			Delete();
 	}
-	if (this->collected)
-		this->Delete();
+
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }

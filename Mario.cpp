@@ -236,6 +236,7 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
+	DebugOut(L">>> Show coin delete >>> \n");
 	coin++;
 }
 
