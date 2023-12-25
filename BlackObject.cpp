@@ -14,7 +14,7 @@ void CBlackObject::Render()
 		{
 			for (int i = 0; i < lengthHeight; i++)
 			{
-				s->Get(ID_SPRITE_SERRATED_BLOCK_1)->Draw(x, y - BLACK_BLOCK_SIZE * i);
+				s->Get(ID_SPRITE_SERRATED_BLOCK)->Draw(x, y - BLACK_BLOCK_SIZE * i);
 			}
 		}
 	}

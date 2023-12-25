@@ -156,6 +156,9 @@
     <ClInclude Include="BlackObject.h">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
+    <ClInclude Include="Card.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -268,6 +271,9 @@
     </ClCompile>
     <ClCompile Include="BlackObject.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Card.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

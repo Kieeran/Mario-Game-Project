@@ -23,6 +23,7 @@
 #include "Kooba.h"
 #include "HardBlock.h"
 #include "BlackObject.h"
+#include "Card.h"
 
 #include "Hud.h"
 
@@ -135,6 +136,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
 	case OBJECT_TYPE_KOOBA: obj = new CKooba(x, y); break;
 	case OBJECT_TYPE_HARDBLOCK: obj = new CHardBlock(x, y); break;
+	case OBJECT_TYPE_CARD:	obj = new CCard(x, y); break;
 	case OBJECT_TYPE_GOOMBA:
 	{
 		int goomba_type = atoi(tokens[3].c_str());

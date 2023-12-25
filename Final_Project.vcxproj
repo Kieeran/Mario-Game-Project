@@ -139,6 +139,7 @@
     <ClInclude Include="BlackObject.h" />
     <ClInclude Include="Boxes.h" />
     <ClInclude Include="Brick.h" />
+    <ClInclude Include="Card.h" />
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
@@ -177,6 +178,7 @@
     <ClCompile Include="BlackObject.cpp" />
     <ClCompile Include="Boxes.cpp" />
     <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="Card.cpp" />
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
