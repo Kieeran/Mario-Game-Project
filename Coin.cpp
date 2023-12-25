@@ -23,7 +23,7 @@ void CCoin::Render()
 	{
 		animations->Get(ID_ANI_HIDDEN_COIN)->Render(x, y);
 	}
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CCoin::OnNoCollision(DWORD dt)

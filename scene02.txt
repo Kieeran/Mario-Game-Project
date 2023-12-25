@@ -19,6 +19,7 @@ texts\Kooba.txt
 texts\Leaf.txt
 texts\Detector.txt
 texts\HardBlock.txt
+texts\BlackBackground.txt
 
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -299,11 +300,11 @@ texts\HardBlock.txt
 
 15	1625	132
 
-15	2214	135
-15	2230	135
+15	2214	134
+15	2229	134
 
 15	2214	76
-15	2230	76
+15	2229	76
 
 #
 #9	1020	120	1
