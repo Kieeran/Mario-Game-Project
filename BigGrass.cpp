@@ -3,7 +3,7 @@
 void CBigGrass::Render()
 {
 	CSprites* s = CSprites::GetInstance();
-	s->Get(this->spriteId)->Draw(x, y);
+	s->Get(spriteId)->Draw(x, y);
 }
 
 void CBigGrass::GetBoundingBox(float& l, float& t, float& r, float& b)
