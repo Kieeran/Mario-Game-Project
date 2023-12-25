@@ -646,7 +646,7 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 
-	DebugOutTitle(L"Coins: %d", coin);
+	DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f", coin, x, y);
 }
 
 void CMario::SetState(int state)

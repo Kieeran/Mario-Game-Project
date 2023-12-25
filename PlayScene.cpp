@@ -22,6 +22,7 @@
 #include "FireBullet.h"
 #include "Kooba.h"
 #include "HardBlock.h"
+#include "BlackObject.h"
 
 #include "Hud.h"
 
@@ -177,7 +178,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		);
 		break;
 	}
-
+	case OBJECT_TYPE_BLACKBACKGROUND:
+	{
+		int length_Width = atoi(tokens[3].c_str());
+		int length_Height = atoi(tokens[4].c_str());
+		obj = new CBlackObject(x, y, length_Width, length_Height);
+		break;
+	}
 	case OBJECT_TYPE_PIPE:
 	{
 		int length_Cell_Side = atoi(tokens[3].c_str());

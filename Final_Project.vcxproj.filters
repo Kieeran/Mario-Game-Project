@@ -153,7 +153,7 @@
     <ClInclude Include="HardBlock.h">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
-    <ClInclude Include="BlackBackground.h">
+    <ClInclude Include="BlackObject.h">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
   </ItemGroup>
@@ -266,7 +266,7 @@
     <ClCompile Include="HardBlock.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClCompile>
-    <ClCompile Include="BlackBackground.cpp">
+    <ClCompile Include="BlackObject.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClCompile>
   </ItemGroup>

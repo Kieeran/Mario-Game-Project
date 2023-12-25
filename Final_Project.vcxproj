@@ -136,7 +136,7 @@
     <ClInclude Include="Animations.h" />
     <ClInclude Include="AssetIDs.h" />
     <ClInclude Include="BigGrass.h" />
-    <ClInclude Include="BlackBackground.h" />
+    <ClInclude Include="BlackObject.h" />
     <ClInclude Include="Boxes.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Cloud.h" />
@@ -174,7 +174,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Animations.cpp" />
     <ClCompile Include="BigGrass.cpp" />
-    <ClCompile Include="BlackBackground.cpp" />
+    <ClCompile Include="BlackObject.cpp" />
     <ClCompile Include="Boxes.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Cloud.cpp" />
