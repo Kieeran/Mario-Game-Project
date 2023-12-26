@@ -7,7 +7,7 @@
 
 #define DETECTOR_GRAVITY	0.005f
 
-#define DETECTOR_BBOX_WIDTH 2
+#define DETECTOR_BBOX_WIDTH 15
 #define DETECTOR_BBOX_HEIGHT 26
 
 class CDetector : public CGameObject

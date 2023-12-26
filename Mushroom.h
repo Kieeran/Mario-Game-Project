@@ -24,16 +24,16 @@ protected:
 	float ay;
 	float Origin_Y;
 
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	virtual void Render();
-	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
+	void Render();
+	void GetBoundingBox(float& l, float& t, float& r, float& b);
 
-	virtual int IsCollidable() { return 1; };
-	virtual int IsBlocking() { return 0; }
-	virtual void OnNoCollision(DWORD dt);
-	virtual void OnCollisionWith(LPCOLLISIONEVENT e);
+	int IsCollidable() { return 1; };
+	int IsBlocking() { return 0; }
+	void OnNoCollision(DWORD dt);
+	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 public:
 	CMushroom(float x, float y);
-	virtual void SetState(int state);
+	void SetState(int state);
 };

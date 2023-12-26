@@ -192,7 +192,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		int length_Cell_Side = atoi(tokens[3].c_str());
 		int length_Height = atoi(tokens[4].c_str());
 		int spriteId_TopLeft = atoi(tokens[5].c_str());
-
+		int flower_type = atoi(tokens[6].c_str());
 		obj = new CPipe(
 			x, y,
 			length_Cell_Side,
@@ -200,11 +200,13 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 			spriteId_TopLeft, spriteId_TopLeft + 1,
 			spriteId_TopLeft + 2, spriteId_TopLeft + 3
 		);
-		CGameObject* fireflower = new CFireFlower(x, y);
-		//objects.push_back(fireflower);
+		if (flower_type > 0)
+		{
+			CGameObject* fireflower = new CFireFlower(x, y + 1.0f, flower_type);
+			objects.push_back(fireflower);
+		}
 		break;
 	}
-
 	case OBJECT_TYPE_PLATFORM:
 	{
 
