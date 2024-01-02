@@ -1,11 +1,11 @@
-#include "FireFlower.h"
+#include "PiranhaPlant.h"
 
-CFireFlower::CFireFlower(float x, float y, int flowerType) : CGameObject(x, y)
+CPiranhaPlant::CPiranhaPlant(float x, float y, int flowerType) : CGameObject(x, y)
 {
 	this->x = x;
 	this->y = y;
 	this->flowerType = flowerType;
-	SetState(FLOWER_STATE_SLEEP);
+	SetState(PIRANHA_PLANT_STATE_SLEEP);
 	Origin_Y = y;
 	rising = false;
 	sleeping = false;
@@ -15,63 +15,64 @@ CFireFlower::CFireFlower(float x, float y, int flowerType) : CGameObject(x, y)
 	reload = -1;
 }
 
-void CFireFlower::Render()
+void CPiranhaPlant::Render()
 {
 	//if (state == FIREFLOWER_STATE_SLEEP)return;
-	CAnimations* animations = CAnimations::GetInstance();
-	CSprites* s = CSprites::GetInstance();
 
-	if (flowerType == FIREFLOWER_TYPE)
-	{
-		switch (state)
-		{
-		case FIREFLOWER_STATE_LOOKDOWN_LEFT:				//fire flower rise up look down left
-			animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_LEFT)->Render(x, y);
-			return;
-		case FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT:			//fire flower look down left
-			s->Get(ID_SPRITE_FIREFLOWER_1)->Draw(x, y);
-			return;
-		case FIREFLOWER_STATE_LOOKUP_LEFT:					//fire flower rise up look up left
-			animations->Get(ID_ANI_FIREFLOWER_LOOKUP_LEFT)->Render(x, y);
-			return;
-		case FIREFLOWER_STATE_IDLE_LOOKUP_LEFT:				//fire flower look up left
-			s->Get(ID_SPRITE_FIREFLOWER_3)->Draw(x, y);
-			return;
+	//CAnimations* animations = CAnimations::GetInstance();
+	//CSprites* s = CSprites::GetInstance();
 
-		case FIREFLOWER_STATE_LOOKDOWN_RIGHT:				//fire flower rise up look down right
-			animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_RIGHT)->Render(x, y);
-			return;
-		case FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT:			//fire flower look down right
-			s->Get(ID_SPRITE_FIREFLOWER_8)->Draw(x, y);
-			return;
-		case FIREFLOWER_STATE_LOOKUP_RIGHT:					//fire flower rise up look up right
-			animations->Get(ID_ANI_FIREFLOWER_LOOKUP_RIGHT)->Render(x, y);
-			break;
-		case FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT:			//fire flower look up right
-			s->Get(ID_SPRITE_FIREFLOWER_6)->Draw(x, y);
-			return;
-		}
-	}
+	//if (flowerType == RED_FIREFLOWER_TYPE)
+	//{
+	//	switch (state)
+	//	{
+	//	case FIREFLOWER_STATE_LOOKDOWN_LEFT:				//fire flower rise up look down left
+	//		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_LEFT)->Render(x, y);
+	//		return;
+	//	case FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT:			//fire flower look down left
+	//		s->Get(ID_SPRITE_FIREFLOWER_1)->Draw(x, y);
+	//		return;
+	//	case FIREFLOWER_STATE_LOOKUP_LEFT:					//fire flower rise up look up left
+	//		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_LEFT)->Render(x, y);
+	//		return;
+	//	case FIREFLOWER_STATE_IDLE_LOOKUP_LEFT:				//fire flower look up left
+	//		s->Get(ID_SPRITE_FIREFLOWER_3)->Draw(x, y);
+	//		return;
 
-	else
-	{
-		animations->Get(ID_ANI_GREENFLOWER)->Render(x, y);
-	}
+	//	case FIREFLOWER_STATE_LOOKDOWN_RIGHT:				//fire flower rise up look down right
+	//		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_RIGHT)->Render(x, y);
+	//		return;
+	//	case FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT:			//fire flower look down right
+	//		s->Get(ID_SPRITE_FIREFLOWER_8)->Draw(x, y);
+	//		return;
+	//	case FIREFLOWER_STATE_LOOKUP_RIGHT:					//fire flower rise up look up right
+	//		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_RIGHT)->Render(x, y);
+	//		break;
+	//	case FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT:			//fire flower look up right
+	//		s->Get(ID_SPRITE_FIREFLOWER_6)->Draw(x, y);
+	//		return;
+	//	}
+	//}
+
+	//else
+	//{
+	//	animations->Get(ID_ANI_GREENFLOWER)->Render(x, y);
+	//}
 
 	//RenderBoundingBox();
 }
 
-void CFireFlower::OnNoCollision(DWORD dt)
+void CPiranhaPlant::OnNoCollision(DWORD dt)
 {
 	y += vy * dt;
 }
 
-void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	/*CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	if (flowerType == FIREFLOWER_TYPE)
+	if (flowerType == RED_FIREFLOWER_TYPE)
 	{
 		if (this->x > mario->GetX() && this->y < mario->GetY())
 		{
@@ -193,23 +194,23 @@ void CFireFlower::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetState(FLOWER_STATE_SLEEP);
 			DebugOut(L">>> sleep >>> \n");
 		}
-	}
+	}*/
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
-void CFireFlower::GetBoundingBox(float& l, float& t, float& r, float& b)
+void CPiranhaPlant::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x - FIREFLOWER_BBOX_WIDTH / 2;
-	t = y - FIREFLOWER_BBOX_HEIGHT / 2;
-	r = l + FIREFLOWER_BBOX_WIDTH;
-	b = t + FIREFLOWER_BBOX_HEIGHT;
+	/*l = x - PLANT_BBOX_WIDTH / 2;
+	t = y - PLANT_BBOX_HEIGHT / 2;
+	r = l + PLANT_BBOX_WIDTH;
+	b = t + PLANT_BBOX_HEIGHT;*/
 }
-void CFireFlower::SetState(int state)
+void CPiranhaPlant::SetState(int state)
 {
 	CGameObject::SetState(state);
-	switch (state)
+	/*switch (state)
 	{
 	case FLOWER_STATE_SLEEP:
 		vy = 0;
@@ -234,5 +235,5 @@ void CFireFlower::SetState(int state)
 	if (state != FLOWER_STATE_SLEEP && state != GREENFLOWER_STATE_RISING)
 	{
 		vy = FLOWER_RISEUP_SPEED;
-	}
+	}*/
 }

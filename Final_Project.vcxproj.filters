@@ -135,7 +135,7 @@
     <ClInclude Include="Mushroom.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
-    <ClInclude Include="FireFlower.h">
+    <ClInclude Include="PiranhaPlant.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
     <ClInclude Include="FireBullet.h">
@@ -251,7 +251,7 @@
     <ClCompile Include="Mushroom.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
-    <ClCompile Include="FireFlower.cpp">
+    <ClCompile Include="PiranhaPlant.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
     <ClCompile Include="FireBullet.cpp">

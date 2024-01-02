@@ -9,7 +9,7 @@
 #include "Portal.h"
 #include "MysBox.h"
 #include "Mushroom.h"
-#include "FireFlower.h"
+#include "PiranhaPlant.h"
 #include "FireBullet.h"
 #include "Kooba.h"
 #include "Leaf.h"
@@ -93,8 +93,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMysBox(e);
 	else if (dynamic_cast<CMushroom*>(e->obj))
 		OnCollisionWithMushroom(e);
-	else if (dynamic_cast<CFireFlower*>(e->obj))
-		OnCollisionWithFireFlower(e);
+	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<CFireBullet*>(e->obj))
 		OnCollisionWithFireBullet(e);
 	else if (dynamic_cast<CKooba*>(e->obj))
@@ -199,7 +199,7 @@ void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
 	}
 }
 
-void CMario::OnCollisionWithFireFlower(LPCOLLISIONEVENT e)
+void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
 	if (untouchable == 0)
 	{

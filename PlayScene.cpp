@@ -18,7 +18,7 @@
 #include "Boxes.h"
 #include "Pipe.h"
 #include "Mushroom.h"
-#include "FireFlower.h"
+#include "PiranhaPlant.h"
 #include "FireBullet.h"
 #include "Kooba.h"
 #include "HardBlock.h"
@@ -202,8 +202,8 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		);
 		if (flower_type > 0)
 		{
-			CGameObject* fireflower = new CFireFlower(x, y + 1.0f, flower_type);
-			objects.push_back(fireflower);
+			//CGameObject* fireflower = new CPiranhaPlant(x, y + 1.0f, flower_type);
+			//objects.push_back(fireflower);
 		}
 		break;
 	}

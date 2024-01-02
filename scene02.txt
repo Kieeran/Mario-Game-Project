@@ -13,7 +13,7 @@ texts\Boxes.txt
 texts\Pipe.txt
 texts\Hud.txt
 texts\Mushroom.txt
-texts\FireFlower.txt
+texts\PiranhaPlant.txt
 texts\FireBullet.txt
 texts\Kooba.txt
 texts\Leaf.txt

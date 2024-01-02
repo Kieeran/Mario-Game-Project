@@ -7,7 +7,7 @@
 
 #include "Mario.h"
 #include "PlayScene.h"
-#include "FireFlower.h"
+#include "PiranhaPlant.h"
 #include "Pipe.h"
 #include "Platform.h"
 
