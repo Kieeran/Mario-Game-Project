@@ -1,10 +1,10 @@
 #include "PiranhaPlant.h"
 
-CPiranhaPlant::CPiranhaPlant(float x, float y, int flowerType) : CGameObject(x, y)
+CPiranhaPlant::CPiranhaPlant(float x, float y, int plantType) : CGameObject(x, y)
 {
 	this->x = x;
 	this->y = y;
-	this->flowerType = flowerType;
+	this->plantType = plantType;
 	SetState(PIRANHA_PLANT_STATE_SLEEP);
 	Origin_Y = y;
 	rising = false;
@@ -17,47 +17,82 @@ CPiranhaPlant::CPiranhaPlant(float x, float y, int flowerType) : CGameObject(x, 
 
 void CPiranhaPlant::Render()
 {
-	//if (state == FIREFLOWER_STATE_SLEEP)return;
+	//if (state == PIRANHA_PLANT_STATE_SLEEP) return;
 
-	//CAnimations* animations = CAnimations::GetInstance();
-	//CSprites* s = CSprites::GetInstance();
+	CAnimations* animations = CAnimations::GetInstance();
+	int aniId = -1;
 
-	//if (flowerType == RED_FIREFLOWER_TYPE)
-	//{
-	//	switch (state)
-	//	{
-	//	case FIREFLOWER_STATE_LOOKDOWN_LEFT:				//fire flower rise up look down left
-	//		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_LEFT)->Render(x, y);
-	//		return;
-	//	case FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT:			//fire flower look down left
-	//		s->Get(ID_SPRITE_FIREFLOWER_1)->Draw(x, y);
-	//		return;
-	//	case FIREFLOWER_STATE_LOOKUP_LEFT:					//fire flower rise up look up left
-	//		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_LEFT)->Render(x, y);
-	//		return;
-	//	case FIREFLOWER_STATE_IDLE_LOOKUP_LEFT:				//fire flower look up left
-	//		s->Get(ID_SPRITE_FIREFLOWER_3)->Draw(x, y);
-	//		return;
+	if (plantType == GREEN_PIRANHA_PLANT)
+	{
+		aniId = ID_ANI_GREEN_PIRANHA_PLANT;
+		//animations->Get(ID_ANI_GREENFLOWER)->Render(x, y);
+	}
 
-	//	case FIREFLOWER_STATE_LOOKDOWN_RIGHT:				//fire flower rise up look down right
-	//		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_RIGHT)->Render(x, y);
-	//		return;
-	//	case FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT:			//fire flower look down right
-	//		s->Get(ID_SPRITE_FIREFLOWER_8)->Draw(x, y);
-	//		return;
-	//	case FIREFLOWER_STATE_LOOKUP_RIGHT:					//fire flower rise up look up right
-	//		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_RIGHT)->Render(x, y);
-	//		break;
-	//	case FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT:			//fire flower look up right
-	//		s->Get(ID_SPRITE_FIREFLOWER_6)->Draw(x, y);
-	//		return;
-	//	}
-	//}
+	else
+	{
 
-	//else
-	//{
-	//	animations->Get(ID_ANI_GREENFLOWER)->Render(x, y);
-	//}
+		if (plantType == RED_FIRE_PIRANHA_PLANT)
+		{
+			aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_LOOKDOWN_LEFT;
+			//aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_LOOKUP_LEFT;
+			//aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_LOOKDOWN_RIGHT;
+			//aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_LOOKUP_RIGHT;
+
+			//aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_IDLE_LOOKDOWN_LEFT;
+			//aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_IDLE_LOOKUP_LEFT;
+			//aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_IDLE_LOOKDOWN_RIGHT;
+			//aniId = ID_ANI_RED_FIRE_PIRANHA_PLANT_IDLE_LOOKUP_RIGHT;
+		}
+
+		else if (plantType == GREEN_FIRE_PIRANHA_PLANT)
+		{
+			//aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_LOOKDOWN_LEFT;
+			//aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_LOOKUP_LEFT;
+			//aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_LOOKDOWN_RIGHT;
+			//aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_LOOKUP_RIGHT;
+
+			//aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_IDLE_LOOKDOWN_LEFT;
+			//aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_IDLE_LOOKUP_LEFT;
+			//aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_IDLE_LOOKDOWN_RIGHT;
+			aniId = ID_ANI_GREEN_FIRE_PIRANHA_PLANT_IDLE_LOOKUP_RIGHT;
+		}
+
+		//CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		//if (x > mario->GetX() && y < mario->GetY())		// Mario is at the bottom-left corner
+		//{
+		//	if (state != PIRANHA_PLANT_STATE_IDLE)
+		//	{
+
+		//	}
+
+		//	else
+		//	{
+
+		//	}
+		//}
+		//	case FIREFLOWER_STATE_LOOKDOWN_LEFT:				//fire flower rise up look down left
+		//		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_LEFT)->Render(x, y);
+		//		return;
+		//	case FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT:			//fire flower look down left
+		//		s->Get(ID_SPRITE_FIREFLOWER_1)->Draw(x, y);
+		//		return;
+		//	case FIREFLOWER_STATE_LOOKUP_LEFT:					//fire flower rise up look up left
+		//		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_LEFT)->Render(x, y);
+		//		return;
+		//	case FIREFLOWER_STATE_IDLE_LOOKUP_LEFT:				//fire flower look up left
+		//		s->Get(ID_SPRITE_FIREFLOWER_3)->Draw(x, y);
+
+		//	case FIREFLOWER_STATE_LOOKDOWN_RIGHT:				//fire flower rise up look down right
+		//		animations->Get(ID_ANI_FIREFLOWER_LOOKDOWN_RIGHT)->Render(x, y);
+		//	case FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT:			//fire flower look down right
+		//		s->Get(ID_SPRITE_FIREFLOWER_8)->Draw(x, y);
+		//	case FIREFLOWER_STATE_LOOKUP_RIGHT:					//fire flower rise up look up right
+		//		animations->Get(ID_ANI_FIREFLOWER_LOOKUP_RIGHT)->Render(x, y);
+		//	case FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT:			//fire flower look up right
+		//		s->Get(ID_SPRITE_FIREFLOWER_6)->Draw(x, y);
+	}
+	//animations->Get(aniId)->Render(x, y);
+	animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
 }
