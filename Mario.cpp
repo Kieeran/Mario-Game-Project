@@ -11,7 +11,7 @@
 #include "Mushroom.h"
 #include "PiranhaPlant.h"
 #include "FireBullet.h"
-#include "Kooba.h"
+#include "Koopas.h"
 #include "Leaf.h"
 
 #include "Collision.h"
@@ -97,8 +97,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<CFireBullet*>(e->obj))
 		OnCollisionWithFireBullet(e);
-	else if (dynamic_cast<CKooba*>(e->obj))
-		OnCollisionWithKooba(e);
+	else if (dynamic_cast<CKoopas*>(e->obj))
+		OnCollisionWithKoopas(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -154,21 +154,21 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 }
 
-void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
+void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
-	CKooba* kooba = dynamic_cast<CKooba*>(e->obj);
+	CKoopas* koopas = dynamic_cast<CKoopas*>(e->obj);
 
 	if (e->ny < 0)	//collision from top to bottom
 	{
-		if (kooba->GetState() == KOOBA_STATE_WALKING)
+		if (koopas->GetState() == KOOPAS_STATE_WALKING)
 		{
-			kooba->SetState(KOOBA_STATE_HIDE);
+			koopas->SetState(KOOPAS_STATE_HIDE);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
-		else if (kooba->GetState() == KOOBA_STATE_HIDE || kooba->GetState() == KOOBA_STATE_SHAKING)
+		else if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_SHAKING)
 		{
-			kooba->SetState(KOOBA_STATE_ROLLING);
-			kooba->SetY(kooba->GetY() - 2.0f);
+			koopas->SetState(KOOPAS_STATE_ROLLING);
+			koopas->SetY(koopas->GetY() - 2.0f);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
@@ -176,22 +176,22 @@ void CMario::OnCollisionWithKooba(LPCOLLISIONEVENT e)
 	{
 		if (untouchable == 0)
 		{
-			if (kooba->GetState() == KOOBA_STATE_WALKING || kooba->GetState() == KOOBA_STATE_ROLLING)
+			if (koopas->GetState() == KOOPAS_STATE_WALKING || koopas->GetState() == KOOPAS_STATE_ROLLING)
 			{
 				SetLevelLower();
 			}
-			else if (kooba->GetState() == KOOBA_STATE_HIDE || kooba->GetState() == KOOBA_STATE_SHAKING)
+			else if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_SHAKING)
 			{
 				if (!isRunning)
 				{
-					kooba->SetIsHeld(false);
+					koopas->SetIsHeld(false);
 					StartKicking();
-					kooba->SetState(KOOBA_STATE_ROLLING);
+					koopas->SetState(KOOPAS_STATE_ROLLING);
 				}
 				else
 				{
 					isHolding = true;
-					kooba->SetIsHeld(true);
+					koopas->SetIsHeld(true);
 					hold_start = GetTickCount64();
 				}
 			}

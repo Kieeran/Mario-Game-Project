@@ -20,7 +20,7 @@
 #include "Mushroom.h"
 #include "PiranhaPlant.h"
 #include "FireBullet.h"
-#include "Kooba.h"
+#include "Koopas.h"
 #include "HardBlock.h"
 #include "BlackObject.h"
 #include "Card.h"
@@ -134,7 +134,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
-	case OBJECT_TYPE_KOOBA: obj = new CKooba(x, y); break;
+	case OBJECT_TYPE_KOOPAS: obj = new CKoopas(x, y); break;
 	case OBJECT_TYPE_HARDBLOCK: obj = new CHardBlock(x, y); break;
 	case OBJECT_TYPE_CARD:	obj = new CCard(x, y); break;
 	case OBJECT_TYPE_GOOMBA:

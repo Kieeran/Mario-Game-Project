@@ -153,7 +153,7 @@
     <ClInclude Include="HardBlock.h" />
     <ClInclude Include="Hud.h" />
     <ClInclude Include="KeyEventHandler.h" />
-    <ClInclude Include="Kooba.h" />
+    <ClInclude Include="Koopas.h" />
     <ClInclude Include="Leaf.h" />
     <ClInclude Include="Mario.h" />
     <ClInclude Include="Mushroom.h" />
@@ -193,7 +193,7 @@
     <ClCompile Include="Ground.h" />
     <ClCompile Include="HardBlock.cpp" />
     <ClCompile Include="Hud.cpp" />
-    <ClCompile Include="Kooba.cpp" />
+    <ClCompile Include="Koopas.cpp" />
     <ClCompile Include="Leaf.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mario.cpp" />

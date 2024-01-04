@@ -147,7 +147,7 @@
     <ClInclude Include="Leaf.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
-    <ClInclude Include="Kooba.h">
+    <ClInclude Include="Koopas.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
     <ClInclude Include="HardBlock.h">
@@ -260,7 +260,7 @@
     <ClCompile Include="Detector.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
-    <ClCompile Include="Kooba.cpp">
+    <ClCompile Include="Koopas.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
     <ClCompile Include="Leaf.cpp">

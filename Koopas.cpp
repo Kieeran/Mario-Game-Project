@@ -1,47 +1,47 @@
-#include "Kooba.h"
+#include "Koopas.h"
 #include "Goomba.h"
 #include "Mysbox.h"
 #include "Coin.h"
 #include "Mushroom.h"
 #include "Leaf.h"
 
-CKooba::CKooba(float x, float y) :CGameObject(x, y)
+CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
 {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	this->ay = KOOBA_GRAVITY;
+	this->ay = KOOPAS_GRAVITY;
 	this->isShaking = false;
 	this->isOnPlatform = false;
 	defend_start = -1;
-	SetState(KOOBA_STATE_WALKING);
-	this->detector = new CDetector(x - KOOPA_SET_DETECTOR_X, y);
+	SetState(KOOPAS_STATE_WALKING);
+	this->detector = new CDetector(x - KOOPAS_SET_DETECTOR_X, y);
 	scene->AddObject(detector, ADD_OBJECT_MODE_1);
 }
 
-void CKooba::GetBoundingBox(float& l, float& t, float& r, float& b)
+void CKoopas::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	if (state == KOOBA_STATE_WALKING)
+	if (state == KOOPAS_STATE_WALKING)
 	{
-		l = x - KOOBA_BBOX_WIDTH / 2;
-		t = y - KOOBA_BBOX_HEIGHT / 2;
-		r = l + KOOBA_BBOX_WIDTH;
-		b = t + KOOBA_BBOX_HEIGHT;
+		l = x - KOOPAS_BBOX_WIDTH / 2;
+		t = y - KOOPAS_BBOX_HEIGHT / 2;
+		r = l + KOOPAS_BBOX_WIDTH;
+		b = t + KOOPAS_BBOX_HEIGHT;
 	}
 	else
 	{
-		l = x - KOOBA_SHELL_BBOX_WIDTH / 2;
-		t = y - KOOBA_SHELL_BBOX_HEIGHT / 2;
-		r = l + KOOBA_SHELL_BBOX_WIDTH;
-		b = t + KOOBA_SHELL_BBOX_HEIGHT;
+		l = x - KOOPAS_SHELL_BBOX_WIDTH / 2;
+		t = y - KOOPAS_SHELL_BBOX_HEIGHT / 2;
+		r = l + KOOPAS_SHELL_BBOX_WIDTH;
+		b = t + KOOPAS_SHELL_BBOX_HEIGHT;
 	}
 }
 
-void CKooba::OnNoCollision(DWORD dt)
+void CKoopas::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
 }
 
-void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
@@ -49,9 +49,9 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vy += ay * dt;
 
-	detector->SetX(x - KOOPA_SET_DETECTOR_X + ((abs(vx) + vx) / (2 * abs(vx))) * 2 * KOOPA_SET_DETECTOR_X);
+	detector->SetX(x - KOOPAS_SET_DETECTOR_X + ((abs(vx) + vx) / (2 * abs(vx))) * 2 * KOOPAS_SET_DETECTOR_X);
 
-	if (state == KOOBA_STATE_WALKING && isOnPlatform)
+	if (state == KOOPAS_STATE_WALKING && isOnPlatform)
 	{
 		if (detector->GetY() > y) {
 
@@ -60,20 +60,20 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (GetTickCount64() - defend_start > KOOPA_COMEBACK_START && !isShaking && defend_start > 0)
+	if (GetTickCount64() - defend_start > KOOPAS_COMEBACK_START && !isShaking && defend_start > 0)
 	{
 		isShaking = true;
-		SetState(KOOBA_STATE_SHAKING);
+		SetState(KOOPAS_STATE_SHAKING);
 	}
 
 	if (defend_start > 0)	// Koopa starts hiding in the shell
 	{
-		if (GetTickCount64() - defend_start <= KOOPA_DEFEND_TIMEOUT)	// Koopa still hides in the shell
+		if (GetTickCount64() - defend_start <= KOOPAS_DEFEND_TIMEOUT)	// Koopa still hides in the shell
 		{
 			if (!mario->GetIsHolding() && isHeld)
 			{
 				mario->StartKicking();
-				SetState(KOOBA_STATE_ROLLING);
+				SetState(KOOPAS_STATE_ROLLING);
 				isHeld = false;
 				DebugOut(L">>> Drop koopa shell >>> \n");
 			}
@@ -89,7 +89,7 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 
 			isShaking = false;
-			SetState(KOOBA_STATE_WALKING);
+			SetState(KOOPAS_STATE_WALKING);
 			y -= 10.0f;
 			detector->SetY(y - 10.0f);
 			defend_start = 0;
@@ -113,11 +113,11 @@ void CKooba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
-void CKooba::OnCollisionWith(LPCOLLISIONEVENT e)
+void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 {
 	//if (!e->obj->IsBlocking()) return;
 	//if (dynamic_cast<CDetector*>(e->obj))return;
-	if (dynamic_cast<CKooba*>(e->obj)) return;
+	if (dynamic_cast<CKoopas*>(e->obj)) return;
 
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
@@ -136,10 +136,10 @@ void CKooba::OnCollisionWith(LPCOLLISIONEVENT e)
 		this->OnCollisionWithMysbox(e);
 }
 
-void CKooba::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
-	if (state == KOOBA_STATE_ROLLING)
+	if (state == KOOPAS_STATE_ROLLING)
 	{
 		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
@@ -148,9 +148,9 @@ void CKooba::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	}
 }
 
-void CKooba::OnCollisionWithMysbox(LPCOLLISIONEVENT e)
+void CKoopas::OnCollisionWithMysbox(LPCOLLISIONEVENT e)
 {
-	if (state != KOOBA_STATE_ROLLING) return;
+	if (state != KOOPAS_STATE_ROLLING) return;
 
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
@@ -185,51 +185,51 @@ void CKooba::OnCollisionWithMysbox(LPCOLLISIONEVENT e)
 	}
 }
 
-void CKooba::Render()
+void CKoopas::Render()
 {
 	int aniId = -1;
-	if (state == KOOBA_STATE_WALKING)
+	if (state == KOOPAS_STATE_WALKING)
 	{
 		if (vx <= 0)
-			aniId = ID_ANI_RED_KOOBA_WALKING_LEFT;
+			aniId = ID_ANI_RED_KOOPA_WALKING_LEFT;
 		else
-			aniId = ID_ANI_RED_KOOBA_WALKING_RIGHT;
+			aniId = ID_ANI_RED_KOOPA_WALKING_RIGHT;
 	}
-	else if (state == KOOBA_STATE_HIDE)
+	else if (state == KOOPAS_STATE_HIDE)
 	{
-		aniId = ID_ANI_RED_KOOBA_HIDE;
+		aniId = ID_ANI_RED_KOOPA_HIDE;
 	}
-	else if (state == KOOBA_STATE_SHAKING)
+	else if (state == KOOPAS_STATE_SHAKING)
 	{
-		aniId = ID_ANI_RED_KOOBA_SHAKING;
+		aniId = ID_ANI_RED_KOOPA_SHAKING;
 	}
-	else if (state == KOOBA_STATE_ROLLING)
+	else if (state == KOOPAS_STATE_ROLLING)
 	{
-		aniId = ID_ANI_RED_KOOBA_ROLLING;
+		aniId = ID_ANI_RED_KOOPA_ROLLING;
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 	//RenderBoundingBox();
 }
 
-void CKooba::SetState(int state)
+void CKoopas::SetState(int state)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case KOOBA_STATE_HIDE:
+	case KOOPAS_STATE_HIDE:
 		vx = 0;
 		ax = 0;
 		defend_start = GetTickCount64();
 		break;
-	case KOOBA_STATE_ROLLING:
-		vx = -KOOBA_ROLLING_SPEED;
+	case KOOPAS_STATE_ROLLING:
+		vx = -KOOPAS_ROLLING_SPEED;
 		if (mario->GetX() < x)
 			vx *= -1;
 		defend_start = 0;
 		break;
-	case KOOBA_STATE_WALKING:
-		vx = -KOOBA_WALKING_SPEED;
+	case KOOPAS_STATE_WALKING:
+		vx = -KOOPAS_WALKING_SPEED;
 		break;
 	}
 }

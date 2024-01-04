@@ -1,6 +1,6 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
-# Red koomba
+# Red koopa
 31301	68	17	83	48	10
 31302	51	17	66	48	10
 
@@ -20,7 +20,7 @@
 31312	68	68	83	99	10
 31313	85	68	100	99	10
 
-# Green koomba
+# Green koopa
 31321	17	17	32	48	10
 31322	0	17	15	48	10
 
@@ -39,6 +39,13 @@
 
 31332	0	68	15	99	10
 31333	17	68	32	99	10
+
+# Para-Koopas
+31334	51	68	66	99	10
+31335	34	68	49	99	10
+
+31336	0	68	15	99	10
+31337	17	68	32	99	10
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]

@@ -15,7 +15,7 @@ texts\Hud.txt
 texts\Mushroom.txt
 texts\PiranhaPlant.txt
 texts\FireBullet.txt
-texts\Kooba.txt
+texts\Koopas.txt
 texts\Leaf.txt
 texts\Detector.txt
 texts\HardBlock.txt
@@ -250,12 +250,14 @@ texts\Card.txt
 1	2056	149
 
 # Pipe
-11	365	150	15	3	30901	1
+#11	365	150	15	3	30901	1
+11	365	150	15	3	30901	-1
 
 #11	1760	156	15	2	30901	3
 11	1760	156	15	2	30901	-1
 
-11	1825	150	15	3	30901	2
+#11	1825	150	15	3	30901	2
+11	1825	150	15	3	30901	-1
 
 11	2221	150	15	3	30901	-1
 
@@ -360,7 +362,7 @@ texts\Card.txt
 
 #13	50	50
 
-# Kooba
+# Koopas
 #14	600	125
 #14	500	83
 #14	550	50
