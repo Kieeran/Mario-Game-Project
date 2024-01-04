@@ -2,13 +2,49 @@
 
 CFireBullet::CFireBullet(float x, float y) : CGameObject(x, y)
 {
-	vx = -BULLET_SPEED_X;
-	vy = BULLET_SPEED_Y;
+	vx = 0;
+	vy = 0;
+	switch (MarioLocation())
+	{
+	case PARTITION_1:
+		vx = BULLET_SPEED_X_1;
+		vy = -BULLET_SPEED_Y_1;
+		break;
+	case PARTITION_2:
+		vx = BULLET_SPEED_X_2;
+		vy = -BULLET_SPEED_Y_2;
+		break;
+	case PARTITION_3:
+		vx = BULLET_SPEED_X_2;
+		vy = BULLET_SPEED_Y_2;
+		break;
+	case PARTITION_4:
+		vx = BULLET_SPEED_X_1;
+		vy = BULLET_SPEED_Y_1;
+		break;
+	case PARTITION_5:
+		vx = -BULLET_SPEED_X_1;
+		vy = BULLET_SPEED_Y_1;
+		break;
+	case PARTITION_6:
+		vx = -BULLET_SPEED_X_2;
+		vy = BULLET_SPEED_Y_2;
+		break;
+	case PARTITION_7:
+		vx = -BULLET_SPEED_X_2;
+		vy = -BULLET_SPEED_Y_2;
+		break;
+	case PARTITION_8:
+		vx = -BULLET_SPEED_X_1;
+		vy = -BULLET_SPEED_Y_1;
+		break;
+	}
 	start_delete = GetTickCount64();
 }
 
 void CFireBullet::Render()
 {
+	if (y > OUT_OF_MAP_Y) return;
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_FIREBULLET)->Render(x, y);
 }
@@ -40,78 +76,74 @@ bool CFireBullet::Barycentric_Coordinates(float x, float y, float x1, float y1, 
 int CFireBullet::MarioLocation()
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	float a, b, c;
-	a = -1;
-	b = -1;
-	c = -1;
-	if (x == CoordinateX_A1)
+	if (x == COORDINATEX_A1)
 	{
-		/*if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_1;
+		if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_D1, 2 * COORDINATEY_A1 - COORDINATEY_D1, COORDINATEX_E1, 2 * COORDINATEY_A1 - COORDINATEY_D1))
+			return PARTITION_1;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_2;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_E1, 2 * COORDINATEY_A1 - COORDINATEY_D1, COORDINATEX_E1, COORDINATEY_A1))
+			return PARTITION_2;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_3;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_E1, COORDINATEY_A1, COORDINATEX_E1, COORDINATEY_E1))
+			return PARTITION_3;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_4;*/
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_E1, COORDINATEY_E1, COORDINATEX_D1, COORDINATEY_D1))
+			return PARTITION_4;
 
-		if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_5;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_B1, COORDINATEY_B1, COORDINATEX_C1, COORDINATEY_C1))
+			return PARTITION_5;
 
-		/*else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_6;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_C1, COORDINATEY_C1, COORDINATEX_C1, COORDINATEY_A1))
+			return PARTITION_6;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_7;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_C1, COORDINATEY_A1, COORDINATEX_C1, 2 * COORDINATEY_A1 - COORDINATEY_C1))
+			return PARTITION_7;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_8;*/
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A1, COORDINATEY_A1,
+			COORDINATEX_C1, 2 * COORDINATEY_A1 - COORDINATEY_C1, COORDINATEX_B1, 2 * COORDINATEY_A1 - COORDINATEY_C1))
+			return PARTITION_8;
 	}
 
-	else if (x == CoordinateX_A2)
+	else if (x == COORDINATEX_A2)
 	{
-		/*if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_1;
+		if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_D2, 2 * COORDINATEY_A2 - COORDINATEY_D2, COORDINATEX_E2, 2 * COORDINATEY_A2 - COORDINATEY_D2))
+			return PARTITION_1;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_2;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_E2, 2 * COORDINATEY_A2 - COORDINATEY_D2, COORDINATEX_E2, COORDINATEY_A2))
+			return PARTITION_2;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_3;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_E2, COORDINATEY_A2, COORDINATEX_E2, COORDINATEY_E2))
+			return PARTITION_3;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_4;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_E2, COORDINATEY_E2, COORDINATEX_D2, COORDINATEY_D2))
+			return PARTITION_4;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_5;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_B2, COORDINATEY_B2, COORDINATEX_C2, COORDINATEY_C2))
+			return PARTITION_5;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_6;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_C2, COORDINATEY_C2, COORDINATEX_C2, COORDINATEY_A2))
+			return PARTITION_6;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_7;
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_C2, COORDINATEY_A2, COORDINATEX_C2, 2 * COORDINATEY_A2 - COORDINATEY_C2))
+			return PARTITION_7;
 
-		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), CoordinateX_A1, CoordinateY_A1,
-			CoordinateX_B1, CoordinateY_B1, CoordinateX_C1, CoordinateY_C1))
-			return Partition_8;*/
+		else if (Barycentric_Coordinates(mario->GetX(), mario->GetY(), COORDINATEX_A2, COORDINATEY_A2,
+			COORDINATEX_C2, 2 * COORDINATEY_A2 - COORDINATEY_C2, COORDINATEX_B2, 2 * COORDINATEY_A2 - COORDINATEY_C2))
+			return PARTITION_8;
 	}
 }
 

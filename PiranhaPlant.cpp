@@ -220,7 +220,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				//DebugOut(L">>> reloading >>> \n");
 				reload = GetTickCount64();
 				CFireBullet* bullet = new CFireBullet(x, y - 5.0f);
-				DebugOut(L"X = %f \t Y = %f\n", x, y - 5.0f);
+				//DebugOut(L"X = %f \t Y = %f\n", x, y - 5.0f);
 				scene->AddObject(bullet, ADD_OBJECT_MODE_1);
 				reload = GetTickCount64();
 			}
