@@ -168,25 +168,29 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
 	float heightMax = -1;
+	float riseupSpeed = -1;
 	if (plantType == RED_FIRE_PIRANHA_PLANT)
 	{
 		heightMax = RED_FIRE_PIRANHA_PLANT_RISEUP_HEIGHT_MAX;
+		riseupSpeed = RED_PIRANHA_PLANT_RISEUP_SPEED;
 	}
 
 	else if (plantType == GREEN_FIRE_PIRANHA_PLANT)
 	{
 		heightMax = GREEN_FIRE_PIRANHA_PLANT_RISEUP_HEIGHT_MAX;
+		riseupSpeed = GREEN_PIRANHA_PLANT_RISEUP_SPEED;
 	}
 
 	else
 	{
 		heightMax = GREEN_PIRANHA_PLANT_RISEUP_HEIGHT_MAX;
+		riseupSpeed = GREEN_PIRANHA_PLANT_RISEUP_SPEED;
 	}
 
 	if (state == PIRANHA_PLANT_STATE_SLEEP && isMarioOnTriggerDistance())
 	{
 		SetState(PIRANHA_PLANT_STATE_RISING);
-		vy = -PIRANHA_PLANT_RISEUP_SPEED;
+		vy = -riseupSpeed;
 		//DebugOut(L">>> rising >>> \n");
 	}
 
@@ -206,7 +210,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (plantType == GREEN_PIRANHA_PLANT)
 		{
 			//DebugOut(L">>> diving >>> \n");
-			vy = PIRANHA_PLANT_RISEUP_SPEED;
+			vy = riseupSpeed;
 			SetState(PIRANHA_PLANT_STATE_DIVING);
 		}
 		else
@@ -219,7 +223,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else
 			{
 				//DebugOut(L">>> diving >>> \n");
-				vy = PIRANHA_PLANT_RISEUP_SPEED;
+				vy = riseupSpeed;
 				SetState(PIRANHA_PLANT_STATE_DIVING);
 			}
 		}
@@ -229,7 +233,7 @@ void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		reload = 0;
 		//DebugOut(L">>> diving >>> \n");
-		vy = PIRANHA_PLANT_RISEUP_SPEED;
+		vy = riseupSpeed;
 		SetState(PIRANHA_PLANT_STATE_DIVING);
 	}
 
@@ -262,30 +266,15 @@ void CPiranhaPlant::GetBoundingBox(float& l, float& t, float& r, float& b)
 void CPiranhaPlant::SetState(int state)
 {
 	CGameObject::SetState(state);
-	/*switch (state)
+	switch (state)
 	{
-	case FLOWER_STATE_SLEEP:
-		vy = 0;
+	case PIRANHA_PLANT_STATE_SLEEP:
 		break;
-	case FIREFLOWER_STATE_IDLE_LOOKDOWN_LEFT:
-		Up = false;
-		Left = true;
+	case PIRANHA_PLANT_STATE_RISING:
 		break;
-	case FIREFLOWER_STATE_IDLE_LOOKUP_LEFT:
-		Up = true;
-		Left = true;
+	case PIRANHA_PLANT_STATE_IDLE:
 		break;
-	case FIREFLOWER_STATE_IDLE_LOOKDOWN_RIGHT:
-		Up = false;
-		Left = false;
-		break;
-	case FIREFLOWER_STATE_IDLE_LOOKUP_RIGHT:
-		Up = true;
-		Left = false;
+	case PIRANHA_PLANT_STATE_DIVING:
 		break;
 	}
-	if (state != FLOWER_STATE_SLEEP && state != GREENFLOWER_STATE_RISING)
-	{
-		vy = FLOWER_RISEUP_SPEED;
-	}*/
 }
