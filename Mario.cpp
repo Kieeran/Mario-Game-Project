@@ -106,7 +106,8 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	if (e->ny >= 0)// hit by Goomba
 	{
-		if (untouchable == 0)
+		SetLevelLower();
+		/*if (untouchable == 0)
 		{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
@@ -121,7 +122,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 					SetState(MARIO_STATE_DIE);
 				}
 			}
-		}
+		}*/
 	}
 	else
 	{
@@ -178,11 +179,16 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 	}
+	else if (e->ny > 0)
+	{
+		SetLevelLower();
+	}
 	else if (e->nx != 0)	//collision from left to right or from right to left
 	{
 		if (untouchable == 0)
 		{
-			if (koopas->GetState() == KOOPAS_STATE_WALKING || koopas->GetState() == KOOPAS_STATE_ROLLING)
+			if (koopas->GetState() == KOOPAS_STATE_WALKING || koopas->GetState() == KOOPAS_STATE_ROLLING ||
+				koopas->GetState() == KOOPAS_STATE_FLYING)
 			{
 				SetLevelLower();
 			}

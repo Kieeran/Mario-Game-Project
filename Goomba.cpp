@@ -93,7 +93,8 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		return;
 	}
 
-	if (vy < 0)
+	//if (vy < 0)
+	if (vy != 0)
 	{
 		isOnPlatform = false;
 	}

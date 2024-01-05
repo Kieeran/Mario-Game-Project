@@ -9,14 +9,16 @@
 #include "Coin.h"
 #include "Mushroom.h"
 #include "Leaf.h"
+#include "Platform.h"
 
 #define RED_KOOPA	1
 #define GREEN_KOOPA	2
 #define PARA_KOOPAS	3
 
-#define KOOPAS_GRAVITY 0.002f
+#define KOOPAS_GRAVITY 0.0004f
 #define KOOPAS_WALKING_SPEED 0.05f
 #define KOOPAS_ROLLING_SPEED 0.25f
+#define KOOPAS_JUMP_DEFLECT_SPEED 0.18f
 
 
 #define KOOPAS_BBOX_WIDTH 16
@@ -28,6 +30,7 @@
 #define KOOPAS_DEFEND_TIMEOUT 8000
 #define KOOPAS_COMEBACK_START 6000
 
+#define OUT_OF_MAP_Y 187.0f
 #define KOOPAS_SET_DETECTOR_X	(KOOPAS_BBOX_WIDTH + 2) / 2
 
 #define KOOPAS_STATE_WALKING	100
@@ -46,6 +49,11 @@ protected:
 
 	ULONGLONG defend_start;
 
+	bool isActive;
+	float initial_x_coordinate;
+	float initial_y_coordinate;
+	int initial_state;
+
 	bool isShaking;
 	bool isOnPlatform;
 	bool isHeld;
@@ -59,9 +67,12 @@ protected:
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithMysbox(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
 
 	int GetAniIdRedKoopas();
 	int GetAniIdGreenKoopas();
+
+	void resetKoopasState();
 
 public:
 	CKoopas(float x, float y, int koopasType);

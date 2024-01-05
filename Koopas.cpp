@@ -4,9 +4,11 @@ CKoopas::CKoopas(float x, float y, int koopasType) :CGameObject(x, y)
 {
 	this->koopasType = koopasType;
 	ay = KOOPAS_GRAVITY;
+
 	isShaking = false;
 	isOnPlatform = false;
 	isHeld = false;
+
 	defend_start = 0;
 	detector = NULL;
 	if (koopasType != PARA_KOOPAS)
@@ -22,6 +24,28 @@ CKoopas::CKoopas(float x, float y, int koopasType) :CGameObject(x, y)
 	else
 	{
 		SetState(KOOPAS_STATE_FLYING);
+	}
+
+	isActive = false;
+	initial_x_coordinate = x;
+	initial_y_coordinate = y;
+	initial_state = state;
+}
+
+void CKoopas::resetKoopasState()
+{
+	x = initial_x_coordinate;
+	y = initial_y_coordinate;
+	SetState(initial_state);
+
+	isShaking = false;
+	isOnPlatform = false;
+	isHeld = false;
+	defend_start = 0;
+
+	if (koopasType == RED_KOOPA)
+	{
+		detector->SetXY(x - KOOPAS_SET_DETECTOR_X, y);
 	}
 }
 
@@ -52,8 +76,21 @@ void CKoopas::OnNoCollision(DWORD dt)
 void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
-	//if (abs(x - mario->GetX()) >= 100) return;
+
+	/*if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
+	if (abs(x - mario->GetX()) >= 100) return;*/
+
+	if ((abs(initial_x_coordinate - mario->GetX()) >= DISTANCE_SET_ACTIVE && abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE) ||
+		(abs(initial_x_coordinate - mario->GetX()) >= DISTANCE_SET_ACTIVE && y > OUT_OF_MAP_Y))
+	{
+		isActive = false;
+		resetKoopasState();
+		return;
+	}
+	else if (!isActive)
+	{
+		isActive = true;
+	}
 
 	vy += ay * dt;
 
@@ -69,6 +106,11 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				detector->SetY(y - 10.0f);
 			}
 		}
+	}
+
+	if (state == KOOPAS_STATE_FLYING && isOnPlatform)
+	{
+		vy = -KOOPAS_JUMP_DEFLECT_SPEED;
 	}
 
 	if (GetTickCount64() - defend_start > KOOPAS_COMEBACK_START && !isShaking && defend_start > 0)
@@ -121,7 +163,10 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy = mario->GetVY();
 	}
 
-	isOnPlatform = false;
+	if (vy != 0)
+	{
+		isOnPlatform = false;
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -145,9 +190,11 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 
 	if (dynamic_cast<CGoomba*>(e->obj))
-		this->OnCollisionWithGoomba(e);
+		OnCollisionWithGoomba(e);
 	else if (dynamic_cast<CMysBox*>(e->obj))
-		this->OnCollisionWithMysbox(e);
+		OnCollisionWithMysbox(e);
+	else if (dynamic_cast<CPlatform*>(e->obj))
+		OnCollisionWithPlatform(e);
 }
 
 void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -159,6 +206,14 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
 		}
+	}
+}
+
+void CKoopas::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
+{
+	if (e->ny < 0)
+	{
+		isOnPlatform = true;
 	}
 }
 
@@ -260,6 +315,7 @@ int CKoopas::GetAniIdGreenKoopas()
 
 void CKoopas::Render()
 {
+	if (y > OUT_OF_MAP_Y)return;
 	int aniId = -1;
 
 	if (koopasType == RED_KOOPA)
@@ -292,6 +348,7 @@ void CKoopas::SetState(int state)
 		break;
 	case KOOPAS_STATE_FLYING:
 		vx = -KOOPAS_WALKING_SPEED;
+		vy = -KOOPAS_JUMP_DEFLECT_SPEED;
 		break;
 	}
 }
