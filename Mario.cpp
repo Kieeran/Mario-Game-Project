@@ -160,12 +160,18 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 
 	if (e->ny < 0)	//collision from top to bottom
 	{
-		if (koopas->GetState() == KOOPAS_STATE_WALKING)
+		if (koopas->GetState() == KOOPAS_STATE_FLYING)
 		{
-			koopas->SetState(KOOPAS_STATE_HIDE);
+			koopas->SetState(KOOPAS_STATE_WALKING);
+			koopas->SetY(koopas->GetY() - 2.0f);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
-		else if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_SHAKING)
+		else if (koopas->GetState() == KOOPAS_STATE_WALKING)
+		{
+			koopas->SetState(KOOPAS_STATE_HIDING);
+			vy = -MARIO_JUMP_DEFLECT_SPEED;
+		}
+		else if (koopas->GetState() == KOOPAS_STATE_HIDING || koopas->GetState() == KOOPAS_STATE_SHAKING)
 		{
 			koopas->SetState(KOOPAS_STATE_ROLLING);
 			koopas->SetY(koopas->GetY() - 2.0f);
@@ -180,7 +186,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 			{
 				SetLevelLower();
 			}
-			else if (koopas->GetState() == KOOPAS_STATE_HIDE || koopas->GetState() == KOOPAS_STATE_SHAKING)
+			else if (koopas->GetState() == KOOPAS_STATE_HIDING || koopas->GetState() == KOOPAS_STATE_SHAKING)
 			{
 				if (!isRunning)
 				{

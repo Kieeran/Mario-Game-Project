@@ -1,28 +1,36 @@
 #include "Koopas.h"
-#include "Goomba.h"
-#include "Mysbox.h"
-#include "Coin.h"
-#include "Mushroom.h"
-#include "Leaf.h"
 
-CKoopas::CKoopas(float x, float y) :CGameObject(x, y)
+CKoopas::CKoopas(float x, float y, int koopasType) :CGameObject(x, y)
 {
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	this->ay = KOOPAS_GRAVITY;
-	this->isShaking = false;
-	this->isOnPlatform = false;
-	defend_start = -1;
-	SetState(KOOPAS_STATE_WALKING);
-	this->detector = new CDetector(x - KOOPAS_SET_DETECTOR_X, y);
-	scene->AddObject(detector, ADD_OBJECT_MODE_1);
+	this->koopasType = koopasType;
+	ay = KOOPAS_GRAVITY;
+	isShaking = false;
+	isOnPlatform = false;
+	isHeld = false;
+	defend_start = 0;
+	detector = NULL;
+	if (koopasType != PARA_KOOPAS)
+	{
+		SetState(KOOPAS_STATE_WALKING);
+		if (koopasType == RED_KOOPA)
+		{
+			detector = new CDetector(x - KOOPAS_SET_DETECTOR_X, y);
+			CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+			scene->AddObject(detector, ADD_OBJECT_MODE_1);
+		}
+	}
+	else
+	{
+		SetState(KOOPAS_STATE_FLYING);
+	}
 }
 
 void CKoopas::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	if (state == KOOPAS_STATE_WALKING)
+	if (state == KOOPAS_STATE_WALKING || state == KOOPAS_STATE_FLYING)
 	{
 		l = x - KOOPAS_BBOX_WIDTH / 2;
-		t = y - KOOPAS_BBOX_HEIGHT / 2;
+		t = y - KOOPAS_BBOX_HEIGHT / 2.1f;
 		r = l + KOOPAS_BBOX_WIDTH;
 		b = t + KOOPAS_BBOX_HEIGHT;
 	}
@@ -49,14 +57,17 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vy += ay * dt;
 
-	detector->SetX(x - KOOPAS_SET_DETECTOR_X + ((abs(vx) + vx) / (2 * abs(vx))) * 2 * KOOPAS_SET_DETECTOR_X);
-
-	if (state == KOOPAS_STATE_WALKING && isOnPlatform)
+	if (koopasType == RED_KOOPA)
 	{
-		if (detector->GetY() > y) {
+		detector->SetX(x - KOOPAS_SET_DETECTOR_X + ((abs(vx) + vx) / (2 * abs(vx))) * 2 * KOOPAS_SET_DETECTOR_X);
 
-			vx = -vx;
-			detector->SetY(y - 10.0f);
+		if (state == KOOPAS_STATE_WALKING && isOnPlatform)
+		{
+			if (detector->GetY() > y) {
+
+				vx = -vx;
+				detector->SetY(y - 10.0f);
+			}
 		}
 	}
 
@@ -66,20 +77,20 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		SetState(KOOPAS_STATE_SHAKING);
 	}
 
-	if (defend_start > 0)	// Koopa starts hiding in the shell
+	if (defend_start > 0)	// Koopas starts hiding in the shell
 	{
-		if (GetTickCount64() - defend_start <= KOOPAS_DEFEND_TIMEOUT)	// Koopa still hides in the shell
+		if (GetTickCount64() - defend_start <= KOOPAS_DEFEND_TIMEOUT)	// Koopas still hides in the shell
 		{
 			if (!mario->GetIsHolding() && isHeld)
 			{
 				mario->StartKicking();
 				SetState(KOOPAS_STATE_ROLLING);
 				isHeld = false;
-				DebugOut(L">>> Drop koopa shell >>> \n");
+				//DebugOut(L">>> Drop koopa shell >>> \n");
 			}
 		}
 
-		else	// Koopa comes out of the shell
+		else	// Koopas comes out of the shell
 		{
 			if (mario->GetIsHolding())
 			{
@@ -91,7 +102,10 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			isShaking = false;
 			SetState(KOOPAS_STATE_WALKING);
 			y -= 10.0f;
-			detector->SetY(y - 10.0f);
+
+			if (koopasType == RED_KOOPA)
+				detector->SetY(y - 10.0f);
+
 			defend_start = 0;
 			if (isHeld)
 				isHeld = false;
@@ -185,9 +199,10 @@ void CKoopas::OnCollisionWithMysbox(LPCOLLISIONEVENT e)
 	}
 }
 
-void CKoopas::Render()
+int CKoopas::GetAniIdRedKoopas()
 {
 	int aniId = -1;
+
 	if (state == KOOPAS_STATE_WALKING)
 	{
 		if (vx <= 0)
@@ -195,9 +210,9 @@ void CKoopas::Render()
 		else
 			aniId = ID_ANI_RED_KOOPA_WALKING_RIGHT;
 	}
-	else if (state == KOOPAS_STATE_HIDE)
+	else if (state == KOOPAS_STATE_HIDING)
 	{
-		aniId = ID_ANI_RED_KOOPA_HIDE;
+		aniId = ID_ANI_RED_KOOPA_HIDING;
 	}
 	else if (state == KOOPAS_STATE_SHAKING)
 	{
@@ -207,8 +222,53 @@ void CKoopas::Render()
 	{
 		aniId = ID_ANI_RED_KOOPA_ROLLING;
 	}
+	return aniId;
+}
+int CKoopas::GetAniIdGreenKoopas()
+{
+	int aniId = -1;
+
+	if (state == KOOPAS_STATE_FLYING)
+	{
+		if (vx <= 0)
+			aniId = ID_ANI_PARA_KOOPAS_FLYING_LEFT;
+		else
+			aniId = ID_ANI_PARA_KOOPAS_FLYING_RIGHT;
+	}
+	else if (state == KOOPAS_STATE_WALKING)
+	{
+		if (vx <= 0)
+			aniId = ID_ANI_GREEN_KOOPA_WALKING_LEFT;
+		else
+			aniId = ID_ANI_GREEN_KOOPA_WALKING_RIGHT;
+	}
+	else if (state == KOOPAS_STATE_HIDING)
+	{
+		aniId = ID_ANI_GREEN_KOOPA_HIDING;
+	}
+	else if (state == KOOPAS_STATE_SHAKING)
+	{
+		aniId = ID_ANI_GREEN_KOOPA_SHAKING;
+	}
+	else if (state == KOOPAS_STATE_ROLLING)
+	{
+		aniId = ID_ANI_GREEN_KOOPA_ROLLING;
+	}
+	//DebugOut(L"%d\n", aniId);
+	return aniId;
+}
+
+void CKoopas::Render()
+{
+	int aniId = -1;
+
+	if (koopasType == RED_KOOPA)
+		aniId = GetAniIdRedKoopas();
+	else
+		aniId = GetAniIdGreenKoopas();
+
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CKoopas::SetState(int state)
@@ -217,9 +277,8 @@ void CKoopas::SetState(int state)
 	CGameObject::SetState(state);
 	switch (state)
 	{
-	case KOOPAS_STATE_HIDE:
+	case KOOPAS_STATE_HIDING:
 		vx = 0;
-		ax = 0;
 		defend_start = GetTickCount64();
 		break;
 	case KOOPAS_STATE_ROLLING:
@@ -229,6 +288,9 @@ void CKoopas::SetState(int state)
 		defend_start = 0;
 		break;
 	case KOOPAS_STATE_WALKING:
+		vx = -KOOPAS_WALKING_SPEED;
+		break;
+	case KOOPAS_STATE_FLYING:
 		vx = -KOOPAS_WALKING_SPEED;
 		break;
 	}

@@ -2,7 +2,7 @@
 
 CGoomba::CGoomba(float x, float y, int goomba_type) :CGameObject(x, y)
 {
-	this->goomba_type = goomba_type;
+	this->goombaType = goomba_type;
 	this->ax = 0;
 	this->ay = GOOMBA_GRAVITY;
 	this->vx = -GOOMBA_WALKING_SPEED;
@@ -178,7 +178,7 @@ int CGoomba::GetAniGoombaRed()
 void CGoomba::Render()
 {
 	int aniId = GetAniGoombaYellow();
-	if (goomba_type == GOOMBA_TYPE_RED)
+	if (goombaType == GOOMBA_TYPE_RED)
 	{
 		aniId = GetAniGoombaRed();
 	}

@@ -35,7 +35,7 @@ class CGoomba : public CGameObject
 protected:
 	float ax;
 	float ay;
-	int goomba_type;
+	int goombaType;
 	bool isOnPlatform;
 	bool Wing;
 	bool IsJump;
@@ -65,7 +65,7 @@ protected:
 public:
 	CGoomba(float x, float y, int goomba_type);
 	virtual void SetState(int state);
-	int GetGoombaType() { return goomba_type; }
+	int GetGoombaType() { return goombaType; }
 	bool GetStateWing() { return Wing; }
 	void SetStateWing(bool Wing) { this->Wing = Wing; }
 };
