@@ -62,6 +62,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	isOnPlatform = false;
 
+	DebugOutTitle(L"MaxVX =  %f", vx);
+
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -91,6 +93,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPortal(e);
 	else if (dynamic_cast<CMysBox*>(e->obj))
 		OnCollisionWithMysBox(e);
+	else if (dynamic_cast<CLeaf*>(e->obj))
+		OnCollisionWithLeaf(e);
 	else if (dynamic_cast<CMushroom*>(e->obj))
 		OnCollisionWithMushroom(e);
 	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
@@ -252,10 +256,17 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 	coin++;
 }
 
+void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
+{
+	SetPosition(x, y - 16);
+	SetLevel(MARIO_LEVEL_TAIL);
+	e->obj->Delete();
+}
+
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
-	this->SetPosition(x, y - 16);
-	this->SetLevel(MARIO_LEVEL_BIG);
+	SetPosition(x, y - 16);
+	SetLevel(MARIO_LEVEL_BIG);
 	e->obj->Delete();
 }
 
@@ -288,7 +299,7 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 				else
 				{
 					item = new CLeaf(mysbox->GetX(), mysbox->GetY());
-					scene->AddObject(item, mysbox->GetIndex());
+					scene->AddObject(item, ADD_OBJECT_BACK);
 				}
 				break;
 			}
@@ -335,7 +346,7 @@ int CMario::GetAniIdTail()
 			if (abs(ax) == MARIO_ACCEL_RUN_X)
 			{
 				if (nx > 0)
-					aniId = ID_ANI_MARIO_BIG_JUMP_RUN_RIGHT;
+					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
 				else
 					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
 			}
@@ -662,7 +673,7 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 
-	DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f", coin, x, y);
+	//DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f", coin, x, y);
 }
 
 void CMario::SetState(int state)
@@ -796,7 +807,6 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 		right = left + MARIO_SMALL_BBOX_WIDTH;
 		bottom = top + MARIO_SMALL_BBOX_HEIGHT;
 	}
-
 }
 
 void CMario::SetLevel(int l)

@@ -8,8 +8,8 @@
 #include "Goomba.h"
 //#include "Koopas.h"
 
-#define ADD_OBJECT_MODE_0	0		//push begin
-#define ADD_OBJECT_MODE_1	1		//push back
+#define ADD_OBJECT_BEGIN	0	//push begin
+#define ADD_OBJECT_BACK		1	//push back
 
 class CPlayScene : public CScene
 {
@@ -30,13 +30,13 @@ protected:
 public:
 	CPlayScene(int id, LPCWSTR filePath);	//init function
 
-	void AddObject(LPGAMEOBJECT object, int index = 0)
+	void AddObject(LPGAMEOBJECT object, int index = ADD_OBJECT_BEGIN)
 	{
-		if (index == 0)
+		if (index == ADD_OBJECT_BEGIN)
 			objects.insert(objects.begin(), object);
-		else if (index == 1)
+		else if (index == ADD_OBJECT_BACK)
 			objects.push_back(object);
-		else if (index > 1)
+		else
 			objects.insert(objects.begin() + index, object);
 	}
 

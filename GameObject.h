@@ -50,11 +50,6 @@ public:
 
 	void SetX(float x) { this->x = x; }
 	void SetY(float y) { this->y = y; }
-	void SetXY(float x, float y)
-	{
-		this->x = x;
-		this->y = y;
-	}
 	void SetVX(float x) { this->x = vx; }
 	void SetVY(float y) { this->y = vy; }
 	void SetNX(int nx) { this->nx = nx; }

@@ -18,7 +18,7 @@ CKoopas::CKoopas(float x, float y, int koopasType) :CGameObject(x, y)
 		{
 			detector = new CDetector(x - KOOPAS_SET_DETECTOR_X, y);
 			CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-			scene->AddObject(detector, ADD_OBJECT_MODE_1);
+			scene->AddObject(detector, ADD_OBJECT_BACK);
 		}
 	}
 	else
@@ -45,7 +45,7 @@ void CKoopas::resetKoopasState()
 
 	if (koopasType == RED_KOOPA)
 	{
-		detector->SetXY(x - KOOPAS_SET_DETECTOR_X, y);
+		detector->SetPosition(x - KOOPAS_SET_DETECTOR_X, y);
 	}
 }
 
