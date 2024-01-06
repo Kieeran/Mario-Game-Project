@@ -5,7 +5,7 @@ CMysBox::CMysBox(float x, float y, int itemType, int index) :CGameObject()
 {
 	this->ay = MYSBOX_GRAVITY;
 	this->itemType = itemType;
-	SetState(MYSBOX_STATE_CARRY_OBJECT);
+	SetState(MYSBOX_STATE_CARRY_ITEMS);
 	this->Unbox = true;
 	this->Origin_Y = y;
 	this->index = index;

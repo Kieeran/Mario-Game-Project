@@ -267,25 +267,29 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 	//jump and hit the bottom of the box
 	if (e->ny > 0)
 	{
-		if (mysbox->GetState() == MYSBOX_STATE_CARRY_OBJECT)
+		if (mysbox->GetState() == MYSBOX_STATE_CARRY_ITEMS)
 		{
 			mysbox->SetState(MYSBOX_STATE_EMPTY);
 			int itemType = mysbox->GetItemType();
 			CGameObject* item = NULL;
 			switch (itemType)
 			{
-			case ITEM_TYPE_COIN:
+			case COIN:
 				item = new CCoin(mysbox->GetX(), mysbox->GetY(), HIDDEN_COIN_TYPE);
 				scene->AddObject(item);
 				coin++;
 				break;
-			case ITEM_TYPE_MUSHROOM:
-				item = new CMushroom(mysbox->GetX(), mysbox->GetY());
-				scene->AddObject(item, mysbox->GetIndex());
-				break;
-			case ITEM_TYPE_LEAF:
-				item = new CLeaf(mysbox->GetX(), mysbox->GetY());
-				scene->AddObject(item, mysbox->GetIndex());
+			case ITEMS:
+				if (level == MARIO_LEVEL_SMALL)
+				{
+					item = new CMushroom(mysbox->GetX(), mysbox->GetY());
+					scene->AddObject(item, mysbox->GetIndex());
+				}
+				else
+				{
+					item = new CLeaf(mysbox->GetX(), mysbox->GetY());
+					scene->AddObject(item, mysbox->GetIndex());
+				}
 				break;
 			}
 		}

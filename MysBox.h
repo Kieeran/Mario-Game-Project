@@ -9,17 +9,15 @@
 #define MYSBOX_BOUCING_SPEED	0.1f
 #define MYSBOX_GRAVITY	0.001f
 
-#define	ITEM_TYPE_UNKNOWN  -1
-#define	ITEM_TYPE_COIN		1
-#define	ITEM_TYPE_MUSHROOM	2
-#define	ITEM_TYPE_LEAF		3
+#define	COIN	1
+#define	ITEMS	2
 
 #define MYSBOX_WIDTH 16
 #define MYSBOX_BBOX_WIDTH 16
 #define MYSBOX_BBOX_HEIGHT 16
 
 #define MYSBOX_STATE_EMPTY			100
-#define MYSBOX_STATE_CARRY_OBJECT	200
+#define MYSBOX_STATE_CARRY_ITEMS	200
 class CMysBox : public CGameObject
 {
 protected:
