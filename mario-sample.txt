@@ -1,15 +1,14 @@
 [SETTINGS]
-start	2
+start	3
 width	320
 height	270
 
 #id	type	file
-# type: 0: intro, 1: play scene 
+# type: 1: intro, 2: map, 3: play scene 
 [SCENES]
-0	intro.txt
-1	scene01.txt
-2	scene02.txt
-3	scene03.txt
+1	Resource\Intro\intro.txt		1	
+2	Resource\WorldMap\worldmap.txt	2
+3	Resource\World1-1\world1-1.txt	3
 
 # id	file 
 [TEXTURES]

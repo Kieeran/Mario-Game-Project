@@ -43,8 +43,14 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
 
-	vy += ay * dt;
 	vx += ax * dt;
+	vy += ay * dt;
+
+	//*
+	if (!isOnPlatform)
+	{
+		ax = 0;
+	}
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
@@ -302,7 +308,6 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 				break;
 			}
 		}
-
 	}
 }
 
@@ -553,7 +558,8 @@ int CMario::GetAniIdSmall()
 	{
 		if (!isHolding)
 		{
-			if (abs(ax) == MARIO_ACCEL_RUN_X)
+			//if (abs(ax) == MARIO_ACCEL_RUN_X)
+			if (abs(vx) >= MAX_MARIO_RUNNING_SPEED)
 			{
 				if (nx > 0)
 					aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
@@ -577,7 +583,7 @@ int CMario::GetAniIdSmall()
 		}
 
 	}
-	else
+	else	// Is on platform
 	{
 		if (isSitting)
 		{
@@ -601,18 +607,22 @@ int CMario::GetAniIdSmall()
 				{
 					if (ax < 0)
 						aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
-					else if (ax == MARIO_ACCEL_RUN_X)
+					//else if (ax == MARIO_ACCEL_RUN_X)
+					else if (abs(vx) >= MAX_MARIO_RUNNING_SPEED)
 						aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
-					else if (ax == MARIO_ACCEL_WALK_X)
+					//else if (ax == MARIO_ACCEL_WALK_X)
+					else
 						aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
 				}
 				else // vx < 0
 				{
 					if (ax > 0)
 						aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
-					else if (ax == -MARIO_ACCEL_RUN_X)
+					//else if (ax == -MARIO_ACCEL_RUN_X)
+					else if (abs(vx) >= MAX_MARIO_RUNNING_SPEED)
 						aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
-					else if (ax == -MARIO_ACCEL_WALK_X)
+					//else if (ax == -MARIO_ACCEL_WALK_X)
+					else
 						aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 				}
 			}
@@ -670,7 +680,7 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 
-	DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f \t VX =  %f", coin, x, y, vx);
+	DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f \t VX =  %f \t VY = %f", coin, x, y, vx, vy);
 }
 
 void CMario::SetState(int state)

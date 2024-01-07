@@ -1,0 +1,30 @@
+# list of object assets to load in this scene
+[ASSETS]
+texts\mario.txt
+texts\Coin.txt
+texts\Brick.txt
+texts\Goomba.txt
+texts\Cloud.txt
+texts\Ground.txt
+texts\BigGrass.txt
+texts\SmallGrass.txt
+texts\MysBox.txt
+texts\Boxes.txt
+texts\Pipe.txt
+texts\Hud.txt
+texts\Mushroom.txt
+texts\PiranhaPlant.txt
+texts\FireBullet.txt
+texts\Koopas.txt
+texts\Leaf.txt
+texts\Detector.txt
+texts\HardBlock.txt
+texts\BlackObject.txt
+texts\Card.txt
+
+[OBJECTS]
+# type	x	y	extra_settings per object type
+# See OBJECT_TYPE constants in AssetIDs.h
+
+
+
