@@ -6,9 +6,9 @@ height	270
 #id	type	file
 # type: 1: intro, 2: map, 3: play scene 
 [SCENES]
-1	Resources\Intro\intro.txt	1	
-2	Resources\WorldMap\worldmap.txt	2
-3	Resources\World1-1\world1-1.txt	3
+1	Resources\Intro\Intro.txt		1	
+2	Resources\WorldMap\Worldmap.txt	2
+3	Resources\World1-1\World1-1.txt	3
 
 # id	file 
 [TEXTURES]
@@ -19,3 +19,4 @@ height	270
 22	textures\tileset.png
 23	textures\hud.png
 24	textures\projectiles.png
+25	textures\titlescreen.png

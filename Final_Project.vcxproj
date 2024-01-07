@@ -143,6 +143,7 @@
     <ClInclude Include="Cloud.h" />
     <ClInclude Include="Coin.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Curtain.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Detector.h" />
     <ClInclude Include="FireBullet.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Cloud.cpp" />
     <ClCompile Include="Coin.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Curtain.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Detector.cpp" />
     <ClCompile Include="FireBullet.cpp" />

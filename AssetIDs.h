@@ -4,12 +4,13 @@
 // This file contains all IDs of game assets 
 //
 
-#define ID_TEX_MARIO	0
-#define ID_TEX_ENEMIES	10
-#define ID_TEX_ITEMS	21
-#define ID_TEX_TILESET	22
-#define ID_TEX_HUD		23
-#define	ID_TEX_MISC4	24
+#define ID_TEX_MARIO		0
+#define ID_TEX_ENEMIES		10
+#define ID_TEX_ITEMS		21
+#define ID_TEX_TILESET		22
+#define ID_TEX_HUD			23
+#define	ID_TEX_MISC4		24
+#define	ID_TEX_TITLESCREEN	25
 
 //object type ids: 0 -> 50
 #define OBJECT_TYPE_MARIO			0
@@ -650,3 +651,7 @@
 #define ID_ANI_DETECTOR		100001
 
 #define ID_SPRITE_HUD	111111
+
+//======================================Intro part======================================
+#define ID_SPRITE_CURTAIN	50000
+#define ID_ANI_CURTAIN		50050

@@ -1,8 +1,7 @@
 # list of object assets to load in this scene
 [ASSETS]
+Resources\Intro\Curtain.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # See OBJECT_TYPE constants in AssetIDs.h
-
-
 
