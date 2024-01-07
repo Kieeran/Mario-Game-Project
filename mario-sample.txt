@@ -6,9 +6,9 @@ height	270
 #id	type	file
 # type: 1: intro, 2: map, 3: play scene 
 [SCENES]
-1	Resource\Intro\intro.txt		1	
-2	Resource\WorldMap\worldmap.txt	2
-3	Resource\World1-1\world1-1.txt	3
+1	Resources\Intro\intro.txt	1	
+2	Resources\WorldMap\worldmap.txt	2
+3	Resources\World1-1\world1-1.txt	3
 
 # id	file 
 [TEXTURES]

@@ -1,26 +1,26 @@
 # list of object assets to load in this scene
 [ASSETS]
-texts\mario.txt
-texts\Coin.txt
-texts\Brick.txt
-texts\Goomba.txt
-texts\Cloud.txt
-texts\Ground.txt
-texts\BigGrass.txt
-texts\SmallGrass.txt
-texts\MysBox.txt
-texts\Boxes.txt
-texts\Pipe.txt
-texts\Hud.txt
-texts\Mushroom.txt
-texts\PiranhaPlant.txt
-texts\FireBullet.txt
-texts\Koopas.txt
-texts\Leaf.txt
-texts\Detector.txt
-texts\HardBlock.txt
-texts\BlackObject.txt
-texts\Card.txt
+Resources\World1-1\mario.txt
+Resources\World1-1\Coin.txt
+Resources\World1-1\Brick.txt
+Resources\World1-1\Goomba.txt
+Resources\World1-1\Cloud.txt
+Resources\World1-1\Ground.txt
+Resources\World1-1\BigGrass.txt
+Resources\World1-1\SmallGrass.txt
+Resources\World1-1\MysBox.txt
+Resources\World1-1\Boxes.txt
+Resources\World1-1\Pipe.txt
+Resources\World1-1\Hud.txt
+Resources\World1-1\Mushroom.txt
+Resources\World1-1\PiranhaPlant.txt
+Resources\World1-1\FireBullet.txt
+Resources\World1-1\Koopas.txt
+Resources\World1-1\Leaf.txt
+Resources\World1-1\Detector.txt
+Resources\World1-1\HardBlock.txt
+Resources\World1-1\BlackObject.txt
+Resources\World1-1\Card.txt
 
 [OBJECTS]
 # type	x	y	extra_settings per object type
