@@ -30,7 +30,7 @@ protected:
 public:
 	CIntroScene(int id, LPCWSTR filePath);	//init function
 
-	void AddObject(LPGAMEOBJECT object, int index = ADD_OBJECT_BEGIN)
+	/*void AddObject(LPGAMEOBJECT object, int index = ADD_OBJECT_BEGIN)
 	{
 		if (index == ADD_OBJECT_BEGIN)
 			objects.insert(objects.begin(), object);
@@ -38,7 +38,7 @@ public:
 			objects.push_back(object);
 		else
 			objects.insert(objects.begin() + index, object);
-	}
+	}*/
 
 	virtual void Load();
 	virtual void Update(DWORD dt);

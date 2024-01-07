@@ -162,6 +162,9 @@
     <ClInclude Include="IntroScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="IntroKeyEventHandler.h">
+      <Filter>Header Files\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -279,6 +282,9 @@
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
     <ClCompile Include="IntroScene.cpp">
+      <Filter>Header Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroKeyEventHandler.cpp">
       <Filter>Header Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>

@@ -146,6 +146,7 @@
     <ClInclude Include="debug.h" />
     <ClInclude Include="Detector.h" />
     <ClInclude Include="FireBullet.h" />
+    <ClInclude Include="IntroKeyEventHandler.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="PiranhaPlant.h" />
     <ClInclude Include="Game.h" />
@@ -186,6 +187,7 @@
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Detector.cpp" />
     <ClCompile Include="FireBullet.cpp" />
+    <ClCompile Include="IntroKeyEventHandler.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="PiranhaPlant.cpp" />
     <ClCompile Include="Game.cpp" />
