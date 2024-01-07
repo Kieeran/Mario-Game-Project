@@ -62,8 +62,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	isOnPlatform = false;
 
-	DebugOutTitle(L"MaxVX =  %f", vx);
-
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -635,7 +633,6 @@ int CMario::GetAniIdSmall()
 						aniId = ID_ANI_MARIO_SMALL_HOLD_RUN_LEFT;
 				}
 			}
-
 		}
 	}
 
@@ -673,7 +670,7 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 
-	//DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f", coin, x, y);
+	DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f \t VX =  %f", coin, x, y, vx);
 }
 
 void CMario::SetState(int state)
@@ -685,28 +682,28 @@ void CMario::SetState(int state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
-		maxVx = MARIO_RUNNING_SPEED;
+		maxVx = MAX_MARIO_RUNNING_SPEED;
 		ax = MARIO_ACCEL_RUN_X;
 		isRunning = true;
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
-		maxVx = -MARIO_RUNNING_SPEED;
+		maxVx = -MAX_MARIO_RUNNING_SPEED;
 		ax = -MARIO_ACCEL_RUN_X;
 		isRunning = true;
 		nx = -1;
 		break;
 	case MARIO_STATE_WALKING_RIGHT:
 		if (isSitting) break;
-		maxVx = MARIO_WALKING_SPEED;
+		maxVx = MAX_MARIO_WALKING_SPEED;
 		ax = MARIO_ACCEL_WALK_X;
 		isRunning = false;
 		nx = 1;
 		break;
 	case MARIO_STATE_WALKING_LEFT:
 		if (isSitting) break;
-		maxVx = -MARIO_WALKING_SPEED;
+		maxVx = -MAX_MARIO_WALKING_SPEED;
 		ax = -MARIO_ACCEL_WALK_X;
 		isRunning = false;
 		nx = -1;
@@ -715,7 +712,7 @@ void CMario::SetState(int state)
 		if (isSitting) break;
 		if (isOnPlatform)
 		{
-			if (abs(this->vx) == MARIO_RUNNING_SPEED)
+			if (abs(this->vx) == MAX_MARIO_RUNNING_SPEED)
 				vy = -MARIO_JUMP_RUN_SPEED_Y;
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
