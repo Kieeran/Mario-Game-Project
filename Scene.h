@@ -2,6 +2,9 @@
 
 #include "KeyEventHandler.h"
 
+#define ADD_OBJECT_BEGIN	0	//push begin
+#define ADD_OBJECT_BACK		1	//push back
+
 /*
 *  Abstract class for a game scene
 */

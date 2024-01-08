@@ -8,6 +8,7 @@
 #include "Animations.h"
 #include "PlayScene.h"
 #include "IntroScene.h"
+#include "WorldMapScene.h"
 
 CGame* CGame::__instance = NULL;
 
@@ -462,12 +463,12 @@ void CGame::_ParseSection_SCENES(string line)
 	LPSCENE scene;
 	switch (type) {
 	case TYPE_WORLD_INTRO:
-		/*scene = new CIntroScene(id, path);
-		scenes[id] = scene;*/
+		scene = new CIntroScene(id, path);
+		scenes[id] = scene;
 		break;
 	case TYPE_WORLD_MAP:
-		/*scene = new CWorldMapScene(id, path);
-		scenes[id] = scene;*/
+		scene = new CWorldMapScene(id, path);
+		scenes[id] = scene;
 		break;
 	case TYPE_WORLD_PLAY:
 		scene = new CPlayScene(id, path);
@@ -545,7 +546,6 @@ void CGame::InitiateSwitchScene(int scene_id)
 	next_scene = scene_id;
 }
 
-
 void CGame::_ParseSection_TEXTURES(string line)
 {
 	vector<string> tokens = split(line);
@@ -557,7 +557,6 @@ void CGame::_ParseSection_TEXTURES(string line)
 
 	CTextures::GetInstance()->Add(texID, path.c_str());
 }
-
 
 CGame::~CGame()
 {
@@ -573,4 +572,3 @@ CGame* CGame::GetInstance()
 	if (__instance == NULL) __instance = new CGame();
 	return __instance;
 }
-

@@ -8,9 +8,6 @@
 #include "Goomba.h"
 //#include "Koopas.h"
 
-#define ADD_OBJECT_BEGIN	0	//push begin
-#define ADD_OBJECT_BACK		1	//push back
-
 class CIntroScene : public CScene
 {
 protected:

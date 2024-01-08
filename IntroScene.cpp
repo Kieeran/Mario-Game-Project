@@ -24,6 +24,7 @@
 #include "HardBlock.h"
 #include "BlackObject.h"
 #include "Card.h"
+#include "Curtain.h"
 
 #include "Hud.h"
 
@@ -120,6 +121,7 @@ void CIntroScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
+	case OBJECT_TYPE_CURTAIN: obj = new CCurtain(x, y); break;
 		//case OBJECT_TYPE_MARIO:
 		//	if (player != NULL)
 		//	{
@@ -332,20 +334,7 @@ void CIntroScene::Update(DWORD dt)
 		objects[i]->Update(dt, &coObjects);
 	}
 
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
-
-	// Update camera to follow mario
-	float cx, cy;
-	player->GetPosition(cx, cy);
-
-	CGame* game = CGame::GetInstance();
-	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 2;
-
-	if (cx < 0) cx = 0;
-
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	CGame::GetInstance()->SetCamPos(-8.0f, -8.0f);
 
 	PurgeDeletedObjects();
 }

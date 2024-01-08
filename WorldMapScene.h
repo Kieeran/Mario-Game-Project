@@ -8,10 +8,7 @@
 #include "Goomba.h"
 //#include "Koopas.h"
 
-#define ADD_OBJECT_BEGIN	0	//push begin
-#define ADD_OBJECT_BACK		1	//push back
-
-class CPlayScene : public CScene
+class CWorldMapScene : public CScene
 {
 protected:
 	// A play scene has to have player, right? 
@@ -28,7 +25,7 @@ protected:
 	void LoadAssets(LPCWSTR assetFile);
 
 public:
-	CPlayScene(int id, LPCWSTR filePath);	//init function
+	CWorldMapScene(int id, LPCWSTR filePath);	//init function
 
 	void AddObject(LPGAMEOBJECT object, int index = ADD_OBJECT_BEGIN)
 	{
@@ -53,4 +50,4 @@ public:
 	static bool IsGameObjectDeleted(const LPGAMEOBJECT& o);
 };
 
-typedef CPlayScene* LPPLAYSCENE;
+typedef CWorldMapScene* LPWORLDMAPSCENE;

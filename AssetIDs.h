@@ -31,6 +31,7 @@
 #define OBJECT_TYPE_HARDBLOCK		15
 #define OBJECT_TYPE_BLACKBACKGROUND	16
 #define OBJECT_TYPE_CARD			17
+#define OBJECT_TYPE_CURTAIN			18
 
 #define OBJECT_TYPE_PORTAL		50
 
@@ -655,3 +656,6 @@
 //======================================Intro part======================================
 #define ID_SPRITE_CURTAIN	50000
 #define ID_ANI_CURTAIN		50050
+
+#define ID_SPRITE_MAP		50100
+#define ID_ANI_MAP			50150

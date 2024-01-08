@@ -5,3 +5,5 @@ Resources\Intro\Curtain.txt
 # type	x	y	extra_settings per object type
 # See OBJECT_TYPE constants in AssetIDs.h
 
+# Curtain
+18	100	100
