@@ -174,6 +174,9 @@
     <ClInclude Include="WorldMapScene.h">
       <Filter>Header Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -304,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="WorldMapScene.cpp">
       <Filter>Header Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

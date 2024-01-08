@@ -11,6 +11,7 @@
 #define ID_TEX_HUD			23
 #define	ID_TEX_MISC4		24
 #define	ID_TEX_TITLESCREEN	25
+#define	ID_TEX_MAP			26
 
 //object type ids: 0 -> 50
 #define OBJECT_TYPE_MARIO			0
@@ -32,6 +33,7 @@
 #define OBJECT_TYPE_BLACKBACKGROUND	16
 #define OBJECT_TYPE_CARD			17
 #define OBJECT_TYPE_CURTAIN			18
+#define OBJECT_TYPE_MAP				19
 
 #define OBJECT_TYPE_PORTAL		50
 

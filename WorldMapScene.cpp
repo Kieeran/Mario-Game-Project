@@ -24,6 +24,7 @@
 #include "HardBlock.h"
 #include "BlackObject.h"
 #include "Card.h"
+#include "Map.h"
 
 #include "Hud.h"
 
@@ -120,6 +121,7 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
+	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
 		//case OBJECT_TYPE_MARIO:
 		//	if (player != NULL)
 		//	{
@@ -342,6 +344,11 @@ void CWorldMapScene::Update(DWORD dt)
 
 void CWorldMapScene::Render()
 {
+	CGame* g = CGame::GetInstance();
+	ID3D10RenderTargetView* pRenderTargetView = g->GetRenderTargetView();
+	ID3D10Device* pD3DDevice = g->GetDirect3DDevice();
+	pD3DDevice->ClearRenderTargetView(pRenderTargetView, D3DXCOLOR(0.0f / 255, 0.0f / 255, 0.0f / 255, 0.0f));
+	
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

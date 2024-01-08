@@ -4,3 +4,4 @@ Resources\WorldMap\Map.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # See OBJECT_TYPE constants in AssetIDs.h
+19	153	100
