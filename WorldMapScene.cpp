@@ -25,6 +25,7 @@
 #include "BlackObject.h"
 #include "Card.h"
 #include "Map.h"
+#include "DancingShrub.h"
 
 #include "Hud.h"
 
@@ -122,6 +123,7 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
+	case OBJECT_TYPE_DANCING_SHRUB: obj = new CDancingShrub(x, y); break;
 		//case OBJECT_TYPE_MARIO:
 		//	if (player != NULL)
 		//	{

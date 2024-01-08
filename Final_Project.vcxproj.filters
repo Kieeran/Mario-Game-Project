@@ -177,6 +177,9 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
+    <ClInclude Include="DancingShrub.h">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -309,6 +312,9 @@
       <Filter>Header Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
+      <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DancingShrub.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClCompile>
   </ItemGroup>
