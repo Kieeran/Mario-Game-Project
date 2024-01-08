@@ -124,6 +124,8 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
 	case OBJECT_TYPE_DANCING_SHRUB: obj = new CDancingShrub(x, y); break;
+	case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
+
 		//case OBJECT_TYPE_MARIO:
 		//	if (player != NULL)
 		//	{

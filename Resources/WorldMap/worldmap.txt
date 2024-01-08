@@ -2,6 +2,7 @@
 [ASSETS]
 Resources\WorldMap\Map.txt
 Resources\WorldMap\DancingShrub.txt
+Resources\World1-1\Hud.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # See OBJECT_TYPE constants in AssetIDs.h
@@ -74,3 +75,6 @@ Resources\WorldMap\DancingShrub.txt
 20	260	124
 20	260	140
 20	260	156
+
+# Hud
+12	153	203

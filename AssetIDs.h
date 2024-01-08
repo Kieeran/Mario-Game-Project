@@ -650,12 +650,6 @@
 #define ID_SPRITE_MUSHROOM_CARD	(ID_SPRITE_CARD + 2)
 #define ID_SPRITE_FLOWER_CARD	(ID_SPRITE_CARD + 3)
 
-
-#define ID_SPRITE_DETECTOR	100000
-#define ID_ANI_DETECTOR		100001
-
-#define ID_SPRITE_HUD	111111
-
 //======================================Intro part======================================
 #define ID_SPRITE_CURTAIN	50000
 #define ID_ANI_CURTAIN		50050
@@ -670,3 +664,11 @@
 #define ID_SPRITE_DANCING_SHRUB_4	(ID_SPRITE_DANCING_SHRUB + 4)
 
 #define ID_ANI_DANCING_SHRUB		50250
+
+//==================================================================
+
+#define ID_SPRITE_DETECTOR	100000
+#define ID_ANI_DETECTOR		100001
+
+#define ID_SPRITE_HUD	100100
+#define ID_ANI_HUD		100150

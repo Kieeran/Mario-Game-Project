@@ -3,8 +3,7 @@
 #include "GameObject.h"
 #include "Animation.h"
 #include "Animations.h"
-
-#define ID_ANI_HUD 11110
+#include "AssetIDs.h"
 
 class CHud : public CGameObject
 {
