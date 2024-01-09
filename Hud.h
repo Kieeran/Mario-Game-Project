@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "Animations.h"
 #include "AssetIDs.h"
+#include "string"
 
 #define ID_SPRITE_HUD	100100
 #define ID_ANI_HUD		100150
@@ -30,6 +31,24 @@
 #define ID_ANI_NUM_8		(ID_ANI_NUM_0 + 8)
 #define ID_ANI_NUM_9		(ID_ANI_NUM_0 + 9)
 
+#define TIME_DISPLAY_X_COORD	12.0f
+#define TIME_DISPLAY_Y_COORD	5.0f
+#define TIME_DISPLAY_WIDTH	3
+
+#define SCORE_DISPLAY_X_COORD	-60.0f
+#define SCORE_DISPLAY_Y_COORD	5.0f
+#define SCORE_DISPLAY_WIDTH	7	
+
+#define LIVES_DISPLAY_X_COORD	-75.0f
+#define LIVES_DISPLAY_Y_COORD	5.0f
+#define LIVES_DISPLAY	1
+
+#define COIN_DISPLAY_X_COORD	20.0f
+#define COIN_DISPLAY_Y_COORD	-3.0f
+#define COIN_DISPLAY	2
+
+#define NUMBER_SIZE		8.0f
+
 class CHud : public CGameObject
 {
 public:
@@ -39,4 +58,8 @@ public:
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 
 	void DrawNumber(int num, float x, float y);
+	void DisplayTime(int num);
+	void DisplayScore(int num);
+	void DisplayLives(int num);
+	void DisplayCoin(int num);
 };
