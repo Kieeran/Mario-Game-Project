@@ -1,5 +1,22 @@
 #include "Hud.h"
 
+CHud::CHud(float x, float y) : CGameObject(x, y)
+{
+	//CGame::GetInstance()->GetCamPos(x, y);
+	y += 0;
+}
+
+void CHud::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+
+	CGame::GetInstance()->GetCamPos(x, y);
+	x += 151;
+	y += 204;
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
+}
+
 void CHud::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();

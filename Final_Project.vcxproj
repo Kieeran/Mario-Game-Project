@@ -145,6 +145,7 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Curtain.h" />
     <ClInclude Include="DancingShrub.h" />
+    <ClInclude Include="DataGame.h" />
     <ClInclude Include="debug.h" />
     <ClInclude Include="Detector.h" />
     <ClInclude Include="FireBullet.h" />
@@ -191,6 +192,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Curtain.cpp" />
     <ClCompile Include="DancingShrub.cpp" />
+    <ClCompile Include="DataGame.cpp" />
     <ClCompile Include="debug.cpp" />
     <ClCompile Include="Detector.cpp" />
     <ClCompile Include="FireBullet.cpp" />

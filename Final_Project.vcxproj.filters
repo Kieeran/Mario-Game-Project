@@ -180,6 +180,9 @@
     <ClInclude Include="DancingShrub.h">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
+    <ClInclude Include="DataGame.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -316,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="DancingShrub.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="DataGame.cpp">
+      <Filter>Header Files\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

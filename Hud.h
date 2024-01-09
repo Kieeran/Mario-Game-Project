@@ -4,6 +4,8 @@
 #include "Animation.h"
 #include "Animations.h"
 #include "AssetIDs.h"
+#include "Game.h"
+
 #include "string"
 
 #define ID_SPRITE_HUD	100100
@@ -52,9 +54,9 @@
 class CHud : public CGameObject
 {
 public:
-	CHud(float x, float y) : CGameObject(x, y) {}
+	CHud(float x, float y);
 	void Render();
-	void Update(DWORD dt) {}
+	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}
 
 	void DrawNumber(int num, float x, float y);
