@@ -39,16 +39,6 @@ CWorldMapScene::CWorldMapScene(int id, LPCWSTR filePath) :CScene(id, filePath)
 	key_handler = new CWorldMapKeyEventHandler(this);
 }
 
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_ASSETS	1
-#define SCENE_SECTION_OBJECTS	2
-
-#define ASSETS_SECTION_UNKNOWN -1
-#define ASSETS_SECTION_SPRITES 1
-#define ASSETS_SECTION_ANIMATIONS 2
-
-#define MAX_SCENE_LINE 1024
-
 void CWorldMapScene::_ParseSection_SPRITES(string line)
 {
 	vector<string> tokens = split(line);
@@ -357,9 +347,6 @@ void CWorldMapScene::Render()
 		objects[i]->Render();
 }
 
-/*
-*	Clear all objects from this scene
-*/
 void CWorldMapScene::Clear()
 {
 	vector<LPGAMEOBJECT>::iterator it;
@@ -370,12 +357,6 @@ void CWorldMapScene::Clear()
 	objects.clear();
 }
 
-/*
-	Unload scene
-
-	TODO: Beside objects, we need to clean up sprites, animations and textures as well
-
-*/
 void CWorldMapScene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)

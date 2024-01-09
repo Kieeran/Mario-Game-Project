@@ -1,12 +1,12 @@
 [SETTINGS]
-start	3
+start	1
 #width	320
 #height	270
 
 #id	type	file
-# type: 1: intro, 2: map, 3: play scene 
+# type: 1: intro, 2: map, 3: play scene
 [SCENES]
-1	Resources\Intro\Intro.txt		1	
+1	Resources\Intro\Intro.txt	1
 2	Resources\WorldMap\Worldmap.txt	2
 3	Resources\World1-1\World1-1.txt	3
 

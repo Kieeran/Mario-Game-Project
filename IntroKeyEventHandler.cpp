@@ -4,7 +4,7 @@
 #include "Game.h"
 
 #include "Mario.h"
-#include "PlayScene.h"
+#include "IntroScene.h"
 
 void CIntroKeyEventHandler::OnKeyDown(int KeyCode)
 {

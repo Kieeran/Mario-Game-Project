@@ -38,16 +38,6 @@ CIntroScene::CIntroScene(int id, LPCWSTR filePath) :CScene(id, filePath)
 	key_handler = new CIntroKeyEventHandler(this);
 }
 
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_ASSETS	1
-#define SCENE_SECTION_OBJECTS	2
-
-#define ASSETS_SECTION_UNKNOWN -1
-#define ASSETS_SECTION_SPRITES 1
-#define ASSETS_SECTION_ANIMATIONS 2
-
-#define MAX_SCENE_LINE 1024
-
 void CIntroScene::_ParseSection_SPRITES(string line)
 {
 	vector<string> tokens = split(line);
@@ -384,6 +374,6 @@ void CIntroScene::PurgeDeletedObjects()
 	// NOTE: remove_if will swap all deleted items to the end of the vector
 	// then simply trim the vector, this is much more efficient than deleting individual items
 	objects.erase(
-		std::remove_if(objects.begin(), objects.end(), CPlayScene::IsGameObjectDeleted),
+		std::remove_if(objects.begin(), objects.end(), CIntroScene::IsGameObjectDeleted),
 		objects.end());
 }

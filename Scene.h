@@ -5,6 +5,16 @@
 #define ADD_OBJECT_BEGIN	0	//push begin
 #define ADD_OBJECT_BACK		1	//push back
 
+#define SCENE_SECTION_UNKNOWN -1
+#define SCENE_SECTION_ASSETS	1
+#define SCENE_SECTION_OBJECTS	2
+
+#define ASSETS_SECTION_UNKNOWN -1
+#define ASSETS_SECTION_SPRITES 1
+#define ASSETS_SECTION_ANIMATIONS 2
+
+#define MAX_SCENE_LINE 1024
+
 /*
 *  Abstract class for a game scene
 */
@@ -25,7 +35,6 @@ public:
 	virtual void Render() = 0;
 };
 typedef CScene* LPSCENE;
-
 
 class CSceneKeyHandler : public CKeyEventHandler
 {

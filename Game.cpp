@@ -6,6 +6,7 @@
 
 #include "Texture.h"
 #include "Animations.h"
+
 #include "PlayScene.h"
 #include "IntroScene.h"
 #include "WorldMapScene.h"
@@ -527,7 +528,7 @@ void CGame::Load(LPCWSTR gameFile)
 void CGame::SwitchScene()
 {
 	if (next_scene < 0 || next_scene == current_scene) return;
-	DebugOut(L"[INFO] Switching to scene %d %d\n", current_scene, next_scene);
+	DebugOut(L"[INFO] Switching from scene %d to scene %d\n", current_scene, next_scene);
 
 	//scenes[current_scene]->Unload();
 
