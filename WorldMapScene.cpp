@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "AssetIDs.h"
+#include "debug.h"
 
 #include "WorldMapScene.h"
 #include "Utils.h"
@@ -12,6 +13,7 @@
 #include "Card.h"
 #include "Map.h"
 #include "DancingShrub.h"
+#include "WorldMapObjects.h"
 
 #include "Hud.h"
 
@@ -101,35 +103,38 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
 	case OBJECT_TYPE_DANCING_SHRUB: obj = new CDancingShrub(x, y); break;
 	case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
-	case OBJECT_TYPE_MARIO:		// Mario at world map
+	case OBJECT_TYPE_WORLD_MAP_OBJECTS:
 	{
-		if (player != NULL)
-		{
-			//DebugOut(L"[ERROR] MARIO object was created before!\n");
-			return;
-		}
-		/*obj = new CMario(x, y);
-		player = (CMario*)obj;*/
 
-		//DebugOut(L"[INFO] Player object has been created!\n");
+		//	if (player != NULL)
+		//	{
+		//		//DebugOut(L"[ERROR] MARIO object was created before!\n");
+		//		return;
+		//	}
+
+		int objectType = atoi(tokens[3].c_str());
+		obj = new CWorldMapObjects(x, y, objectType);
+
+		if (objectType == MARIO)
+		{
+			player = (CWorldMapObjects*)obj;
+		}
+
 		break;
 	}
 	//case OBJECT_TYPE_PLATFORM:
 	//{
-
 	//	float cell_width = (float)atof(tokens[3].c_str());
 	//	float cell_height = (float)atof(tokens[4].c_str());
 	//	int length = atoi(tokens[5].c_str());
 	//	int sprite_begin = atoi(tokens[6].c_str());
 	//	int sprite_middle = atoi(tokens[7].c_str());
 	//	int sprite_end = atoi(tokens[8].c_str());
-
 	//	obj = new CPlatform(
 	//		x, y,
 	//		cell_width, cell_height, length,
 	//		sprite_begin, sprite_middle, sprite_end
 	//	);
-
 	//	break;
 	//}
 	//case OBJECT_TYPE_PORTAL:

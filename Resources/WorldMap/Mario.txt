@@ -1,7 +1,19 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
-60000	10	10	253	179	26
+# Small Mario
+60201	16	9	29	24	28
+60202	16	49	29	64	28
+
+# Big Mario
+60203	55	6	70	27	28
+60204	55	46	70	67	28
+
+# Tail Mario
+60205	95	5	110	28	28
+60206	95	45	110	68	28
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
-60050	60000	100
+60250	60201	130	60202	130
+60251	60203	150	60204	150
+60252	60205	150	60206	150

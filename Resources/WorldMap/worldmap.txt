@@ -1,8 +1,11 @@
 # list of object assets to load in this scene
 [ASSETS]
-Resources\WorldMap\Map.txt
 Resources\WorldMap\DancingShrub.txt
+Resources\WorldMap\Hammer_Bros.txt
+Resources\WorldMap\Help_Effect.txt
+Resources\WorldMap\Map.txt
 Resources\WorldMap\Mario.txt
+
 Resources\World1-1\Hud.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
@@ -79,3 +82,12 @@ Resources\World1-1\Hud.txt
 
 # Hud
 12	153	203
+
+# Mario world map
+22	62	62	1
+
+# Hammer bros
+22	210	130	2
+
+# Help effect
+22	246	111	3
