@@ -15,6 +15,9 @@ void CIntroKeyEventHandler::OnKeyDown(int KeyCode)
 	case DIK_Q:
 		arrow->SetIsOnePlayer(!arrow->GetIsOnePlayer());
 		break;
+	case DIK_W:
+		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
+		break;
 		//case DIK_DOWN:
 		//	if (!mario->GetIsHolding() && mario->GetState() == MARIO_STATE_IDLE)
 		//		mario->SetState(MARIO_STATE_SIT);
