@@ -178,6 +178,7 @@
     <ClInclude Include="Textures.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="WorldMapKeyEventHandler.h" />
+    <ClInclude Include="WorldMapObjects.h" />
     <ClInclude Include="WorldMapScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +228,7 @@
     <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WorldMapKeyEventHandler.cpp" />
+    <ClCompile Include="WorldMapObjects.cpp" />
     <ClCompile Include="WorldMapScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

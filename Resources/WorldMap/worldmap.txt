@@ -2,6 +2,7 @@
 [ASSETS]
 Resources\WorldMap\Map.txt
 Resources\WorldMap\DancingShrub.txt
+Resources\WorldMap\Mario.txt
 Resources\World1-1\Hud.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type

@@ -22,3 +22,4 @@ start	1
 25	textures\titlescreen.png
 26	textures\map.png
 27	textures\intro_background.png
+28	textures\marioWorldMap.png
