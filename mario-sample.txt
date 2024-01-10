@@ -21,3 +21,4 @@ start	1
 24	textures\projectiles.png
 25	textures\titlescreen.png
 26	textures\map.png
+27	textures\intro_background.png

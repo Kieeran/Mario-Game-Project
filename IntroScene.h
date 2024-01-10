@@ -12,7 +12,7 @@ class CIntroScene : public CScene
 {
 protected:
 	// A play scene has to have player, right? 
-	LPGAMEOBJECT player;
+	LPGAMEOBJECT player = NULL;
 
 	vector<LPGAMEOBJECT> objects;
 

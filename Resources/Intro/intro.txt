@@ -2,12 +2,20 @@
 [ASSETS]
 Resources\Intro\Curtain.txt
 Resources\Intro\Intro_Background.txt
+Resources\Intro\Number_3.txt
+Resources\Intro\Intro_Arrow.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # See OBJECT_TYPE constants in AssetIDs.h
 
 # Intro background
 21	145	108	1
+
+# Number 3
+21	149	115	2
+
+# Arrow
+21	145	160	3
 
 # Curtain
 #18	145	108

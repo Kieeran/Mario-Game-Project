@@ -12,6 +12,7 @@
 #define	ID_TEX_MISC4		24
 #define	ID_TEX_TITLESCREEN	25
 #define	ID_TEX_MAP			26
+#define	ID_TEX_INTRO_BG		27
 
 //object type ids: 0 -> 50
 #define OBJECT_TYPE_MARIO				0
@@ -656,7 +657,23 @@
 #define ID_ANI_CURTAIN		50050
 
 #define ID_SPRITE_INTRO_BACKGROUND	50100
-#define ID_ANI_INTRO_BACKGROUND		50150	
+#define ID_ANI_INTRO_BACKGROUND		50150
+
+#define ID_SPRITE_NUMBER_3			50200
+#define ID_SPRITE_NUMBER_3_1		(ID_SPRITE_NUMBER_3 + 1)
+#define ID_SPRITE_NUMBER_3_2		(ID_SPRITE_NUMBER_3 + 2)
+#define ID_SPRITE_NUMBER_3_3		(ID_SPRITE_NUMBER_3 + 3)
+#define ID_SPRITE_NUMBER_3_4		(ID_SPRITE_NUMBER_3 + 4)
+
+#define ID_ANI_NUMBER_3				50250
+
+#define ID_SPRITE_ARROW	50300	
+#define ID_SPRITE_ARROW_1_PLAYER_GAME	(ID_SPRITE_ARROW + 1)	
+#define ID_SPRITE_ARROW_2_PLAYER_GAME	(ID_SPRITE_ARROW + 2)
+
+#define ID_ANI_ARROW_1_PLAYER_GAME	50351
+#define ID_ANI_ARROW_2_PLAYER_GAME	50352
+
 
 //====================================World map part====================================
 
