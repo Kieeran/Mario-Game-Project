@@ -183,6 +183,9 @@
     <ClInclude Include="DataGame.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
+    <ClInclude Include="IntroObjects.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -322,6 +325,9 @@
     </ClCompile>
     <ClCompile Include="DataGame.cpp">
       <Filter>Header Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroObjects.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

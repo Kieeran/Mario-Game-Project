@@ -35,6 +35,7 @@
 #define OBJECT_TYPE_CURTAIN				18
 #define OBJECT_TYPE_MAP					19
 #define OBJECT_TYPE_DANCING_SHRUB		20
+#define OBJECT_TYPE_INTRO_OBJECTS		21
 
 #define OBJECT_TYPE_PORTAL		50
 
@@ -654,16 +655,21 @@
 #define ID_SPRITE_CURTAIN	50000
 #define ID_ANI_CURTAIN		50050
 
-#define ID_SPRITE_MAP		50100
-#define ID_ANI_MAP			50150
+#define ID_SPRITE_INTRO_BACKGROUND	50100
+#define ID_ANI_INTRO_BACKGROUND		50150	
 
-#define ID_SPRITE_DANCING_SHRUB		50200
+//====================================World map part====================================
+
+#define ID_SPRITE_MAP		60000
+#define ID_ANI_MAP			60050
+
+#define ID_SPRITE_DANCING_SHRUB		60100
 #define ID_SPRITE_DANCING_SHRUB_1	(ID_SPRITE_DANCING_SHRUB + 1)
 #define ID_SPRITE_DANCING_SHRUB_2	(ID_SPRITE_DANCING_SHRUB + 2)
 #define ID_SPRITE_DANCING_SHRUB_3	(ID_SPRITE_DANCING_SHRUB + 3)
 #define ID_SPRITE_DANCING_SHRUB_4	(ID_SPRITE_DANCING_SHRUB + 4)
 
-#define ID_ANI_DANCING_SHRUB		50250
+#define ID_ANI_DANCING_SHRUB		60150
 
 //==================================================================
 

@@ -150,6 +150,7 @@
     <ClInclude Include="Detector.h" />
     <ClInclude Include="FireBullet.h" />
     <ClInclude Include="IntroKeyEventHandler.h" />
+    <ClInclude Include="IntroObjects.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="PiranhaPlant.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="Detector.cpp" />
     <ClCompile Include="FireBullet.cpp" />
     <ClCompile Include="IntroKeyEventHandler.cpp" />
+    <ClCompile Include="IntroObjects.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="PiranhaPlant.cpp" />

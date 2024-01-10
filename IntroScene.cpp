@@ -25,6 +25,7 @@
 #include "BlackObject.h"
 #include "Card.h"
 #include "Curtain.h"
+#include "IntroObjects.h"
 
 #include "Hud.h"
 
@@ -112,6 +113,12 @@ void CIntroScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_CURTAIN: obj = new CCurtain(x, y); break;
+	case OBJECT_TYPE_INTRO_OBJECTS: 
+	{
+		int objectType = atoi(tokens[3].c_str());
+		obj = new CIntroObjects(x, y, objectType); break;
+	}
+		
 		//case OBJECT_TYPE_MARIO:
 		//	if (player != NULL)
 		//	{
@@ -331,6 +338,11 @@ void CIntroScene::Update(DWORD dt)
 
 void CIntroScene::Render()
 {
+	CGame* g = CGame::GetInstance();
+	ID3D10RenderTargetView* pRenderTargetView = g->GetRenderTargetView();
+	ID3D10Device* pD3DDevice = g->GetDirect3DDevice();
+	pD3DDevice->ClearRenderTargetView(pRenderTargetView, D3DXCOLOR(247.0f / 255, 216.0f / 255, 165.0f / 255, 0.0f));
+
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
