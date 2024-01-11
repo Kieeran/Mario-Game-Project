@@ -1,12 +1,12 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
 # Hammer bros left
-60301	149	189	166	206	26
-60302	168	189	185	206	26
+60301	149	188	166	205	26
+60302	168	188	185	205	26
 
 # Hammer bros right
-60303	130	189	147	206	26
-60304	111	189	128	206	26
+60303	130	188	147	205	26
+60304	111	188	128	205	26
 
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]

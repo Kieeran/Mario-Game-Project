@@ -9,9 +9,9 @@ CHud::CHud(float x, float y) : CGameObject(x, y)
 void CHud::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 
-	CGame::GetInstance()->GetCamPos(x, y);
-	x += 151;
-	y += 204;
+	//CGame::GetInstance()->GetCamPos(x, y);
+	//x += 151;
+	//y += 204;
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -22,10 +22,10 @@ void CHud::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_HUD)->Render(x, y);
 
-	DisplayTime(0);
-	DisplayScore(1000);
-	DisplayLives(2);
-	DisplayCoin(21);
+	//DisplayTime(0);
+	//DisplayScore(1000);
+	//DisplayLives(2);
+	//DisplayCoin(21);
 }
 
 void CHud::DrawNumber(int  num, float x, float y)
