@@ -713,7 +713,8 @@
 #define ID_ANI_HAMMER_BROS_WALKING_LEFT		60350
 #define ID_ANI_HAMMER_BROS_WALKING_RIGHT	60351
 
-#define ID_SPRITE_HELP_EFFECT	60400
+#define ID_SPRITE_HELP_EFFECT_1	60401
+#define ID_SPRITE_HELP_EFFECT_2	60402
 #define ID_ANI_HELP_EFFECT		60450
 
 //==================================================================
