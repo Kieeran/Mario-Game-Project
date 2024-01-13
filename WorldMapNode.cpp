@@ -1,12 +1,11 @@
 #include "WorldMapNode.h"
 
-CWorldMapNode::CWorldMapNode(float x, float y) : CGameObject(x, y)
+CWorldMapNode::CWorldMapNode(float x, float y, string Direction) : CGameObject(x, y)
 {
-
+	this->Direction = Direction;
 }
 void CWorldMapNode::Render()
 {
-	//CAnimations::GetInstance()->Get(ID_ANI_BRICK)->Render(x, y);
 	RenderBoundingBox();
 }
 

@@ -4,8 +4,10 @@
 #include "Animation.h"
 #include "Animations.h"
 #include "AssetIDs.h"
-#include "Mario.h"
 #include "debug.h"
+
+#include "Mario.h"
+#include "WorldMapNode.h"
 
 #define MARIO_SPEED 0.1f
 #define MARIO_STATE_GO_LEFT		100
@@ -31,6 +33,8 @@ public:
 	void SetState(int state);
 
 	void OnNoCollision(DWORD dt);
+	void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithNode(LPCOLLISIONEVENT e);
 
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 };

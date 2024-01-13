@@ -10,9 +10,13 @@
 
 class CWorldMapNode : public CGameObject
 {
+	string Direction;
+
 public:
-	CWorldMapNode(float x, float y);
+	CWorldMapNode(float x, float y, string Direction);
 	void Render();
 	void Update(DWORD dt) {}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
+
+	string GetDirection() { return Direction; }
 };

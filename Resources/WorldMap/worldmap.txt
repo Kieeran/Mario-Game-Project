@@ -88,5 +88,8 @@ Resources\Hud.txt
 # Help effect
 40	235	109
 
+# Node in map
+24	80	27	0000
+
 # Mario world map
 23	54	60

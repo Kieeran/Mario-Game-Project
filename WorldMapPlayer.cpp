@@ -29,6 +29,25 @@ void CWorldMapPlayer::OnNoCollision(DWORD dt)
 	y += vy * dt;
 }
 
+void CWorldMapPlayer::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+	if (dynamic_cast<CWorldMapNode*>(e->obj))
+		OnCollisionWithNode(e);
+}
+
+void CWorldMapPlayer::OnCollisionWithNode(LPCOLLISIONEVENT e)
+{
+	CWorldMapNode* node = dynamic_cast<CWorldMapNode*>(e->obj);
+	CDataGame* data = CGame::GetInstance()->GetDataGame();
+
+	string direction = node->GetDirection();
+
+	data->SetAllowGoLeft(direction[0]);
+	data->SetAllowGoRight(direction[1]);
+	data->SetAllowGoUp(direction[2]);
+	data->SetAllowGoDown(direction[3]);
+}
+
 void CWorldMapPlayer::Render()
 {
 	CDataGame* data = CGame::GetInstance()->GetDataGame();
@@ -36,7 +55,7 @@ void CWorldMapPlayer::Render()
 	switch (data->GetLevel())
 	{
 	case MARIO_LEVEL_SMALL:
-		aniId = 60250;
+		aniId = ID_ANI_SMALL_MARIO_WORLD_MAP;
 		break;
 	case MARIO_LEVEL_BIG:
 		aniId = ID_ANI_BIG_MARIO_WORLD_MAP;
@@ -46,7 +65,7 @@ void CWorldMapPlayer::Render()
 		break;
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CWorldMapPlayer::GetBoundingBox(float& l, float& t, float& r, float& b)

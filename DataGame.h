@@ -17,5 +17,10 @@ public:
 	bool GetAllowGoUp() { return isAllowGoUp; }
 	bool GetAllowGoDown() { return isAllowGoDown; }
 
+	void SetAllowGoLeft(bool l) { isAllowGoLeft = l; }
+	void SetAllowGoRight(bool r) { isAllowGoRight = r; }
+	void SetAllowGoUp(bool u) { isAllowGoUp = u; }
+	void SetAllowGoDown(bool d) { isAllowGoDown = d; }
+
 	int GetLevel() { return level; }
 };
