@@ -5,7 +5,7 @@
 #include "Mario.h"
 #include "Playscene.h"
 
-#define MUSHROOM_GRAVITY 0.0001f
+#define MUSHROOM_GRAVITY 0.001f
 #define MUSHROOM_WALKING_SPEED 0.05f
 
 #define MUSHROOM_RISEUP_SPEED 0.02f

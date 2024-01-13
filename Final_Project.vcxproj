@@ -179,6 +179,7 @@
     <ClInclude Include="Utils.h" />
     <ClInclude Include="WorldMapKeyEventHandler.h" />
     <ClInclude Include="WorldMapObjects.h" />
+    <ClInclude Include="WorldMapPlayer.h" />
     <ClInclude Include="WorldMapScene.h" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +230,7 @@
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="WorldMapKeyEventHandler.cpp" />
     <ClCompile Include="WorldMapObjects.cpp" />
+    <ClCompile Include="WorldMapPlayer.cpp" />
     <ClCompile Include="WorldMapScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

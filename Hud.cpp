@@ -3,15 +3,14 @@
 CHud::CHud(float x, float y) : CGameObject(x, y)
 {
 	//CGame::GetInstance()->GetCamPos(x, y);
-	y += 0;
 }
 
 void CHud::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	//CGame::GetInstance()->GetCamPos(x, y);
-	//x += 151;
-	//y += 204;
+	if (mario->GetX() >= 152.0f)
+		x = mario->GetX();
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);

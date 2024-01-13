@@ -189,6 +189,9 @@
     <ClInclude Include="WorldMapObjects.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMapPlayer.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -333,6 +336,9 @@
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
     <ClCompile Include="WorldMapObjects.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapPlayer.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>
