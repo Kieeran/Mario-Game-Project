@@ -679,7 +679,7 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 
 	DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f \t VX =  %f \t VY = %f", coin, x, y, vx, vy);
 }

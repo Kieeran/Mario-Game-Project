@@ -195,6 +195,9 @@
     <ClInclude Include="HammerBros.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
+    <ClInclude Include="WorldMapNode.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -345,6 +348,9 @@
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
     <ClCompile Include="HammerBros.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldMapNode.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>

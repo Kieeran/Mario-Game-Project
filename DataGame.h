@@ -7,6 +7,8 @@ private:
 	bool isAllowGoRight;
 	bool isAllowGoUp;
 	bool isAllowGoDown;
+
+	int level;
 public:
 	CDataGame();
 
@@ -15,4 +17,5 @@ public:
 	bool GetAllowGoUp() { return isAllowGoUp; }
 	bool GetAllowGoDown() { return isAllowGoDown; }
 
+	int GetLevel() { return level; }
 };
