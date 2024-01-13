@@ -2,11 +2,11 @@
 [ASSETS]
 Resources\WorldMap\DancingShrub.txt
 Resources\WorldMap\Hammer_Bros.txt
-Resources\WorldMap\Help_Effect.txt
 Resources\WorldMap\Map.txt
 Resources\WorldMap\Mario.txt
 
-Resources\World1-1\Hud.txt
+Resources\Effects.txt
+Resources\Hud.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # See OBJECT_TYPE constants in AssetIDs.h
@@ -83,10 +83,10 @@ Resources\World1-1\Hud.txt
 20	251	156
 
 # Hammer bros
-22	210	130	1
+22	210	130
 
 # Help effect
-22	235	109	2
+40	235	109
 
 # Mario world map
 23	54	60

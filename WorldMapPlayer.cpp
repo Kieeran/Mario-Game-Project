@@ -26,11 +26,6 @@ void CWorldMapPlayer::OnNoCollision(DWORD dt)
 	y += vy * dt;
 }
 
-void CWorldMapPlayer::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-
-}
-
 void CWorldMapPlayer::Render()
 {
 	CAnimations::GetInstance()->Get(ID_ANI_SMALL_MARIO_WORLD_MAP)->Render(x, y);

@@ -1,7 +1,11 @@
 #include "Effects.h"
 
-CEffects::CEffects(float x, float y) :CGameObject(x, y)
+CEffects::CEffects(float x, float y, int effectType) :CGameObject(x, y)
 {
+	this->x = x;
+	this->y = y;
+	this->effectType = effectType;
+
 	/*this->ax = 0;
 	this->ay = MUSHROOM_GRAVITY;
 	this->vx = 0;
@@ -22,20 +26,6 @@ void CEffects::OnNoCollision(DWORD dt)
 {
 	/*x += vx * dt;
 	y += vy * dt;*/
-}
-
-void CEffects::OnCollisionWith(LPCOLLISIONEVENT e)
-{
-	/*if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CMushroom*>(e->obj)) return;
-	if (e->ny != 0)
-	{
-		vy = 0;
-	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}*/
 }
 
 void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -63,7 +53,14 @@ void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CEffects::Render()
 {
-	//CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
+	int aniId = -1;
+	switch (effectType)
+	{
+	case HELP_EFFECT:
+		aniId = ID_ANI_HELP_EFFECT;
+		break;
+	}
+	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
 }
 
 void CEffects::SetState(int state)

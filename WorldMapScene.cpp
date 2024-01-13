@@ -13,8 +13,9 @@
 #include "Card.h"
 #include "Map.h"
 #include "DancingShrub.h"
-#include "WorldMapObjects.h"
 #include "WorldMapPlayer.h"
+#include "HammerBros.h"
+#include "Effects.h"
 
 #include "Hud.h"
 
@@ -101,30 +102,23 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
-	case OBJECT_TYPE_DANCING_SHRUB: obj = new CDancingShrub(x, y); break;
-	case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
+
 	case OBJECT_TYPE_WORLD_MAP_PLAYER:
 	{
-
 		if (player != NULL)
 		{
 			//DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
 		}
 		obj = new CWorldMapPlayer(x, y);
-
 		player = (CWorldMapPlayer*)obj;
 		break;
 	}
-	case OBJECT_TYPE_WORLD_MAP_OBJECTS:
-	{
-		int objectType = atoi(tokens[3].c_str());
-		obj = new CWorldMapObjects(x, y, objectType);
-
-		break;
-	}
-
+	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
+	case OBJECT_TYPE_DANCING_SHRUB: obj = new CDancingShrub(x, y); break;
+	case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
+	case OBJECT_TYPE_HAMMER_BROS: obj = new CHammerBros(x, y); break;
+	case HELP_EFFECT: obj = new CEffects(x, y, HELP_EFFECT); break;
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;

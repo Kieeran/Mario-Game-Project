@@ -63,7 +63,7 @@ void CHammerBros::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CHammerBros::Render()
 {
-	CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
+	CAnimations::GetInstance()->Get(ID_ANI_HAMMER_BROS_WALKING_RIGHT)->Render(x, y);
 }
 
 void CHammerBros::SetState(int state)

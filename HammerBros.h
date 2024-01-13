@@ -1,21 +1,15 @@
 #pragma once
 #include "GameObject.h"
 #include "AssetIDs.h"
-#include "Pipe.h"
-#include "Mario.h"
-#include "Playscene.h"
+#include "WorldMapScene.h"
 
-#define MUSHROOM_GRAVITY 0.001f
-#define MUSHROOM_WALKING_SPEED 0.05f
+#define HAMMER_BROS_WALKING_SPEED 0.05f
 
-#define MUSHROOM_RISEUP_SPEED 0.02f
-#define MUSHROOM_RISEUP_HEIGHT_MAX	16.0f
+#define HAMMER_BROS_BBOX_WIDTH 15
+#define HAMMER_BROS_BBOX_HEIGHT 15
 
-#define MUSHROOM_BBOX_WIDTH 15
-#define MUSHROOM_BBOX_HEIGHT 15
-
-#define MUSHROOM_STATE_WAKEUP		100
-#define MUSHROOM_STATE_WALKING		200
+#define HAMMER_BROS_STATE_WAKEUP	100
+#define HAMMER_BROS_STATE_WALKING	200
 
 class CHammerBros : public CGameObject
 {

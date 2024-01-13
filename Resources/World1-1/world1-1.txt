@@ -11,7 +11,6 @@ Resources\World1-1\SmallGrass.txt
 Resources\World1-1\MysBox.txt
 Resources\World1-1\Boxes.txt
 Resources\World1-1\Pipe.txt
-Resources\World1-1\Hud.txt
 Resources\World1-1\Mushroom.txt
 Resources\World1-1\PiranhaPlant.txt
 Resources\World1-1\FireBullet.txt
@@ -22,6 +21,7 @@ Resources\World1-1\HardBlock.txt
 Resources\World1-1\BlackObject.txt
 Resources\World1-1\Card.txt
 
+Resources\Hud.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type
 # See OBJECT_TYPE constants in AssetIDs.h
