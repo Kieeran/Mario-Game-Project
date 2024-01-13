@@ -4,9 +4,10 @@ CWorldMapNode::CWorldMapNode(float x, float y, string Direction) : CGameObject(x
 {
 	this->Direction = Direction;
 }
+
 void CWorldMapNode::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CWorldMapNode::GetBoundingBox(float& l, float& t, float& r, float& b)
