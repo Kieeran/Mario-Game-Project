@@ -82,11 +82,11 @@ Resources\World1-1\Hud.txt
 20	251	140
 20	251	156
 
-# Mario world map
-22	54	60	1
-
 # Hammer bros
-22	210	130	2
+22	210	130	1
 
 # Help effect
-22	235	109	3
+22	235	109	2
+
+# Mario world map
+23	54	60

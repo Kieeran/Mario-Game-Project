@@ -6,9 +6,8 @@
 #include "AssetIDs.h"
 
 #define	UNKNOWN				-1
-#define	MARIO				1
-#define	HAMMER_BROS			2
-#define	HELP_EFFECT			3
+#define	HAMMER_BROS			1
+#define	HELP_EFFECT			2
 
 class CWorldMapObjects : public CGameObject
 {

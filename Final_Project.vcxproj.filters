@@ -192,6 +192,12 @@
     <ClInclude Include="WorldMapPlayer.h">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
+    <ClInclude Include="HammerBros.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -339,6 +345,12 @@
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
     <ClCompile Include="WorldMapPlayer.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Effects.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="HammerBros.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>

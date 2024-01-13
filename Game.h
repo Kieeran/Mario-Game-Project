@@ -8,6 +8,7 @@ using namespace std;
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+#include "DataGame.h"
 
 #include "Texture.h"
 #include "KeyEventHandler.h"
@@ -61,6 +62,8 @@ class CGame
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
 
+	CDataGame* dataGame = new CDataGame();
+
 public:
 	// Init DirectX, Sprite Handler
 	void Init(HWND hWnd, HINSTANCE hInstance);
@@ -89,7 +92,6 @@ public:
 	void ProcessKeyboard();
 	void SetKeyHandler(LPKEYEVENTHANDLER handler) { keyHandler = handler; }
 
-
 	ID3D10Device* GetDirect3DDevice() { return this->pD3DDevice; }
 	IDXGISwapChain* GetSwapChain() { return this->pSwapChain; }
 	ID3D10RenderTargetView* GetRenderTargetView() { return this->pRenderTargetView; }
@@ -108,13 +110,14 @@ public:
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
 
+	CDataGame* GetDataGame() { return dataGame; }
+
 	LPSCENE GetCurrentScene() { return scenes[current_scene]; }
 	void Load(LPCWSTR gameFile);
 	void SwitchScene();
 	void InitiateSwitchScene(int scene_id);
 
 	void _ParseSection_TEXTURES(string line);
-
 
 	~CGame();
 };

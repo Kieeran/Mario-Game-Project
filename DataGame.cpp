@@ -2,5 +2,8 @@
 
 CDataGame::CDataGame()
 {
-	a = 0;
+	isAllowGoLeft = false;
+	isAllowGoRight = true;
+	isAllowGoUp = false;
+	isAllowGoDown = false;
 }

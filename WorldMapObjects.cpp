@@ -6,9 +6,6 @@ void CWorldMapObjects::Render()
 
 	switch (objectType)
 	{
-	case MARIO:
-		aniId = ID_ANI_SMALL_MARIO_WORLD_MAP;
-		break;
 	case HAMMER_BROS:
 		aniId = ID_ANI_HAMMER_BROS_WALKING_RIGHT;
 		break;
