@@ -5,37 +5,35 @@
 
 #include "Mario.h"
 #include "WorldMapScene.h"
+#include "WorldMapPlayer.h"
 
 void CWorldMapKeyEventHandler::OnKeyDown(int KeyCode)
 {
 	//DebugOut(L"[INFO] KeyDown: %d\n", KeyCode);
-	//CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CWorldMapPlayer* mario = (CWorldMapPlayer*)((LPWORLDMAPSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	//switch (KeyCode)
-	//{
-	//case DIK_DOWN:
-	//	if (!mario->GetIsHolding() && mario->GetState() == MARIO_STATE_IDLE)
-	//		mario->SetState(MARIO_STATE_SIT);
-	//	break;
-	//case DIK_S:
-	//	mario->SetState(MARIO_STATE_JUMP);
-	//	break;
-	//case DIK_1:
-	//	mario->SetLevel(MARIO_LEVEL_SMALL);
-	//	break;
-	//case DIK_2:
-	//	mario->SetLevel(MARIO_LEVEL_BIG);
-	//	break;
-	//case DIK_3:
-	//	mario->SetLevel(MARIO_LEVEL_TAIL);
-	//	break;
-	//case DIK_0:
-	//	mario->SetState(MARIO_STATE_DIE);
-	//	break;
-	//case DIK_R: // reset
-	//	//Reload();
-	//	break;
-	//}
+	if (!mario->GetCanMove())return;
+
+	CDataGame* data = CGame::GetInstance()->GetDataGame();
+	switch (KeyCode)
+	{
+	case DIK_LEFT:
+		if (data->GetAllowGoLeft())
+			mario->SetState(MARIO_STATE_GO_LEFT);
+		break;
+	case DIK_RIGHT:
+		if (data->GetAllowGoRight())
+			mario->SetState(MARIO_STATE_GO_RIGHT);
+		break;
+	case DIK_UP:
+		if (data->GetAllowGoUp())
+			mario->SetState(MARIO_STATE_GO_UP);
+		break;
+	case DIK_DOWN:
+		if (data->GetAllowGoDown())
+			mario->SetState(MARIO_STATE_GO_DOWN);
+		break;
+	}
 }
 
 void CWorldMapKeyEventHandler::OnKeyUp(int KeyCode)

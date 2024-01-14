@@ -12,6 +12,7 @@ CWorldMapPlayer::CWorldMapPlayer(float x, float y) :CGameObject(x, y)
 	isAllowGoRight = data->GetAllowGoRight();
 	isAllowGoUp = data->GetAllowGoUp();
 	isAllowGoDown = data->GetAllowGoDown();
+	canMove = true;
 
 	vx = 0;
 	vy = 0;
@@ -19,7 +20,7 @@ CWorldMapPlayer::CWorldMapPlayer(float x, float y) :CGameObject(x, y)
 
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt, coObjects);
+	//CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
@@ -39,13 +40,21 @@ void CWorldMapPlayer::OnCollisionWithNode(LPCOLLISIONEVENT e)
 {
 	CWorldMapNode* node = dynamic_cast<CWorldMapNode*>(e->obj);
 	CDataGame* data = CGame::GetInstance()->GetDataGame();
+	x = node->GetX();
+	y = node->GetY();
+	vx = 0;
+	vy = 0;
 
 	string direction = node->GetDirection();
 
-	data->SetAllowGoLeft(direction[0]);
-	data->SetAllowGoRight(direction[1]);
-	data->SetAllowGoUp(direction[2]);
-	data->SetAllowGoDown(direction[3]);
+	data->SetAllowGoLeft(direction[0] - '0');
+	data->SetAllowGoRight(direction[1] - '0');
+	data->SetAllowGoUp(direction[2] - '0');
+	data->SetAllowGoDown(direction[3] - '0');
+
+	canMove = true;
+	//DebugOut(L">>> %d \t %d \t %d \t %d >>> \n", direction[0] - '0', direction[1] - '0', direction[2] - '0', direction[3] - '0');
+	//DebugOut(L">>> %f \t %f >>> \n", node->GetX(), node->GetY());
 }
 
 void CWorldMapPlayer::Render()
@@ -65,7 +74,7 @@ void CWorldMapPlayer::Render()
 		break;
 	}
 	CAnimations::GetInstance()->Get(aniId)->Render(x, y);
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CWorldMapPlayer::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -83,18 +92,22 @@ void CWorldMapPlayer::SetState(int state)
 	case MARIO_STATE_GO_LEFT:
 		vx = -MARIO_SPEED;
 		vy = 0.0f;
+		canMove = false;
 		break;
 	case MARIO_STATE_GO_RIGHT:
 		vx = MARIO_SPEED;
 		vy = 0.0f;
+		canMove = false;
 		break;
 	case MARIO_STATE_GO_UP:
 		vx = 0.0f;
 		vy = -MARIO_SPEED;
+		canMove = false;
 		break;
 	case MARIO_STATE_GO_DOWN:
 		vx = 0.0f;
 		vy = MARIO_SPEED;
+		canMove = false;
 		break;
 	}
 	CGameObject::SetState(state);

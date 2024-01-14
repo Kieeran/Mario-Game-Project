@@ -5,8 +5,8 @@
 #include "Animations.h"
 #include "AssetIDs.h"
 
-#define NODE_BBOX_WIDTH	 8
-#define NODE_BBOX_HEIGHT 8
+#define NODE_BBOX_WIDTH	 1
+#define NODE_BBOX_HEIGHT 1
 
 class CWorldMapNode : public CGameObject
 {
@@ -17,6 +17,7 @@ public:
 	void Render();
 	void Update(DWORD dt) {}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-
+	virtual int IsBlocking() { return 0; }
+	virtual int IsCollidable() { return 1; }
 	string GetDirection() { return Direction; }
 };
