@@ -32,7 +32,7 @@
 
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
-
+#define MARIO_STATE_TAIL_ATTACK		700
 
 #define GROUND_Y 160.0f
 
@@ -40,16 +40,15 @@
 #define	MARIO_LEVEL_BIG		2
 #define	MARIO_LEVEL_SMALL	1
 
-#define MARIO_TAIL_BBOX_WIDTH  17
-#define MARIO_TAIL_BBOX_HEIGHT 24
-#define MARIO_TAIL_SITTING_BBOX_WIDTH  17
-#define MARIO_TAIL_SITTING_BBOX_HEIGHT 16
+#define MARIO_TAIL_BBOX_WIDTH  14
+#define MARIO_TAIL_BBOX_HEIGHT 27
+#define MARIO_TAIL_SITTING_BBOX_WIDTH  14
+#define MARIO_TAIL_SITTING_BBOX_HEIGHT 20
 
 #define MARIO_BIG_BBOX_WIDTH  14
 #define MARIO_BIG_BBOX_HEIGHT 24
 #define MARIO_BIG_SITTING_BBOX_WIDTH  14
 #define MARIO_BIG_SITTING_BBOX_HEIGHT 16
-
 
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 12
@@ -58,6 +57,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME	2500
 #define TIME_KICK_ANIMATION		100
+#define TIME_TAIL_ATTACK		370
 
 class CMario : public CGameObject
 {
@@ -72,6 +72,7 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG kick_start;
 	ULONGLONG hold_start;
+	ULONGLONG tail_attack_start;
 
 	BOOLEAN isOnPlatform;
 	int coin;
@@ -79,6 +80,7 @@ class CMario : public CGameObject
 	bool isHolding;
 	bool isKicking;
 	bool isRunning;
+	bool isTailAttack;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -128,4 +130,7 @@ public:
 
 	bool GetIsHolding() { return isHolding; }
 	void SetIsHolding(bool isHolding) { this->isHolding = isHolding; }
+
+	bool GetIsTailAttack() { return isTailAttack; }
+	void SetIsTailAttack(bool isTailAttack) { this->isTailAttack = isTailAttack; }
 };

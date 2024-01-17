@@ -1,5 +1,5 @@
 [SETTINGS]
-start	2
+start	3
 #width	320
 #height	270
 
@@ -10,7 +10,7 @@ start	2
 2	Resources\WorldMap\Worldmap.txt	2
 3	Resources\World1-1\World1-1.txt	3
 
-# id	file 
+# id	file
 [TEXTURES]
 -100	textures\bbox.png
 0	textures\mario.png

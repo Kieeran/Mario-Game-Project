@@ -22,12 +22,14 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	ax = 0.0f;
 	ay = MARIO_GRAVITY;
 
-	level = MARIO_LEVEL_SMALL;
+	//level = MARIO_LEVEL_SMALL;
+	level = MARIO_LEVEL_TAIL;
 
 	untouchable_start = -1;
-	untouchable = -1;
-	kick_start = -1;
-	hold_start = -1;
+	untouchable = 0;
+	kick_start = 0;
+	hold_start = 0;
+	tail_attack_start = 0;
 
 	coin = 0;
 
@@ -35,6 +37,7 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	isHolding = false;
 	isKicking = false;
 	isRunning = false;
+	isTailAttack = false;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -55,15 +58,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME)
+	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME && untouchable_start > 0)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
 	}
 
-	if (GetTickCount64() - kick_start > TIME_KICK_ANIMATION) {
+	if (GetTickCount64() - kick_start > TIME_KICK_ANIMATION && kick_start > 0)
+	{
 		isKicking = false;
 		kick_start = 0;
+	}
+
+	if (GetTickCount64() - tail_attack_start > TIME_TAIL_ATTACK && tail_attack_start > 0)
+	{
+		isTailAttack = false;
+		tail_attack_start = 0;
 	}
 
 	isOnPlatform = false;
@@ -347,7 +357,23 @@ int CMario::GetAniIdTail()
 	{
 		if (!isHolding)
 		{
-			if (abs(ax) == MARIO_ACCEL_RUN_X)
+			if (vy < 0)
+			{
+				if (nx > 0)
+					aniId = ID_ANI_MARIO_TAIL_JUMPING_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TAIL_JUMPING_LEFT;
+			}
+			else
+			{
+				if (nx > 0)
+					aniId = ID_ANI_MARIO_TAIL_LANDING_RIGHT;
+				else
+					aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
+			}
+
+
+			/*if (abs(ax) == MARIO_ACCEL_RUN_X)
 			{
 				if (nx > 0)
 					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
@@ -360,14 +386,14 @@ int CMario::GetAniIdTail()
 					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT;
 				else
 					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT;
-			}
+			}*/
 		}
 		else
 		{
 			if (nx > 0)
-				aniId = ID_ANI_MARIO_TAIL_HOLD_JUMP_RIGHT;
+				aniId = ID_ANI_MARIO_TAIL_HOLDING_JUMP_RIGHT;
 			else
-				aniId = ID_ANI_MARIO_TAIL_HOLD_JUMP_LEFT;
+				aniId = ID_ANI_MARIO_TAIL_HOLDING_JUMP_LEFT;
 		}
 	}
 	else
@@ -377,23 +403,23 @@ int CMario::GetAniIdTail()
 			if (isSitting)
 			{
 				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_SIT_RIGHT;
+					aniId = ID_ANI_MARIO_TAIL_SITTING_RIGHT;
 				else
-					aniId = ID_ANI_MARIO_TAIL_SIT_LEFT;
+					aniId = ID_ANI_MARIO_TAIL_SITTING_LEFT;
 			}
 			else
 			{
 				if (vx == 0)
 				{
 					if (nx > 0)
-						aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
+						aniId = ID_ANI_MARIO_TAIL_IDLING_RIGHT;
 					else
-						aniId = ID_ANI_MARIO_TAIL_IDLE_LEFT;
+						aniId = ID_ANI_MARIO_TAIL_IDLING_LEFT;
 				}
 				else if (vx > 0)
 				{
 					if (ax < 0)
-						aniId = ID_ANI_MARIO_TAIL_BRACE_RIGHT;
+						aniId = ID_ANI_MARIO_TAIL_BRACING_RIGHT;
 					else if (ax == MARIO_ACCEL_RUN_X)
 						aniId = ID_ANI_MARIO_TAIL_RUNNING_RIGHT;
 					else if (ax == MARIO_ACCEL_WALK_X)
@@ -402,7 +428,7 @@ int CMario::GetAniIdTail()
 				else // vx < 0
 				{
 					if (ax > 0)
-						aniId = ID_ANI_MARIO_TAIL_BRACE_LEFT;
+						aniId = ID_ANI_MARIO_TAIL_BRACING_LEFT;
 					else if (ax == -MARIO_ACCEL_RUN_X)
 						aniId = ID_ANI_MARIO_TAIL_RUNNING_LEFT;
 					else if (ax == -MARIO_ACCEL_WALK_X)
@@ -415,29 +441,43 @@ int CMario::GetAniIdTail()
 			if (vx == 0)
 			{
 				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_HOLD_IDLE_RIGHT;
+					aniId = ID_ANI_MARIO_TAIL_HOLDING_IDLE_RIGHT;
 				else
-					aniId = ID_ANI_MARIO_TAIL_HOLD_IDLE_LEFT;
+					aniId = ID_ANI_MARIO_TAIL_HOLDING_IDLE_LEFT;
 			}
 			else
 			{
 				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_HOLD_RUN_RIGHT;
+					aniId = ID_ANI_MARIO_TAIL_HOLDING_RUN_RIGHT;
 				else
-					aniId = ID_ANI_MARIO_TAIL_HOLD_RUN_LEFT;
+					aniId = ID_ANI_MARIO_TAIL_HOLDING_RUN_LEFT;
 			}
 		}
+	}
+
+	if (isTailAttack)
+	{
+		if (nx > 0)
+			aniId = ID_ANI_MARIO_TAIL_ATTACKING_RIGHT;
+		else
+			aniId = ID_ANI_MARIO_TAIL_ATTACKING_LEFT;
 	}
 
 	if (isKicking)
 	{
 		if (nx > 0)
-			aniId = ID_ANI_MARIO_TAIL_KICK_RIGHT;
+			aniId = ID_ANI_MARIO_TAIL_KICKING_RIGHT;
 		else
-			aniId = ID_ANI_MARIO_TAIL_KICK_LEFT;
+			aniId = ID_ANI_MARIO_TAIL_KICKING_LEFT;
 	}
 
-	if (aniId == -1) aniId = ID_ANI_MARIO_TAIL_IDLE_RIGHT;
+	if (aniId == -1)
+	{
+		if (nx > 0)
+			aniId = ID_ANI_MARIO_TAIL_ATTACKING_RIGHT;
+		else
+			aniId = ID_ANI_MARIO_TAIL_ATTACKING_LEFT;
+	}
 
 	return aniId;
 }
@@ -679,9 +719,9 @@ void CMario::Render()
 
 	animations->Get(aniId)->Render(x, y);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 
-	DebugOutTitle(L"Coins: %d \t X = %f \t Y = %f \t VX =  %f \t VY = %f", coin, x, y, vx, vy);
+	DebugOutTitle(L"X = %f \t Y = %f \t VX =  %f \t VY = %f", x, y, vx, vy);
 }
 
 void CMario::SetState(int state)
@@ -736,6 +776,11 @@ void CMario::SetState(int state)
 		isRunning = false;
 		break;
 
+	case MARIO_STATE_TAIL_ATTACK:
+		isTailAttack = true;
+		tail_attack_start = GetTickCount64();
+		break;
+
 	case MARIO_STATE_SIT:
 		if (isOnPlatform && level != MARIO_LEVEL_SMALL)
 		{
@@ -775,19 +820,39 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 {
 	if (level == MARIO_LEVEL_TAIL)
 	{
-		if (isSitting)
+		if (nx > 0)
 		{
-			left = x - MARIO_TAIL_SITTING_BBOX_WIDTH / 2;
-			top = y - MARIO_TAIL_SITTING_BBOX_HEIGHT / 2;
-			right = left + MARIO_TAIL_SITTING_BBOX_WIDTH;
-			bottom = top + MARIO_TAIL_SITTING_BBOX_HEIGHT;
+			if (isSitting)
+			{
+				left = x - MARIO_TAIL_SITTING_BBOX_WIDTH / 2;
+				top = y - MARIO_TAIL_SITTING_BBOX_HEIGHT / 2;
+				right = left + MARIO_TAIL_SITTING_BBOX_WIDTH;
+				bottom = top + MARIO_TAIL_SITTING_BBOX_HEIGHT;
+			}
+			else
+			{
+				left = x - MARIO_TAIL_BBOX_WIDTH / 2;
+				top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
+				right = left + MARIO_TAIL_BBOX_WIDTH;
+				bottom = top + MARIO_TAIL_BBOX_HEIGHT;
+			}
 		}
 		else
 		{
-			left = x - MARIO_TAIL_BBOX_WIDTH / 2;
-			top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
-			right = left + MARIO_TAIL_BBOX_WIDTH;
-			bottom = top + MARIO_TAIL_BBOX_HEIGHT;
+			if (isSitting)
+			{
+				left = x - MARIO_TAIL_SITTING_BBOX_WIDTH / 2;
+				top = y - MARIO_TAIL_SITTING_BBOX_HEIGHT / 2;
+				right = left + MARIO_TAIL_SITTING_BBOX_WIDTH;
+				bottom = top + MARIO_TAIL_SITTING_BBOX_HEIGHT;
+			}
+			else
+			{
+				left = x - MARIO_TAIL_BBOX_WIDTH / 2;
+				top = y - MARIO_TAIL_BBOX_HEIGHT / 2;
+				right = left + MARIO_TAIL_BBOX_WIDTH;
+				bottom = top + MARIO_TAIL_BBOX_HEIGHT;
+			}
 		}
 	}
 
