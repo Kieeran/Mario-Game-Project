@@ -63,7 +63,7 @@ protected:
 	int GetAniGoombaRed();
 
 public:
-	CGoomba(float x, float y, int goomba_type);
+	CGoomba(float x, float y, int goombaType);
 	void SetState(int state);
 	int GetGoombaType() { return goombaType; }
 	bool GetStateWing() { return Wing; }

@@ -1,20 +1,21 @@
 #include "Goomba.h"
 
-CGoomba::CGoomba(float x, float y, int goomba_type) :CGameObject(x, y)
+CGoomba::CGoomba(float x, float y, int goombaType) :CGameObject(x, y)
 {
-	this->goombaType = goomba_type;
-	this->ax = 0;
-	this->ay = GOOMBA_GRAVITY;
-	this->vx = -GOOMBA_WALKING_SPEED;
-	die_start = -1;
-	jump_start = -1;
+	this->goombaType = goombaType;
+	ax = 0;
+	ay = GOOMBA_GRAVITY;
+	vx = -GOOMBA_WALKING_SPEED;
+	vy = 0;
+	die_start = 0;
+	jump_start = 0;
 	SetState(GOOMBA_STATE_WALKING);
-	this->isOnPlatform = false;
-	this->IsJump = false;
-	this->Wing = true;
-	if (goomba_type == GOOMBA_TYPE_YELLOW)
-		this->Wing = false;
-	this->num_small_jump = 0;
+	isOnPlatform = false;
+	IsJump = false;
+	Wing = true;
+	if (goombaType == GOOMBA_TYPE_YELLOW)
+		Wing = false;
+	num_small_jump = 0;
 }
 
 void CGoomba::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -87,14 +88,13 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vx += ax * dt;
 	vy += ay * dt;
 
-	if (state == GOOMBA_STATE_DIE && GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT)
+	if ((state == GOOMBA_STATE_DIE || state == GOOMBA_STATE_DIE_UPSIDE_DOWN) && GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT && die_start > 0)
 	{
 		isDeleted = true;
 		return;
 	}
 
-	//if (vy < 0)
-	if (vy != 0)
+	if (vy < 0)
 	{
 		isOnPlatform = false;
 	}
@@ -116,13 +116,9 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount64() - jump_start >= GOOMBA_TIME_FLYING && !IsJump)
 		{
 			SetState(GOOMBA_STATE_JUMP);
-			if (vx >= 0 && mario->GetX() < x)
+			if ((vx >= 0 && mario->GetX() < x) || (vx < 0 && mario->GetX() > x))
 			{
-				vx = -GOOMBA_WALKING_SPEED;
-			}
-			else if (vx < 0 && mario->GetX() > x)
-			{
-				vx = GOOMBA_WALKING_SPEED;
+				vx = -vx;
 			}
 			num_small_jump = 0;
 		}
@@ -144,36 +140,36 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 int CGoomba::GetAniGoombaYellow()
 {
-	if (state == GOOMBA_STATE_WALKING)
-		return ID_ANI_YELLOW_GOOMBA_WALKING;
+	int aniId = ID_ANI_YELLOW_GOOMBA_WALKING;
 
-	else if (state == GOOMBA_STATE_DIE)
-		return ID_ANI_YELLOW_GOOMBA_DIE;
+	if (state == GOOMBA_STATE_DIE)
+		aniId = ID_ANI_YELLOW_GOOMBA_DIE;
 
 	else if (state == GOOMBA_STATE_DIE_UPSIDE_DOWN)
-		return ID_ANI_YELLOW_GOOMBA_UPSIDE_DOWN;
-
+		aniId = ID_ANI_YELLOW_GOOMBA_UPSIDE_DOWN;
+	return aniId;
 }
+
 int CGoomba::GetAniGoombaRed()
 {
-	if (state == GOOMBA_STATE_SMALL_JUMP)
-		return ID_ANI_RED_GOOMBA_SMALL_JUMP;
+	int aniId = ID_ANI_RED_GOOMBA_SMALL_JUMP;
 
-	else if (state == GOOMBA_STATE_JUMP)
-		return ID_ANI_RED_GOOMBA_JUMP;
+	if (state == GOOMBA_STATE_JUMP)
+		aniId = ID_ANI_RED_GOOMBA_JUMP;
 
 	else if (state == GOOMBA_STATE_WALKING)
 	{
 		if (Wing)
-			return ID_ANI_RED_WING_GOOMBA_WALKING;
+			aniId = ID_ANI_RED_WING_GOOMBA_WALKING;
 		else
-			return ID_ANI_RED_GOOMBA_WALKING;
+			aniId = ID_ANI_RED_GOOMBA_WALKING;
 	}
-	else if (GOOMBA_STATE_DIE)
-		return ID_ANI_RED_GOOMBA_DIE;
+	else if (state == GOOMBA_STATE_DIE)
+		aniId = ID_ANI_RED_GOOMBA_DIE;
 
-	else if (GOOMBA_STATE_DIE_UPSIDE_DOWN)
-		return ID_ANI_RED_GOOMBA_UPSIDE_DOWN;
+	else if (state == GOOMBA_STATE_DIE_UPSIDE_DOWN)
+		aniId = ID_ANI_RED_GOOMBA_UPSIDE_DOWN;
+	return aniId;
 }
 
 void CGoomba::Render()
@@ -194,9 +190,9 @@ void CGoomba::SetState(int state)
 	{
 	case GOOMBA_STATE_DIE:
 		die_start = GetTickCount64();
-		//y += (GOOMBA_BBOX_HEIGHT - GOOMBA_BBOX_HEIGHT_DIE)/2;
 		vx = 0;
 		vy = 0;
+		ax = 0;
 		ay = 0;
 		break;
 	case GOOMBA_STATE_WALKING:
@@ -208,9 +204,11 @@ void CGoomba::SetState(int state)
 		IsJump = true;
 		break;
 	case GOOMBA_STATE_DIE_UPSIDE_DOWN:
-		vy = -GOOMBA_JUMP_DEFLECT_SPEED;
+		die_start = GetTickCount64();
 		vx = 0;
+		vy = -GOOMBA_JUMP_DEFLECT_SPEED;
 		ax = 0;
+		ay = 0;
 		break;
 	}
 }
