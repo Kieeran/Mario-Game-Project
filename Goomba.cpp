@@ -88,10 +88,16 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	vx += ax * dt;
 	vy += ay * dt;
 
-	if ((state == GOOMBA_STATE_DIE || state == GOOMBA_STATE_DIE_UPSIDE_DOWN) && GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT && die_start > 0)
+	if (die_start > 0)
 	{
-		isDeleted = true;
-		return;
+		if (state == GOOMBA_STATE_DIE && GetTickCount64() - die_start > GOOMBA_DIE_TIMEOUT)
+		{
+			isDeleted = true;
+		}
+		else if(state == GOOMBA_STATE_DIE_UPSIDE_DOWN && GetTickCount64() - die_start > GOOMBA_DIE_UPSIDE_TIMEOUT)
+		{
+			isDeleted = true;
+		}
 	}
 
 	if (vy < 0)
@@ -207,8 +213,6 @@ void CGoomba::SetState(int state)
 		die_start = GetTickCount64();
 		vx = 0;
 		vy = -GOOMBA_JUMP_DEFLECT_SPEED;
-		ax = 0;
-		ay = 0;
 		break;
 	}
 }
