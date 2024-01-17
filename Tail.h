@@ -1,22 +1,22 @@
 #pragma once
 #include "GameObject.h"
 #include "AssetIDs.h"
-#include "Pipe.h"
-#include "Mario.h"
-#include "Playscene.h"
 
-#define TAIL_BBOX_WIDTH 15
-#define TAIL_BBOX_HEIGHT 15
+#define TAIL_BBOX_WIDTH 16
+#define TAIL_BBOX_HEIGHT 8
+#define TIME_TAIL_ATTACK 100
+#define TAIL_SPEED	0.1f
 
 class CTail : public CGameObject
 {
 protected:
 	float ax;
-	float ay;
-	float Origin_Y;
+	float Origin_X;
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
-	void Render() {}
+	void Render() {
+		//RenderBoundingBox();
+	}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 
 	int IsCollidable() { return 1; };
@@ -24,7 +24,11 @@ protected:
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
+	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
+	void OnCollisionWithMysBox(LPCOLLISIONEVENT e);
+	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
+	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
+
 public:
 	CTail(float x, float y);
-	void SetState(int state);
 };

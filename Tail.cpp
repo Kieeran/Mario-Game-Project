@@ -1,51 +1,110 @@
 #include "Tail.h"
 
+#include "Goomba.h"
+#include "MysBox.h"
+#include "PiranhaPlant.h"
+#include "Koopas.h"
+#include "Mushroom.h"
+#include "Leaf.h"
+
 CTail::CTail(float x, float y) :CGameObject(x, y)
 {
-	/*this->ax = 0;
-	this->ay = MUSHROOM_GRAVITY;
-	this->vx = 0;
-	this->vy = 0;
-	this->Origin_Y = y;
-	this->SetState(MUSHROOM_STATE_WAKEUP);*/
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	if (mario->GetNX() > 0)
+		vx = TAIL_SPEED;
+	else
+		vx = -TAIL_SPEED;
+	Origin_X = x;
+	ax = 0;
+}
+
+void CTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+{
+	vx += ax * dt;
+	if (abs(x - Origin_X) > 8.0f)
+	{
+		Delete();
+		//vx = 0;
+	}
+
+	CGameObject::Update(dt, coObjects);
+	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CTail::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	/*l = x - MUSHROOM_BBOX_WIDTH / 2;
-	t = y - MUSHROOM_BBOX_HEIGHT / 2;
-	r = l + MUSHROOM_BBOX_WIDTH;
-	b = t + MUSHROOM_BBOX_HEIGHT;*/
+	l = x - TAIL_BBOX_WIDTH / 2;
+	t = y - TAIL_BBOX_HEIGHT / 2;
+	r = l + TAIL_BBOX_WIDTH;
+	b = t + TAIL_BBOX_HEIGHT;
 }
 
 void CTail::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
-	y += vy * dt;
 }
 
 void CTail::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	/*if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CMushroom*>(e->obj)) return;
-	if (e->ny != 0)
+	if (e->ny != 0)return;
+
+	if (dynamic_cast<CGoomba*>(e->obj))
+		OnCollisionWithGoomba(e);
+	else if (dynamic_cast<CMysBox*>(e->obj))
+		OnCollisionWithMysBox(e);
+	else if (dynamic_cast<CPiranhaPlant*>(e->obj))
+		OnCollisionWithPiranhaPlant(e);
+	else if (dynamic_cast<CKoopas*>(e->obj))
+		OnCollisionWithKoopas(e);
+
+	Delete();
+}
+
+void CTail::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
+{
+	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
+
+	if (goomba->GetState() != GOOMBA_STATE_DIE)
+		goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
+}
+void CTail::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
+{
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	CMysBox* mysbox = dynamic_cast<CMysBox*>(e->obj);
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	if (mysbox->GetState() == MYSBOX_STATE_CARRY_ITEMS)
 	{
-		vy = 0;
+		mysbox->SetState(MYSBOX_STATE_EMPTY);
+		int itemType = mysbox->GetItemType();
+		CGameObject* item = NULL;
+		switch (itemType)
+		{
+		case COIN:
+			item = new CCoin(mysbox->GetX(), mysbox->GetY(), HIDDEN_COIN_TYPE);
+			scene->AddObject(item);
+			mario->SetCoinNum(mario->GetCoinNum() + 1);
+			break;
+		case ITEMS:
+			if (mario->GetLevel() == MARIO_LEVEL_SMALL)
+			{
+				item = new CMushroom(mysbox->GetX(), mysbox->GetY());
+				scene->AddObject(item, mysbox->GetIndex());
+			}
+			else
+			{
+				item = new CLeaf(mysbox->GetX(), mysbox->GetY());
+				scene->AddObject(item, ADD_OBJECT_BACK);
+			}
+			break;
+		}
 	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}*/
 }
-
-void CTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void CTail::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
-	
-	CGameObject::Update(dt, coObjects);
-	CCollision::GetInstance()->Process(this, dt, coObjects);
+	return;
 }
-
-void CTail::SetState(int state)
+void CTail::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
-	CGameObject::SetState(state);
+	return;
 }

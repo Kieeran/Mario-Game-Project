@@ -3,8 +3,9 @@
 
 #include "Animation.h"
 #include "Animations.h"
-
 #include "debug.h"
+
+#include "Tail.h"
 
 #define MAX_MARIO_WALKING_SPEED 0.1f
 #define MAX_MARIO_RUNNING_SPEED	0.25f
@@ -57,7 +58,7 @@
 
 #define MARIO_UNTOUCHABLE_TIME	2500
 #define TIME_KICK_ANIMATION		100
-#define TIME_TAIL_ATTACK		370
+#define TIME_TAIL_ATTACK		380
 
 class CMario : public CGameObject
 {
@@ -76,6 +77,7 @@ class CMario : public CGameObject
 
 	BOOLEAN isOnPlatform;
 	int coin;
+	CTail* tail;
 
 	bool isHolding;
 	bool isKicking;

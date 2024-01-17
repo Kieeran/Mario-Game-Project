@@ -22,6 +22,7 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	ax = 0.0f;
 	ay = MARIO_GRAVITY;
 
+	tail = NULL;
 	//level = MARIO_LEVEL_SMALL;
 	level = MARIO_LEVEL_TAIL;
 
@@ -726,6 +727,8 @@ void CMario::Render()
 
 void CMario::SetState(int state)
 {
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
 	// DIE is the end state, cannot be changed! 
 	if (this->state == MARIO_STATE_DIE) return;
 
@@ -779,6 +782,8 @@ void CMario::SetState(int state)
 	case MARIO_STATE_TAIL_ATTACK:
 		isTailAttack = true;
 		tail_attack_start = GetTickCount64();
+		tail = new CTail(x, y + 7.0f);
+		scene->AddObject(tail, ADD_OBJECT_BACK);
 		break;
 
 	case MARIO_STATE_SIT:
