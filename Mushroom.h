@@ -32,6 +32,7 @@ protected:
 	int IsBlocking() { return 0; }
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlayer(LPCOLLISIONEVENT e);
 
 public:
 	CMushroom(float x, float y);

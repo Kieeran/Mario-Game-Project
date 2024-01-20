@@ -38,12 +38,14 @@ void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 	{
 		vx = -vx;
 	}*/
+	if (dynamic_cast<CMario*>(e->obj))
+		OnCollisionWithPlayer(e);
 }
 
 void CLeaf::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	mario->SetLevel(MARIO_LEVEL_TAIL);
+	mario->SetLevelHigher();
 	e->obj->Delete();
 }
 
