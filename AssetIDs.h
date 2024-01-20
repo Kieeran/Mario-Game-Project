@@ -341,6 +341,11 @@
 #define ID_ANI_MARIO_SMALL_TO_BIG_LEFT_EFFECT	20550
 #define ID_ANI_MARIO_SMALL_TO_BIG_RIGHT_EFFECT	20551
 
+#define ID_ANI_MARIO_BIG_TO_SMALL_LEFT_EFFECT	20552
+#define ID_ANI_MARIO_BIG_TO_SMALL_RIGHT_EFFECT	20553
+
+
+
 #pragma endregion 
 
 // 50 first values is for sprite id, 50 second values is for animation id

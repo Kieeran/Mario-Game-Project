@@ -41,6 +41,7 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	isRunning = false;
 	isTailAttack = false;
 	isChanging = false;
+	isLower = false;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -284,13 +285,13 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
-	SetLevel(MARIO_LEVEL_TAIL);
+	SetLevelHigher();
 	e->obj->Delete();
 }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
-	SetLevel(MARIO_LEVEL_BIG);
+	SetLevelHigher();
 	e->obj->Delete();
 }
 
@@ -335,25 +336,6 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
-}
-
-void CMario::SetLevelLower()
-{
-	if (level == MARIO_LEVEL_TAIL)
-	{
-		level = MARIO_LEVEL_BIG;
-		StartUntouchable();
-	}
-	else if (level == MARIO_LEVEL_BIG)
-	{
-		level = MARIO_LEVEL_SMALL;
-		StartUntouchable();
-	}
-	else
-	{
-		DebugOut(L">>> Mario DIE >>> \n");
-		SetState(MARIO_STATE_DIE);
-	}
 }
 
 //
@@ -729,6 +711,42 @@ void CMario::Render()
 	if (!isChanging)
 		animations->Get(aniId)->Render(x, y);
 
+	else
+	{
+		if (!isLower)
+		{
+			if (level == MARIO_LEVEL_BIG)
+			{
+				if (nx > 0)
+				{
+					aniId = ID_ANI_MARIO_SMALL_TO_BIG_RIGHT_EFFECT;
+				}
+				else
+					aniId = ID_ANI_MARIO_SMALL_TO_BIG_LEFT_EFFECT;
+			}
+		}
+
+		else
+		{
+			if (level == MARIO_LEVEL_SMALL)
+			{
+				if (nx > 0)
+				{
+					aniId = ID_ANI_MARIO_BIG_TO_SMALL_RIGHT_EFFECT;
+				}
+				else
+					aniId = ID_ANI_MARIO_BIG_TO_SMALL_LEFT_EFFECT;
+			}
+		}
+
+		animations->Get(aniId)->RenderOnce(x, y);
+		if (animations->Get(aniId)->GetDoneRenderOnce())
+		{
+			animations->Get(aniId)->SetDoneRenderOnce(false);
+			isChanging = false;
+		}
+	}
+
 	//RenderBoundingBox();
 
 	DebugOutTitle(L"X = %f \t Y = %f \t VX =  %f \t VY = %f", x, y, vx, vy);
@@ -896,11 +914,41 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	}
 }
 
-void CMario::SetLevel(int l)
+void CMario::SetLevelLower()
+{
+	if (level == MARIO_LEVEL_TAIL)
+	{
+		level = MARIO_LEVEL_BIG;
+		StartUntouchable();
+		isChanging = true;
+	}
+	else if (level == MARIO_LEVEL_BIG)
+	{
+		level = MARIO_LEVEL_SMALL;
+		StartUntouchable();
+		isChanging = true;
+	}
+	else
+	{
+		//DebugOut(L">>> Mario DIE >>> \n");
+		SetState(MARIO_STATE_DIE);
+	}
+	isLower = true;
+}
+
+void CMario::SetLevelHigher()
 {
 	// Adjust position to avoid falling off platform
 	y -= MARIO_TAIL_BBOX_HEIGHT / 2;
-
 	isChanging = true;
-	level = l;
+
+	if (level == MARIO_LEVEL_SMALL)
+	{
+		level = MARIO_LEVEL_BIG;
+	}
+	else if (level == MARIO_LEVEL_BIG)
+	{
+		level = MARIO_LEVEL_TAIL;
+	}
+	isLower = false;
 }

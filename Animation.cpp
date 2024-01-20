@@ -55,6 +55,7 @@ void CAnimation::RenderOnce(float x, float y)
 			if (currentFrame == frames.size())
 			{
 				doneRenderOnce = true;
+				currentFrame = 0;
 				return;
 			}
 		}

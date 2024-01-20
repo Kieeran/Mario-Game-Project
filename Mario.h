@@ -84,6 +84,7 @@ class CMario : public CGameObject
 	bool isRunning;
 	bool isTailAttack;
 	bool isChanging;
+	bool isLower;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -117,8 +118,13 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	int GetLevel() { return level; }
+	void SetLevel(bool l)
+	{
+		y -= MARIO_TAIL_BBOX_HEIGHT / 2;
+		level = l;
+	}
 
-	void SetLevel(int l);
+	void SetLevelHigher();
 	void SetLevelLower();
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
 	void StartKicking() { isKicking = true; kick_start = GetTickCount64(); }
