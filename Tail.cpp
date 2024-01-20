@@ -1,5 +1,4 @@
 #include "Tail.h"
-
 #include "Goomba.h"
 #include "MysBox.h"
 #include "PiranhaPlant.h"

@@ -43,7 +43,6 @@ void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 void CLeaf::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-	mario->SetPosition(x, y - 16);
 	mario->SetLevel(MARIO_LEVEL_TAIL);
 	e->obj->Delete();
 }
@@ -61,7 +60,7 @@ void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 
 	if (vy > 0) {
-		if (vx <= ADJUST_MAX_VX) 
+		if (vx <= ADJUST_MAX_VX)
 		{
 			vx += ax * dt;
 		}
