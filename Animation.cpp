@@ -34,3 +34,30 @@ void CAnimation::Render(float x, float y)
 	}
 	frames[currentFrame]->GetSprite()->Draw(x, y);
 }
+
+void CAnimation::RenderOnce(float x, float y)
+{
+	if (doneRenderOnce) return;
+
+	ULONGLONG now = GetTickCount64();
+	if (currentFrame == -1)
+	{
+		currentFrame = 0;
+		lastFrameTime = now;
+	}
+	else
+	{
+		DWORD t = frames[currentFrame]->GetTime();
+		if (now - lastFrameTime > t)
+		{
+			currentFrame++;
+			lastFrameTime = now;
+			if (currentFrame == frames.size())
+			{
+				doneRenderOnce = true;
+				return;
+			}
+		}
+	}
+	frames[currentFrame]->GetSprite()->Draw(x, y);
+}
