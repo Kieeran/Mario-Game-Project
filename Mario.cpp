@@ -45,7 +45,7 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
+	DebugOut(L"level = %d\n", level);
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
 

@@ -116,7 +116,7 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	int GetLevel() { return level; }
-	void SetLevel(bool l)
+	void SetLevel(int l)
 	{
 		y -= MARIO_TAIL_BBOX_HEIGHT / 2;
 		level = l;

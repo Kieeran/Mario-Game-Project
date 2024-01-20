@@ -29,12 +29,15 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_1:
 		mario->SetLevel(MARIO_LEVEL_SMALL);
+		DebugOut(L"level = %d\n", mario->GetLevel());
 		break;
 	case DIK_2:
 		mario->SetLevel(MARIO_LEVEL_BIG);
+		DebugOut(L"level = %d\n", mario->GetLevel());
 		break;
 	case DIK_3:
 		mario->SetLevel(MARIO_LEVEL_TAIL);
+		DebugOut(L"level = %d\n", mario->GetLevel());
 		break;
 	case DIK_0:
 		mario->SetState(MARIO_STATE_DIE);
