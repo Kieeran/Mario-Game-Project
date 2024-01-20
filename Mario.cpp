@@ -31,7 +31,6 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	untouchable = 0;
 	kick_start = 0;
 	hold_start = 0;
-	tail_attack_start = 0;
 
 	coin = 0;
 
@@ -80,12 +79,6 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		isKicking = false;
 		kick_start = 0;
-	}
-
-	if (GetTickCount64() - tail_attack_start > TIME_TAIL_ATTACK && tail_attack_start > 0)
-	{
-		isTailAttack = false;
-		tail_attack_start = 0;
 	}
 
 	isOnPlatform = false;
@@ -708,42 +701,55 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
 
-	if (!isChanging)
+	if (!isChanging && !isTailAttack)
 		animations->Get(aniId)->Render(x, y);
 
 	else
 	{
-		if (!isLower)
+		if (isTailAttack)
 		{
-			if (level == MARIO_LEVEL_BIG)
+			animations->Get(aniId)->RenderOnce(x, y);
+			if (animations->Get(aniId)->GetDoneRenderOnce())
 			{
-				if (nx > 0)
-				{
-					aniId = ID_ANI_MARIO_SMALL_TO_BIG_RIGHT_EFFECT;
-				}
-				else
-					aniId = ID_ANI_MARIO_SMALL_TO_BIG_LEFT_EFFECT;
+				animations->Get(aniId)->SetDoneRenderOnce(false);
+				isTailAttack = false;
 			}
 		}
 
-		else
+		else if (isChanging)
 		{
-			if (level == MARIO_LEVEL_SMALL)
+			if (!isLower)
 			{
-				if (nx > 0)
+				if (level == MARIO_LEVEL_BIG)
 				{
-					aniId = ID_ANI_MARIO_BIG_TO_SMALL_RIGHT_EFFECT;
+					if (nx > 0)
+					{
+						aniId = ID_ANI_MARIO_SMALL_TO_BIG_RIGHT_EFFECT;
+					}
+					else
+						aniId = ID_ANI_MARIO_SMALL_TO_BIG_LEFT_EFFECT;
 				}
-				else
-					aniId = ID_ANI_MARIO_BIG_TO_SMALL_LEFT_EFFECT;
 			}
-		}
 
-		animations->Get(aniId)->RenderOnce(x, y);
-		if (animations->Get(aniId)->GetDoneRenderOnce())
-		{
-			animations->Get(aniId)->SetDoneRenderOnce(false);
-			isChanging = false;
+			else
+			{
+				if (level == MARIO_LEVEL_SMALL)
+				{
+					if (nx > 0)
+					{
+						aniId = ID_ANI_MARIO_BIG_TO_SMALL_RIGHT_EFFECT;
+					}
+					else
+						aniId = ID_ANI_MARIO_BIG_TO_SMALL_LEFT_EFFECT;
+				}
+			}
+
+			animations->Get(aniId)->RenderOnce(x, y);
+			if (animations->Get(aniId)->GetDoneRenderOnce())
+			{
+				animations->Get(aniId)->SetDoneRenderOnce(false);
+				isChanging = false;
+			}
 		}
 	}
 
@@ -808,7 +814,6 @@ void CMario::SetState(int state)
 
 	case MARIO_STATE_TAIL_ATTACK:
 		isTailAttack = true;
-		tail_attack_start = GetTickCount64();
 		tail = new CTail(x, y + 7.0f);
 		scene->AddObject(tail, ADD_OBJECT_BACK);
 		break;

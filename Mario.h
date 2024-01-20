@@ -58,7 +58,6 @@
 
 #define MARIO_UNTOUCHABLE_TIME	2500
 #define TIME_KICK_ANIMATION		100
-#define TIME_TAIL_ATTACK		380
 
 class CMario : public CGameObject
 {
@@ -73,7 +72,6 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG kick_start;
 	ULONGLONG hold_start;
-	ULONGLONG tail_attack_start;
 
 	BOOLEAN isOnPlatform;
 	int coin;
@@ -141,7 +139,7 @@ public:
 	void SetIsHolding(bool isHolding) { this->isHolding = isHolding; }
 
 	bool GetIsTailAttack() { return isTailAttack; }
-	void SetIsTailAttack(bool isTailAttack) { this->isTailAttack = isTailAttack; }
+	void SetIsTailAttack(bool t) { isTailAttack = t; }
 
 	bool GetIsChanging() { return isChanging; }
 	void SetIsChanging(bool c) { isChanging = c; }

@@ -6,5 +6,5 @@ CDataGame::CDataGame()
 	isAllowGoRight = true;
 	isAllowGoUp = false;
 	isAllowGoDown = false;
-	level = MARIO_LEVEL_SMALL;
+	level = MARIO_LEVEL_TAIL;
 }

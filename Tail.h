@@ -5,7 +5,7 @@
 #define TAIL_BBOX_WIDTH 16
 #define TAIL_BBOX_HEIGHT 8
 #define TIME_TAIL_ATTACK 100
-#define TAIL_SPEED	0.1f
+#define TAIL_SPEED	0.09f
 
 class CTail : public CGameObject
 {
