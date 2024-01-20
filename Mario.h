@@ -83,6 +83,7 @@ class CMario : public CGameObject
 	bool isKicking;
 	bool isRunning;
 	bool isTailAttack;
+	bool isChanging;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -135,4 +136,7 @@ public:
 
 	bool GetIsTailAttack() { return isTailAttack; }
 	void SetIsTailAttack(bool isTailAttack) { this->isTailAttack = isTailAttack; }
+
+	bool GetIsChanging() { return isChanging; }
+	void SetIsChanging(bool c) { isChanging = c; }
 };

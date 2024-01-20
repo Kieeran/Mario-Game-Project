@@ -21,6 +21,7 @@ Resources\World1-1\HardBlock.txt
 Resources\World1-1\BlackObject.txt
 Resources\World1-1\Card.txt
 
+Resources\Effects.txt
 Resources\Hud.txt
 [OBJECTS]
 # type	x	y	extra_settings per object type

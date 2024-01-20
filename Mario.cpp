@@ -17,16 +17,17 @@
 #include "Collision.h"
 CMario::CMario(float x, float y) :CGameObject(x, y)
 {
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+
 	isSitting = false;
 	maxVx = 0.0f;
 	ax = 0.0f;
 	ay = MARIO_GRAVITY;
 
 	tail = NULL;
-	//level = MARIO_LEVEL_SMALL;
-	level = MARIO_LEVEL_TAIL;
+	level = dataGame->GetLevel();
 
-	untouchable_start = -1;
+	untouchable_start = 0;
 	untouchable = 0;
 	kick_start = 0;
 	hold_start = 0;
@@ -39,6 +40,7 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	isKicking = false;
 	isRunning = false;
 	isTailAttack = false;
+	isChanging = false;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -47,8 +49,16 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
 
-	vx += ax * dt;
-	vy += ay * dt;
+	if (isChanging)
+	{
+		vx = 0;
+		vy = 0;
+	}
+	else
+	{
+		vy += ay * dt;
+		vx += ax * dt;
+	}
 
 	//*
 	if (!isOnPlatform)
@@ -274,14 +284,12 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
-	SetPosition(x, y - 16);
 	SetLevel(MARIO_LEVEL_TAIL);
 	e->obj->Delete();
 }
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
-	SetPosition(x, y - 16);
 	SetLevel(MARIO_LEVEL_BIG);
 	e->obj->Delete();
 }
@@ -718,7 +726,8 @@ void CMario::Render()
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
 
-	animations->Get(aniId)->Render(x, y);
+	if (!isChanging)
+		animations->Get(aniId)->Render(x, y);
 
 	//RenderBoundingBox();
 
@@ -890,6 +899,8 @@ void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom
 void CMario::SetLevel(int l)
 {
 	// Adjust position to avoid falling off platform
-	this->y -= MARIO_BIG_BBOX_HEIGHT / 2;
-	this->level = l;
+	y -= MARIO_TAIL_BBOX_HEIGHT / 2;
+
+	isChanging = true;
+	level = l;
 }
