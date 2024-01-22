@@ -31,7 +31,9 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	untouchable = 0;
 	kick_start = 0;
 	hold_start = 0;
+	speed_start = 0;
 	speed_stop = 0;
+	prepare_start = 0;
 
 	coin = 0;
 	levelRun = 0;
@@ -48,7 +50,8 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//DebugOut(L"%d\n", isOnPlatform);
+	DebugOut(L"%d\n", levelRun);
+	//DebugOut(L"%d\n", isRunning);
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
 
@@ -65,18 +68,39 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
-	if (GetTickCount64() - speed_stop > TIME_SPEED && speed_stop > 0)
-	{
-		ay = MARIO_GRAVITY;
-		speed_stop = 0;
-	}
-
 	if (isFlying)
 	{
 		if (isOnPlatform)
 		{
 			isFlying = false;
 			ay = MARIO_GRAVITY;
+		}
+	}
+
+	if (!isRunning || vx == 0)
+	{
+		speed_start = GetTickCount64();
+		if (GetTickCount64() - speed_stop > TIME_SPEED && speed_stop > 0)
+		{
+			if (levelRun > 0)
+				levelRun--;
+			speed_stop = GetTickCount64();
+		}
+		prepare_start = GetTickCount64();
+	}
+	else
+	{
+		speed_stop = GetTickCount64();
+		if (GetTickCount64() - prepare_start > TIME_PREPARE_RUN && prepare_start > 0)
+		{
+			if (GetTickCount64() - speed_start > TIME_SPEED && speed_start > 0)
+			{
+				if (levelRun < LEVEL_RUN_MAX)
+				{
+					levelRun++;
+				}
+				speed_start = GetTickCount64();
+			}
 		}
 	}
 
@@ -368,22 +392,6 @@ int CMario::GetAniIdTail()
 				else
 					aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
 			}
-
-
-			/*if (abs(ax) == MARIO_ACCEL_RUN_X)
-			{
-				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
-				else
-					aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
-			}
-			else
-			{
-				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT;
-				else
-					aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT;
-			}*/
 		}
 		else
 		{
@@ -768,7 +776,7 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 
-	DebugOutTitle(L"X = %f \t Y = %f \t VX =  %f \t VY = %f \t AY = %f", x, y, vx, vy, ay);
+	DebugOutTitle(L"X = %f \t Y = %f \t VX =  %f \t VY = %f \t LevelRun = %d", x, y, vx, vy, levelRun);
 }
 
 void CMario::SetState(int state)
@@ -782,14 +790,14 @@ void CMario::SetState(int state)
 	{
 	case MARIO_STATE_RUNNING_RIGHT:
 		if (isSitting) break;
-		maxVx = MAX_MARIO_RUNNING_SPEED;
+		maxVx = MAX_MARIO_RUNNING_SPEED + levelRun * SPEED_LEVEL_RUN;
 		ax = MARIO_ACCEL_RUN_X;
 		isRunning = true;
 		nx = 1;
 		break;
 	case MARIO_STATE_RUNNING_LEFT:
 		if (isSitting) break;
-		maxVx = -MAX_MARIO_RUNNING_SPEED;
+		maxVx = -(MAX_MARIO_RUNNING_SPEED + levelRun * SPEED_LEVEL_RUN);
 		ax = -MARIO_ACCEL_RUN_X;
 		isRunning = true;
 		nx = -1;
@@ -833,15 +841,17 @@ void CMario::SetState(int state)
 
 	case MARIO_STATE_FLY:
 		isFlying = true;
+		isOnPlatform = false;
 		if (levelRun == LEVEL_RUN_MAX)
 		{
 			vy = -MARIO_FLYING;
+			DebugOut(L"S");
 		}
 		else
 		{
 			vy = 0;
+			DebugOut(L"NS\n");
 		}
-		speed_stop = GetTickCount64();
 		break;
 
 	case MARIO_STATE_SIT:
@@ -850,7 +860,8 @@ void CMario::SetState(int state)
 			state = MARIO_STATE_IDLE;
 			isSitting = true;
 			isRunning = false;
-			vx = 0; vy = 0.0f;
+			vx = 0.0f;
+			vy = 0.0f;
 			y += MARIO_SIT_HEIGHT_ADJUST;
 		}
 		break;

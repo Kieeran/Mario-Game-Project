@@ -8,10 +8,10 @@
 #include "Tail.h"
 
 #define MAX_MARIO_WALKING_SPEED 0.1f
-#define MAX_MARIO_RUNNING_SPEED	0.25f
+#define MAX_MARIO_RUNNING_SPEED	0.1f
 
 #define MARIO_ACCEL_WALK_X	0.0005f
-#define MARIO_ACCEL_RUN_X	0.0003f
+#define MARIO_ACCEL_RUN_X	0.00016f
 
 #define MARIO_JUMP_SPEED_Y		0.4f
 #define MARIO_JUMP_RUN_SPEED_Y	0.5f
@@ -56,13 +56,14 @@
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
-#define	SPEED_LEVEL_RUN	0.01f
+#define	SPEED_LEVEL_RUN	0.021f
 #define LEVEL_RUN_MAX	7
 
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITTING_BBOX_HEIGHT) / 2)
 
 #define MARIO_UNTOUCHABLE_TIME	2500
-#define TIME_KICK_ANIMATION		100
+#define TIME_KICK_ANIMATION	 100
+#define TIME_PREPARE_RUN  700
 #define TIME_SPEED	150
 
 class CMario : public CGameObject
@@ -79,7 +80,9 @@ class CMario : public CGameObject
 	ULONGLONG untouchable_start;
 	ULONGLONG kick_start;
 	ULONGLONG hold_start;
+	ULONGLONG speed_start;
 	ULONGLONG speed_stop;
+	ULONGLONG prepare_start;
 
 	BOOLEAN isOnPlatform;
 	int coin;
