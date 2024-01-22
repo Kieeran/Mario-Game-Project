@@ -378,19 +378,39 @@ int CMario::GetAniIdTail()
 	{
 		if (!isHolding)
 		{
-			if (vy < 0)
+			if (!isFlying)
 			{
-				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_JUMPING_RIGHT;
+				if (vy < 0)
+				{
+					if (nx > 0)
+						aniId = ID_ANI_MARIO_TAIL_JUMPING_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_TAIL_JUMPING_LEFT;
+				}
 				else
-					aniId = ID_ANI_MARIO_TAIL_JUMPING_LEFT;
+				{
+					if (nx > 0)
+						aniId = ID_ANI_MARIO_TAIL_LANDING_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
+				}
 			}
 			else
 			{
-				if (nx > 0)
-					aniId = ID_ANI_MARIO_TAIL_LANDING_RIGHT;
+				if (levelRun == LEVEL_RUN_MAX)
+				{
+					if (nx > 0)
+						aniId = ID_ANI_MARIO_TAIL_JUMPING_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_TAIL_JUMPING_LEFT;
+				}
 				else
-					aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
+				{
+					if (nx > 0)
+						aniId = ID_ANI_MARIO_TAIL_LANDING_RIGHT;
+					else
+						aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
+				}
 			}
 		}
 		else
