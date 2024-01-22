@@ -9,8 +9,15 @@ void CHud::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	if (mario->GetX() >= 152.0f)
+	if (mario->GetX() >= 152.0f && mario->GetX() <= 2608)
 		x = mario->GetX();
+	else
+	{
+		if (mario->GetX() < 152.0f)
+			x = 152.0f;
+		else if (mario->GetX() > 2608)
+			x = 2608.0f;
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
