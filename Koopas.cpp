@@ -243,7 +243,7 @@ void CKoopas::OnCollisionWithMysbox(LPCOLLISIONEVENT e)
 			case ITEMS:
 				if (mario->GetLevel() == MARIO_LEVEL_SMALL)
 				{
-					item = new CMushroom(mysbox->GetX(), mysbox->GetY());
+					item = new CMushroom(mysbox->GetX(), mysbox->GetY(), mysbox->GetMushroomType());
 					scene->AddObject(item, mysbox->GetIndex());
 				}
 				else

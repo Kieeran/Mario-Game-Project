@@ -4,6 +4,9 @@
 #include "Pipe.h"
 #include "Mario.h"
 #include "Playscene.h"
+#define UNKNOWN_TYPE	-1
+#define RED_MUSHROOM_TYPE	1
+#define GREEN_MUSHROOM_TYPE	2
 
 #define MUSHROOM_GRAVITY 0.001f
 #define MUSHROOM_WALKING_SPEED 0.05f
@@ -20,6 +23,8 @@
 class CMushroom : public CGameObject
 {
 protected:
+	int mushroomType;
+
 	float ax;
 	float ay;
 	float Origin_Y;
@@ -35,6 +40,6 @@ protected:
 	void OnCollisionWithPlayer(LPCOLLISIONEVENT e);
 
 public:
-	CMushroom(float x, float y);
+	CMushroom(float x, float y, int mushroomType);
 	void SetState(int state);
 };

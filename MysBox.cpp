@@ -1,14 +1,16 @@
 #include "MysBox.h"
 #include "PlayScene.h"
 
-CMysBox::CMysBox(float x, float y, int itemType, int index) :CGameObject()
+CMysBox::CMysBox(float x, float y, int itemType, int index, int mushroomType) :CGameObject()
 {
-	this->ay = MYSBOX_GRAVITY;
 	this->itemType = itemType;
-	SetState(MYSBOX_STATE_CARRY_ITEMS);
-	this->Unbox = true;
-	this->Origin_Y = y;
 	this->index = index;
+	this->mushroomType = mushroomType;
+
+	ay = MYSBOX_GRAVITY;
+	Unbox = true;
+	Origin_Y = y;
+	SetState(MYSBOX_STATE_CARRY_ITEMS);
 }
 
 void CMysBox::Render()

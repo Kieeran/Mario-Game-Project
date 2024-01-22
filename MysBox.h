@@ -25,6 +25,7 @@ protected:
 
 	float Origin_Y;
 	int itemType;
+	int mushroomType;
 	bool Unbox;
 	int index;
 
@@ -37,8 +38,9 @@ protected:
 	virtual int IsBlocking() { return 1; }
 
 public:
-	CMysBox(float x, float y, int itemType, int index);
+	CMysBox(float x, float y, int itemType, int index, int mushroomType);
 	virtual void SetState(int state);
 	int GetItemType() { return itemType; }
 	int GetIndex() { return index; }
+	int GetMushroomType() { return mushroomType; }
 };

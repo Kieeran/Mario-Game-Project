@@ -348,7 +348,7 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 			case ITEMS:
 				if (level == MARIO_LEVEL_SMALL)
 				{
-					item = new CMushroom(mysbox->GetX(), mysbox->GetY());
+					item = new CMushroom(mysbox->GetX(), mysbox->GetY(), mysbox->GetMushroomType());
 					scene->AddObject(item, mysbox->GetIndex());
 				}
 				else

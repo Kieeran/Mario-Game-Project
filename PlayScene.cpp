@@ -143,7 +143,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_MYSBOX:
 	{
 		int itemType = atoi(tokens[3].c_str());
-		obj = new CMysBox(x, y, itemType, objects.size() - 1);
+		int mushroomType = -1;
+		if (itemType == ITEMS)
+			mushroomType = atoi(tokens[4].c_str());
+		obj = new CMysBox(x, y, itemType, objects.size() - 1, mushroomType);
 		break;
 	}
 	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;

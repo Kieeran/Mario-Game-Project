@@ -1,13 +1,14 @@
 #include "Mushroom.h"
 
-CMushroom::CMushroom(float x, float y) :CGameObject(x, y)
+CMushroom::CMushroom(float x, float y, int mushroomType) :CGameObject(x, y)
 {
-	this->ax = 0;
-	this->ay = MUSHROOM_GRAVITY;
-	this->vx = 0;
-	this->vy = 0;
-	this->Origin_Y = y;
-	this->SetState(MUSHROOM_STATE_WAKEUP);
+	this->mushroomType = mushroomType;
+	ax = 0;
+	ay = MUSHROOM_GRAVITY;
+	vx = 0;
+	vy = 0;
+	Origin_Y = y;
+	SetState(MUSHROOM_STATE_WAKEUP);
 }
 
 void CMushroom::GetBoundingBox(float& l, float& t, float& r, float& b)
@@ -73,7 +74,10 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMushroom::Render()
 {
-	CAnimations::GetInstance()->Get(ID_ANI_MUSHROOM)->Render(x, y);
+	if (mushroomType == RED_MUSHROOM_TYPE)
+		CAnimations::GetInstance()->Get(ID_ANI_RED_MUSHROOM)->Render(x, y);
+	else
+		CAnimations::GetInstance()->Get(ID_ANI_GREEN_MUSHROOM)->Render(x, y);
 }
 
 void CMushroom::SetState(int state)
