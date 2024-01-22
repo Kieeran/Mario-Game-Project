@@ -335,10 +335,19 @@ void CPlayScene::Update(DWORD dt)
 
 	CGame* game = CGame::GetInstance();
 	cx -= game->GetBackBufferWidth() / 2;
-	cy -= game->GetBackBufferHeight() / 1.2f;
+	cy -= game->GetBackBufferHeight() / 2;
+
+	CMario* mario = (CMario*)player;
 
 	if (cx < 0) cx = 0;
-	if (cy < 0) cy = 0;
+	if (cx > 2456.0f) cx = 2456.0f;
+
+	if (!mario->GetIsFlying() || (mario->GetIsFlying() && mario->IsNotFlying()))
+		cy = 0;
+	/*else
+	{
+		if (cy > -50.0f) cy = -50.0f;
+	}*/
 
 	CGame::GetInstance()->SetCamPos(cx, cy);
 

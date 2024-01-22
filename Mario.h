@@ -158,4 +158,10 @@ public:
 
 	bool GetIsOnPlatform() { return isOnPlatform; }
 	void SetIsOnPlatform(bool p) { isOnPlatform = p; }
+
+	bool GetIsFlying() { return isFlying; }
+
+	int GetLevelRun() { return levelRun; }
+
+	bool IsNotFlying() { return levelRun <= LEVEL_RUN_MAX - 4; }
 };
