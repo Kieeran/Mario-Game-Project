@@ -24,6 +24,7 @@
 #include "HardBlock.h"
 #include "BlackObject.h"
 #include "Card.h"
+#include "Sticker.h"
 
 #include "Hud.h"
 
@@ -150,6 +151,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	{
 		int nCloud = atoi(tokens[3].c_str());
 		obj = new CCloud(x, y, nCloud);
+		break;
+	}
+	case OBJECT_TYPE_STICKER:
+	{
+		int stickerType = atoi(tokens[3].c_str());
+		obj = new CSticker(x, y, stickerType);
 		break;
 	}
 	case OBJECT_TYPE_BIGGRASS:

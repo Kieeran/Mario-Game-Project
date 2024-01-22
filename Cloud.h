@@ -6,6 +6,9 @@
 #include "AssetIDs.h"
 
 #define CELL_CLOUD_SIDE 16
+#define CLOUD_BBOX_WIDTH 16
+#define CLOUD_BBOX_HEIGHT 16
+
 class CCloud : public CGameObject
 {
 protected:
@@ -13,8 +16,6 @@ protected:
 public:
 	CCloud(float x, float y, int nCloud) : CGameObject(x, y)
 	{
-		this->x = x;
-		this->y = y;
 		this->nCloud = nCloud;
 	}
 	void Render();
