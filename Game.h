@@ -14,7 +14,7 @@ using namespace std;
 #include "KeyEventHandler.h"
 #include "Scene.h"
 
-#define MAX_FRAME_RATE 150
+#define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
 #define TYPE_WORLD_UNKNOWN 0

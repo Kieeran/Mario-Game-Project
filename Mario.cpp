@@ -31,8 +31,10 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	untouchable = 0;
 	kick_start = 0;
 	hold_start = 0;
+	speed_stop = 0;
 
 	coin = 0;
+	levelRun = 0;
 
 	isOnPlatform = false;
 	isHolding = false;
@@ -41,11 +43,12 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	isTailAttack = false;
 	isChanging = false;
 	isLower = false;
+	isFlying = false;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	DebugOut(L"level = %d\n", level);
+	//DebugOut(L"%d\n", isOnPlatform);
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
 
@@ -56,17 +59,26 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		vy += ay * dt;
 		vx += ax * dt;
-	}
-
-	//*
-	if (!isOnPlatform)
-	{
-		ax = 0;
+		vy += ay * dt;
 	}
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
+
+	if (GetTickCount64() - speed_stop > TIME_SPEED && speed_stop > 0)
+	{
+		ay = MARIO_GRAVITY;
+		speed_stop = 0;
+	}
+
+	if (isFlying)
+	{
+		if (isOnPlatform)
+		{
+			isFlying = false;
+			ay = MARIO_GRAVITY;
+		}
+	}
 
 	// reset untouchable timer if untouchable time has passed
 	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME && untouchable_start > 0)
@@ -98,7 +110,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 	if (e->ny != 0 && e->obj->IsBlocking())
 	{
 		vy = 0;
-		if (e->ny < 0) isOnPlatform = true;
+		if (e->ny < 0)
+			isOnPlatform = true;
 	}
 	else if (e->nx != 0 && e->obj->IsBlocking())
 	{
@@ -755,7 +768,7 @@ void CMario::Render()
 
 	//RenderBoundingBox();
 
-	DebugOutTitle(L"X = %f \t Y = %f \t VX =  %f \t VY = %f", x, y, vx, vy);
+	DebugOutTitle(L"X = %f \t Y = %f \t VX =  %f \t VY = %f \t AY = %f", x, y, vx, vy, ay);
 }
 
 void CMario::SetState(int state)
@@ -799,7 +812,7 @@ void CMario::SetState(int state)
 		if (isSitting) break;
 		if (isOnPlatform)
 		{
-			if (abs(this->vx) == MAX_MARIO_RUNNING_SPEED)
+			if (abs(vx) == MAX_MARIO_RUNNING_SPEED)
 				vy = -MARIO_JUMP_RUN_SPEED_Y;
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
@@ -808,7 +821,7 @@ void CMario::SetState(int state)
 
 	case MARIO_STATE_RELEASE_JUMP:
 		if (vy < 0)
-			vy += MARIO_JUMP_SPEED_Y / 2;
+			vy += MARIO_JUMP_SPEED_Y / 3;
 		isRunning = false;
 		break;
 
@@ -816,6 +829,19 @@ void CMario::SetState(int state)
 		isTailAttack = true;
 		tail = new CTail(x, y + 7.0f);
 		scene->AddObject(tail, ADD_OBJECT_BACK);
+		break;
+
+	case MARIO_STATE_FLY:
+		isFlying = true;
+		if (levelRun == LEVEL_RUN_MAX)
+		{
+			vy = -MARIO_FLYING;
+		}
+		else
+		{
+			vy = 0;
+		}
+		speed_stop = GetTickCount64();
 		break;
 
 	case MARIO_STATE_SIT:

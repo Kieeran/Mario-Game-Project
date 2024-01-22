@@ -13,10 +13,11 @@
 #define MARIO_ACCEL_WALK_X	0.0005f
 #define MARIO_ACCEL_RUN_X	0.0003f
 
-#define MARIO_JUMP_SPEED_Y		0.5f
-#define MARIO_JUMP_RUN_SPEED_Y	0.6f
+#define MARIO_JUMP_SPEED_Y		0.4f
+#define MARIO_JUMP_RUN_SPEED_Y	0.5f
 
-#define MARIO_GRAVITY	0.002f
+#define MARIO_GRAVITY	0.0008f
+#define MARIO_FLYING	0.27f
 
 #define MARIO_JUMP_DEFLECT_SPEED  0.4f
 
@@ -34,6 +35,7 @@
 #define MARIO_STATE_SIT				600
 #define MARIO_STATE_SIT_RELEASE		601
 #define MARIO_STATE_TAIL_ATTACK		700
+#define MARIO_STATE_FLY				800
 
 #define GROUND_Y 160.0f
 
@@ -54,10 +56,14 @@
 #define MARIO_SMALL_BBOX_WIDTH  13
 #define MARIO_SMALL_BBOX_HEIGHT 12
 
+#define	SPEED_LEVEL_RUN	0.01f
+#define LEVEL_RUN_MAX	7
+
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITTING_BBOX_HEIGHT) / 2)
 
 #define MARIO_UNTOUCHABLE_TIME	2500
 #define TIME_KICK_ANIMATION		100
+#define TIME_SPEED	150
 
 class CMario : public CGameObject
 {
@@ -67,11 +73,13 @@ class CMario : public CGameObject
 	float ay;				// acceleration on y 
 
 	int level;
+	int levelRun;
 	int untouchable;
 
 	ULONGLONG untouchable_start;
 	ULONGLONG kick_start;
 	ULONGLONG hold_start;
+	ULONGLONG speed_stop;
 
 	BOOLEAN isOnPlatform;
 	int coin;
@@ -83,6 +91,7 @@ class CMario : public CGameObject
 	bool isTailAttack;
 	bool isChanging;
 	bool isLower;
+	bool isFlying;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -143,4 +152,7 @@ public:
 
 	bool GetIsChanging() { return isChanging; }
 	void SetIsChanging(bool c) { isChanging = c; }
+
+	bool GetIsOnPlatform() { return isOnPlatform; }
+	void SetIsOnPlatform(bool p) { isOnPlatform = p; }
 };
