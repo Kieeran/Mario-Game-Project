@@ -400,16 +400,16 @@ int CMario::GetAniIdTail()
 				if (levelRun == LEVEL_RUN_MAX)
 				{
 					if (nx > 0)
-						aniId = ID_ANI_MARIO_TAIL_JUMPING_RIGHT;
+						aniId = ID_ANI_MARIO_TAIL_FLYING_UP_RIGHT;
 					else
-						aniId = ID_ANI_MARIO_TAIL_JUMPING_LEFT;
+						aniId = ID_ANI_MARIO_TAIL_FLYING_UP_LEFT;
 				}
 				else
 				{
 					if (nx > 0)
-						aniId = ID_ANI_MARIO_TAIL_LANDING_RIGHT;
+						aniId = ID_ANI_MARIO_TAIL_FLYING_DOWN_RIGHT;
 					else
-						aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
+						aniId = ID_ANI_MARIO_TAIL_FLYING_DOWN_LEFT;
 				}
 			}
 		}
