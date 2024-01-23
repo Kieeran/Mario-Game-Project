@@ -204,6 +204,9 @@
     <ClInclude Include="Sticker.h">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\Object\Change_Object</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -364,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="Sticker.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
