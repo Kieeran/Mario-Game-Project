@@ -5,84 +5,65 @@
 
 #include "Textures.h"
 
-void CBoxes::RenderBoundingBox()
-{
-	D3DXVECTOR3 p(x, y, 0);
-	RECT rect;
-
-	//LPTEXTURE bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
-	LPTEXTURE bbox = CTextures::GetInstance()->Get(ID_TEX_BBOX);
-
-	float l, t, r, b;
-
-	GetBoundingBox(l, t, r, b);
-	rect.left = 0;
-	rect.top = 0;
-	rect.right = (int)r - (int)l;
-	rect.bottom = (int)b - (int)t;
-
-	float cx, cy;
-	CGame::GetInstance()->GetCamPos(cx, cy);
-
-	float xx = x - this->lengthCellSide / 2 + rect.right / 2;
-
-	CGame::GetInstance()->Draw(xx - cx, y - cy, bbox, nullptr, BBOX_ALPHA, rect.right - 1, rect.bottom - 1);
-}
-
 void CBoxes::Render()
 {
-	if (this->lengthWidth <= 0 || this->lengthHeight <= 0)return;
+	if (lengthWidth <= 0 || lengthHeight <= 0)return;
 	CSprites* s = CSprites::GetInstance();
 	float xx, yy;
 	//Render the top row of the box
-	s->Get(this->spriteIdTopLeft)->Draw(x, y);
-	for (int i = 1; i <= this->lengthWidth - 2; i++)
+	s->Get(spriteIdTopLeft)->Draw(x, y);
+	for (int i = 1; i <= lengthWidth - 2; i++)
 	{
-		s->Get(this->spriteIdTopMiddle)->Draw(x + this->lengthCellSide * i, y);
+		s->Get(spriteIdTopMiddle)->Draw(x + lengthCellSide * i, y);
 	}
-	s->Get(this->spriteIdTopRight)->Draw(x + this->lengthCellSide * (this->lengthWidth - 1), y);
+	s->Get(spriteIdTopRight)->Draw(x + lengthCellSide * (lengthWidth - 1), y);
 
 	//Render the bottom row of the box
-	yy = y + this->lengthCellSide * (this->lengthHeight - 1);
-	s->Get(this->spriteIdBottomLeft)->Draw(x, yy);
-	for (int i = 1; i <= this->lengthWidth - 2; i++)
+	yy = y + lengthCellSide * (lengthHeight - 1);
+	s->Get(spriteIdBottomLeft)->Draw(x, yy);
+	for (int i = 1; i <= lengthWidth - 2; i++)
 	{
-		s->Get(this->spriteIdBottomMiddle)->Draw(x + this->lengthCellSide * i, yy);
+		s->Get(spriteIdBottomMiddle)->Draw(x + lengthCellSide * i, yy);
 	}
-	s->Get(this->spriteIdBottomRight)->Draw(x + this->lengthCellSide * (this->lengthWidth - 1), yy);
+	s->Get(spriteIdBottomRight)->Draw(x + lengthCellSide * (lengthWidth - 1), yy);
 
 	//Render the middle matrix of the box
-	for (int i = 1; i <= this->lengthHeight - 2; i++)
+	for (int i = 1; i <= lengthHeight - 2; i++)
 	{
-		yy = y + this->lengthCellSide * i;
-		s->Get(this->spriteIdMiddleLeft)->Draw(x, yy);
+		yy = y + lengthCellSide * i;
+		s->Get(spriteIdMiddleLeft)->Draw(x, yy);
 		int j = 0;
-		for (j = 1; j <= this->lengthWidth - 2; j++)
+		for (j = 1; j <= lengthWidth - 2; j++)
 		{
-			s->Get(this->spriteIdCenter)->Draw(x + this->lengthCellSide * j, yy);
+			s->Get(spriteIdCenter)->Draw(x + lengthCellSide * j, yy);
 		}
-		s->Get(this->spriteIdMiddleRight)->Draw(x + this->lengthCellSide * j, yy);
+		s->Get(spriteIdMiddleRight)->Draw(x + lengthCellSide * j, yy);
 	}
 
 	//Render the shadow of the box
-	xx = x + this->lengthCellSide * this->lengthWidth;
-	yy = y;
-	s->Get(this->spriteIdShadowTop)->Draw(xx, yy);
-	for (int i = 1; i <= this->lengthHeight - 1; i++)
+	xx = x + lengthCellSide * lengthWidth;
+	yy = y + lengthCellSide;
+	s->Get(spriteIdShadowTop)->Draw(xx, y);
+	for (int i = 0; i < lengthHeight - 1; i++)
 	{
-		s->Get(this->spriteIdShadowRest)->Draw(xx, yy + this->lengthCellSide * i);
+		s->Get(spriteIdShadowRest)->Draw(xx, yy);
+		yy += lengthCellSide;
+	}
+	s->Get(ID_SPRITE_SHADOW_3)->Draw(xx, yy);
+
+	xx = x;
+	s->Get(ID_SPRITE_SHADOW_5)->Draw(xx, yy);
+	for (int i = 0; i < lengthWidth - 1; i++)
+	{
+		xx += lengthCellSide;
+		s->Get(ID_SPRITE_SHADOW_4)->Draw(xx, yy);
 	}
 }
 
 void CBoxes::GetBoundingBox(float& l, float& t, float& r, float& b)
 {
-	l = x + 2.25f - this->lengthCellSide / 2;
-	t = y - this->lengthCellSide / 2;
-	r = l + this->lengthCellSide * this->lengthWidth - 2.25f;
-	b = t + this->lengthCellSide * this->lengthHeight;
-}
-int CBoxes::IsDirectionColliable(float nx, float ny)
-{
-	if (nx == 0 && ny == -1) return 1;
-	else return 0;
+	l = x + 2.25f - lengthCellSide / 2;
+	t = y - lengthCellSide / 2;
+	r = l + lengthCellSide * lengthWidth - 2.25f;
+	b = t + lengthCellSide * lengthHeight;
 }

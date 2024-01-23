@@ -41,6 +41,8 @@ public:
 	void Render();
 	void Update(DWORD dt) {}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
-	int IsDirectionColliable(float nx, float ny);
-	void RenderBoundingBox();
+	int IsDirectionColliable(float nx, float ny)
+	{
+		return nx == 0 && ny == -1;
+	}
 };
