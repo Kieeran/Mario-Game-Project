@@ -50,7 +50,7 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	DebugOut(L"%d\n", levelRun);
+	//DebugOut(L"%d\n", levelRun);
 	//DebugOut(L"%d\n", isRunning);
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
@@ -160,6 +160,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithFireBullet(e);
 	else if (dynamic_cast<CKoopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<CBrick*>(e->obj))
+		OnCollisionWithBrick(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -213,6 +215,17 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 				}
 			}
 		}
+	}
+}
+
+void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+
+	if (e->ny > 0)
+	{
+		if (level > MARIO_LEVEL_SMALL)
+			brick->SetState(BRICK_STATE_DELETE);
 	}
 }
 
@@ -309,7 +322,7 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
-	DebugOut(L">>> Show coin delete >>> \n");
+	//DebugOut(L">>> Show coin delete >>> \n");
 	coin++;
 }
 
@@ -865,12 +878,10 @@ void CMario::SetState(int state)
 		if (levelRun == LEVEL_RUN_MAX)
 		{
 			vy = -MARIO_FLYING;
-			DebugOut(L"S");
 		}
 		else
 		{
 			vy = 0;
-			DebugOut(L"NS\n");
 		}
 		break;
 

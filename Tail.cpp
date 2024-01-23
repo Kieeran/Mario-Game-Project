@@ -5,6 +5,7 @@
 #include "Koopas.h"
 #include "Mushroom.h"
 #include "Leaf.h"
+#include "Brick.h"
 
 CTail::CTail(float x, float y) :CGameObject(x, y)
 {
@@ -55,6 +56,8 @@ void CTail::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithPiranhaPlant(e);
 	else if (dynamic_cast<CKoopas*>(e->obj))
 		OnCollisionWithKoopas(e);
+	else if (dynamic_cast<CBrick*>(e->obj))
+		OnCollisionWithBrick(e);
 
 	Delete();
 }
@@ -99,11 +102,20 @@ void CTail::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 		}
 	}
 }
+
 void CTail::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
 	return;
 }
+
 void CTail::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
+	return;
+}
+
+void CTail::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+	brick->SetState(BRICK_STATE_DELETE);
 	return;
 }

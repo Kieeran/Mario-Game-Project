@@ -28,6 +28,7 @@ protected:
 	void OnCollisionWithMysBox(LPCOLLISIONEVENT e);
 	void OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 
 public:
 	CTail(float x, float y);

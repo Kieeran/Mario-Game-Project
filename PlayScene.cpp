@@ -122,7 +122,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 
 		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
-	case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
 	case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
 	case OBJECT_TYPE_HARDBLOCK: obj = new CHardBlock(x, y); break;
@@ -147,6 +146,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		if (itemType == ITEMS)
 			mushroomType = atoi(tokens[4].c_str());
 		obj = new CMysBox(x, y, itemType, objects.size() - 1, mushroomType);
+		break;
+	}
+	case OBJECT_TYPE_BRICK:
+	{
+		int brickType = atoi(tokens[3].c_str());
+		obj = new CBrick(x, y, brickType);
 		break;
 	}
 	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
@@ -354,10 +359,10 @@ void CPlayScene::Update(DWORD dt)
 
 	/*if (!mario->GetIsFlying() || (mario->GetIsFlying() && mario->IsNotFlying()))
 		cy = 0;*/
-	/*else
-	{
-		if (cy > -50.0f) cy = -50.0f;
-	}*/
+		/*else
+		{
+			if (cy > -50.0f) cy = -50.0f;
+		}*/
 
 	CGame::GetInstance()->SetCamPos(cx, cy);
 
