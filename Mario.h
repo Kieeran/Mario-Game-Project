@@ -62,9 +62,11 @@
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITTING_BBOX_HEIGHT) / 2)
 
 #define MARIO_UNTOUCHABLE_TIME	2500
+#define TIME_CHANGE_SCENE	5000
 #define TIME_KICK_ANIMATION	 100
 #define TIME_PREPARE_RUN  700
 #define TIME_SPEED	150
+
 
 class CMario : public CGameObject
 {
@@ -84,6 +86,7 @@ class CMario : public CGameObject
 	ULONGLONG speed_start;
 	ULONGLONG speed_stop;
 	ULONGLONG prepare_start;
+	ULONGLONG change_scene_die_start;
 
 	BOOLEAN isOnPlatform;
 	int coin;
@@ -129,6 +132,8 @@ public:
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
+
+	void ChangeToWorldMapWhenDie();
 
 	int GetLevel() { return level; }
 	void SetLevel(int l)

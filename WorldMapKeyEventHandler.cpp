@@ -33,6 +33,10 @@ void CWorldMapKeyEventHandler::OnKeyDown(int KeyCode)
 		if (data->GetAllowGoDown())
 			mario->SetState(MARIO_STATE_GO_DOWN);
 		break;
+	case DIK_S:
+		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_PLAY);
+		CGame::GetInstance()->SwitchScene();
+		break;
 	}
 }
 

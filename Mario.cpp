@@ -36,6 +36,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	speed_start = 0;
 	speed_stop = 0;
 	prepare_start = 0;
+	change_scene_die_start = 0;
 
 	this->index = index;
 	coin = 0;
@@ -68,6 +69,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx += ax * dt;
 		vy += ay * dt;
 	}
+
+	if (state == MARIO_STATE_DIE)
+		ChangeToWorldMapWhenDie();
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
@@ -399,6 +403,17 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+}
+
+void CMario::ChangeToWorldMapWhenDie()
+{
+	//if (GetTickCount64() - change_scene_die_start > TIME_CHANGE_SCENE)
+	if (GetTickCount64() - change_scene_die_start > 2000)
+	{
+		level = MARIO_LEVEL_SMALL;
+		//CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
+		CGame::GetInstance()->SwitchScene();
+	}
 }
 
 //
@@ -832,115 +847,6 @@ void CMario::Render()
 	DebugOutTitle(L"X = %f \t Y = %f \t VX =  %f \t VY = %f \t LevelRun = %d", x, y, vx, vy, levelRun);
 }
 
-void CMario::SetState(int state)
-{
-	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-
-	// DIE is the end state, cannot be changed! 
-	if (this->state == MARIO_STATE_DIE) return;
-
-	switch (state)
-	{
-	case MARIO_STATE_RUNNING_RIGHT:
-		if (isSitting) break;
-		maxVx = MAX_MARIO_RUNNING_SPEED + levelRun * SPEED_LEVEL_RUN;
-		ax = MARIO_ACCEL_RUN_X;
-		isRunning = true;
-		nx = 1;
-		break;
-	case MARIO_STATE_RUNNING_LEFT:
-		if (isSitting) break;
-		maxVx = -(MAX_MARIO_RUNNING_SPEED + levelRun * SPEED_LEVEL_RUN);
-		ax = -MARIO_ACCEL_RUN_X;
-		isRunning = true;
-		nx = -1;
-		break;
-	case MARIO_STATE_WALKING_RIGHT:
-		if (isSitting) break;
-		maxVx = MAX_MARIO_WALKING_SPEED;
-		ax = MARIO_ACCEL_WALK_X;
-		isRunning = false;
-		nx = 1;
-		break;
-	case MARIO_STATE_WALKING_LEFT:
-		if (isSitting) break;
-		maxVx = -MAX_MARIO_WALKING_SPEED;
-		ax = -MARIO_ACCEL_WALK_X;
-		isRunning = false;
-		nx = -1;
-		break;
-	case MARIO_STATE_JUMP:
-		if (isSitting) break;
-		if (isOnPlatform)
-		{
-			if (abs(vx) == MAX_MARIO_RUNNING_SPEED)
-				vy = -MARIO_JUMP_RUN_SPEED_Y;
-			else
-				vy = -MARIO_JUMP_SPEED_Y;
-		}
-		break;
-
-	case MARIO_STATE_RELEASE_JUMP:
-		if (vy < 0)
-			vy += MARIO_JUMP_SPEED_Y / 3;
-		isRunning = false;
-		break;
-
-	case MARIO_STATE_TAIL_ATTACK:
-		isTailAttack = true;
-		tail = new CTail(x, y + 7.0f);
-		scene->AddObject(tail, ADD_OBJECT_BACK);
-		break;
-
-	case MARIO_STATE_FLY:
-		isFlying = true;
-		isOnPlatform = false;
-		if (levelRun == LEVEL_RUN_MAX)
-		{
-			vy = -MARIO_FLYING;
-		}
-		else
-		{
-			vy = 0;
-		}
-		break;
-
-	case MARIO_STATE_SIT:
-		if (isOnPlatform && level != MARIO_LEVEL_SMALL)
-		{
-			state = MARIO_STATE_IDLE;
-			isSitting = true;
-			isRunning = false;
-			vx = 0.0f;
-			vy = 0.0f;
-			y += MARIO_SIT_HEIGHT_ADJUST;
-		}
-		break;
-
-	case MARIO_STATE_SIT_RELEASE:
-		if (isSitting)
-		{
-			isSitting = false;
-			state = MARIO_STATE_IDLE;
-			y -= MARIO_SIT_HEIGHT_ADJUST;
-		}
-		break;
-
-	case MARIO_STATE_IDLE:
-		ax = 0.0f;
-		vx = 0.0f;
-		break;
-
-	case MARIO_STATE_DIE:
-		vy = -MARIO_JUMP_DEFLECT_SPEED;
-		vx = 0;
-		ax = 0;
-		break;
-	}
-
-	CGameObject::SetState(state);
-}
-
 void CMario::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	if (level == MARIO_LEVEL_TAIL)
@@ -1044,4 +950,114 @@ void CMario::SetLevelHigher()
 		level = MARIO_LEVEL_TAIL;
 	}
 	isLower = false;
+}
+
+void CMario::SetState(int state)
+{
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	// DIE is the end state, cannot be changed! 
+	if (this->state == MARIO_STATE_DIE) return;
+
+	switch (state)
+	{
+	case MARIO_STATE_RUNNING_RIGHT:
+		if (isSitting) break;
+		maxVx = MAX_MARIO_RUNNING_SPEED + levelRun * SPEED_LEVEL_RUN;
+		ax = MARIO_ACCEL_RUN_X;
+		isRunning = true;
+		nx = 1;
+		break;
+	case MARIO_STATE_RUNNING_LEFT:
+		if (isSitting) break;
+		maxVx = -(MAX_MARIO_RUNNING_SPEED + levelRun * SPEED_LEVEL_RUN);
+		ax = -MARIO_ACCEL_RUN_X;
+		isRunning = true;
+		nx = -1;
+		break;
+	case MARIO_STATE_WALKING_RIGHT:
+		if (isSitting) break;
+		maxVx = MAX_MARIO_WALKING_SPEED;
+		ax = MARIO_ACCEL_WALK_X;
+		isRunning = false;
+		nx = 1;
+		break;
+	case MARIO_STATE_WALKING_LEFT:
+		if (isSitting) break;
+		maxVx = -MAX_MARIO_WALKING_SPEED;
+		ax = -MARIO_ACCEL_WALK_X;
+		isRunning = false;
+		nx = -1;
+		break;
+	case MARIO_STATE_JUMP:
+		if (isSitting) break;
+		if (isOnPlatform)
+		{
+			if (abs(vx) == MAX_MARIO_RUNNING_SPEED)
+				vy = -MARIO_JUMP_RUN_SPEED_Y;
+			else
+				vy = -MARIO_JUMP_SPEED_Y;
+		}
+		break;
+
+	case MARIO_STATE_RELEASE_JUMP:
+		if (vy < 0)
+			vy += MARIO_JUMP_SPEED_Y / 3;
+		isRunning = false;
+		break;
+
+	case MARIO_STATE_TAIL_ATTACK:
+		isTailAttack = true;
+		tail = new CTail(x, y + 7.0f);
+		scene->AddObject(tail, ADD_OBJECT_BACK);
+		break;
+
+	case MARIO_STATE_FLY:
+		isFlying = true;
+		isOnPlatform = false;
+		if (levelRun == LEVEL_RUN_MAX)
+		{
+			vy = -MARIO_FLYING;
+		}
+		else
+		{
+			vy = 0;
+		}
+		break;
+
+	case MARIO_STATE_SIT:
+		if (isOnPlatform && level != MARIO_LEVEL_SMALL)
+		{
+			state = MARIO_STATE_IDLE;
+			isSitting = true;
+			isRunning = false;
+			vx = 0.0f;
+			vy = 0.0f;
+			y += MARIO_SIT_HEIGHT_ADJUST;
+		}
+		break;
+
+	case MARIO_STATE_SIT_RELEASE:
+		if (isSitting)
+		{
+			isSitting = false;
+			state = MARIO_STATE_IDLE;
+			y -= MARIO_SIT_HEIGHT_ADJUST;
+		}
+		break;
+
+	case MARIO_STATE_IDLE:
+		ax = 0.0f;
+		vx = 0.0f;
+		break;
+
+	case MARIO_STATE_DIE:
+		vy = -MARIO_JUMP_DEFLECT_SPEED;
+		change_scene_die_start = GetTickCount64();
+		vx = 0;
+		ax = 0;
+		break;
+	}
+
+	CGameObject::SetState(state);
 }
