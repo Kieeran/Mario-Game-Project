@@ -24,3 +24,4 @@ start	3
 26	textures\map.png
 27	textures\intro_background.png
 28	textures\marioWorldMap.png
+29	textures\particles.png

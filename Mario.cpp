@@ -411,11 +411,8 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 void CMario::AddScore(float x, float y, int scoreAdd)
 {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-	switch (scoreAdd)
-	{
-	case 100:
-		break;
-	}
+	CEffects* effect = new CEffects(x, y, scoreAdd);
+	scene->AddObject(effect);
 	score += scoreAdd;
 }
 

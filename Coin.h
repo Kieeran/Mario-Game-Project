@@ -5,8 +5,8 @@
 #include "Animations.h"
 #include "AssetIDs.h"
 
-#define COIN_BOUCING_SPEED	0.5f
-#define COIN_GRAVITY	0.002f
+#define COIN_BOUCING_SPEED	0.48f
+#define COIN_GRAVITY	0.0015f
 
 #define SHOWED_COIN_TYPE	0
 #define HIDDEN_COIN_TYPE	1
@@ -17,6 +17,7 @@
 #define COIN_STATE_NOT_UNBOX 200
 
 #define TIME_COIN_TURN_TO_BRICK	10000
+#define TIME_COIN_DELETE  550
 
 class CCoin : public CGameObject
 {
@@ -29,6 +30,7 @@ protected:
 	bool isMoving;
 
 	ULONGLONG waiting_time;
+	ULONGLONG delete_start;
 
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);

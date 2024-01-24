@@ -11,8 +11,13 @@ CCoin::CCoin(float x, float y, int coin_type) :CGameObject()
 	this->coin_type = coin_type;
 	ay = COIN_GRAVITY;
 	vy = 0;
+	delete_start = 0;
 	if (coin_type == HIDDEN_COIN_TYPE)
+	{
 		vy = -COIN_BOUCING_SPEED;
+		delete_start = GetTickCount64();
+	}
+
 	Origin_Y = y;
 
 	isMoving = true;
@@ -43,11 +48,18 @@ void CCoin::OnNoCollision(DWORD dt)
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	if (coin_type == HIDDEN_COIN_TYPE)
 	{
 		vy += ay * dt;
-		if (y > Origin_Y)
+
+		if (GetTickCount64() - delete_start > TIME_COIN_DELETE && delete_start > 0)
+		{
+			delete_start = 0;
+			CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+			mario->AddScore(x, y, 100);
 			Delete();
+		}
 	}
 
 	if (coin_type == SHOWED_COIN_TYPE && !isMoving)
