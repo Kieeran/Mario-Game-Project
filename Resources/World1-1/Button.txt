@@ -1,0 +1,12 @@
+# id	left	top	right	bottom	texture_id
+[SPRITES]
+31901	129	34	144	49	22
+31902	146	34	161	49	22
+31903	163	34	178	49	22
+
+31904	180	34	195	49	22
+
+# ani_id	sprite1_id	time1	sprite2_id	time2	...
+[ANIMATIONS]
+31951	31901	100	31902	100	31903	100
+31952	31904	100

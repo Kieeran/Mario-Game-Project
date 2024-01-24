@@ -73,6 +73,7 @@ class CMario : public CGameObject
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
 
+	int index;
 	int level;
 	int levelRun;
 	int untouchable;
@@ -106,13 +107,14 @@ class CMario : public CGameObject
 	void OnCollisionWithFireBullet(LPCOLLISIONEVENT e);
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
+	void OnCollisionWithButton(LPCOLLISIONEVENT e);
 
 	int GetAniIdTail();
 	int GetAniIdBig();
 	int GetAniIdSmall();
 
 public:
-	CMario(float x, float y);
+	CMario(float x, float y, int index);
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -163,6 +165,8 @@ public:
 	bool GetIsFlying() { return isFlying; }
 
 	int GetLevelRun() { return levelRun; }
+
+	int GetIndex() { return index; }
 
 	bool IsNotFlying() { return levelRun <= LEVEL_RUN_MAX - 4; }
 };

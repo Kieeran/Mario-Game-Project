@@ -13,11 +13,13 @@
 #include "FireBullet.h"
 #include "Koopas.h"
 #include "Leaf.h"
+#include "Button.h"
 
 #include "Collision.h"
-CMario::CMario(float x, float y) :CGameObject(x, y)
+CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 {
 	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+
 
 	isSitting = false;
 	maxVx = 0.0f;
@@ -35,6 +37,7 @@ CMario::CMario(float x, float y) :CGameObject(x, y)
 	speed_stop = 0;
 	prepare_start = 0;
 
+	this->index = index;
 	coin = 0;
 	levelRun = 0;
 
@@ -162,6 +165,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithKoopas(e);
 	else if (dynamic_cast<CBrick*>(e->obj))
 		OnCollisionWithBrick(e);
+	else if (dynamic_cast<CButton*>(e->obj))
+		OnCollisionWithButton(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -225,8 +230,25 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	if (e->ny > 0)
 	{
 		if (level > MARIO_LEVEL_SMALL)
-			brick->SetState(BRICK_STATE_DELETE);
+		{
+			if (brick->GetState() == BRICK_STATE_NORMAL)
+			{
+				if (brick->GetBrickType() == NORMAL_BRICK)
+					brick->SetState(BRICK_STATE_DELETE);
+				else
+				{
+					brick->SetState(BRICK_STATE_UNBOXED);
+				}
+			}
+		}
 	}
+}
+
+void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e)
+{
+	CButton* button = dynamic_cast<CButton*>(e->obj);
+	button->SetIsCollected(true);
+	//DebugOut(L"Collision with button \n");
 }
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
