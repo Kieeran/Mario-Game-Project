@@ -24,6 +24,8 @@ protected:
 	int coin_type;
 	float Origin_Y;
 
+	bool isMoving;
+
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
@@ -33,6 +35,7 @@ protected:
 	int IsBlocking() { return 0; }
 
 public:
-
 	CCoin(float x, float y, int coin_type = SHOWED_COIN_TYPE);
+
+	void SetIsMoving(bool b) { isMoving = b; }
 };

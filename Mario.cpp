@@ -247,7 +247,7 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e)
 {
 	CButton* button = dynamic_cast<CButton*>(e->obj);
-	button->SetIsCollected(true);
+	button->SetIsPressed(true);
 	//DebugOut(L"Collision with button \n");
 }
 

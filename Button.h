@@ -11,7 +11,7 @@ protected:
 	float Origin_X;
 	float Origin_Y;
 
-	bool isCollected;
+	bool isPressed;
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render();
@@ -22,5 +22,6 @@ protected:
 public:
 	CButton(float x, float y);
 
-	void SetIsCollected(bool b) { isCollected = b; }
+	bool GetIsPressed() { return isPressed; }
+	void SetIsPressed(bool b) { isPressed = b; }
 };

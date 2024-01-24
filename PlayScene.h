@@ -36,6 +36,8 @@ public:
 			objects.insert(objects.begin() + index, object);
 	}
 
+	vector<LPGAMEOBJECT> GetListObject() { return objects; }
+
 	virtual void Load();
 	virtual void Update(DWORD dt);
 	virtual void Render();

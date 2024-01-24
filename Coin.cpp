@@ -11,15 +11,20 @@ CCoin::CCoin(float x, float y, int coin_type) :CGameObject()
 	if (coin_type == HIDDEN_COIN_TYPE)
 		vy = -COIN_BOUCING_SPEED;
 	Origin_Y = y;
+
+	isMoving = true;
 }
 void CCoin::Render()
 {
 	CAnimations* animations = CAnimations::GetInstance();
 	if (coin_type == SHOWED_COIN_TYPE)
 	{
-		animations->Get(ID_ANI_SHOWED_COIN)->Render(x, y);
+		if (isMoving)
+			animations->Get(ID_ANI_SHOWED_COIN)->Render(x, y);
+		else
+			CSprites::GetInstance()->Get(ID_SPRITE_SHOWED_COIN_1)->Draw(x, y);
 	}
-	if (coin_type == HIDDEN_COIN_TYPE)
+	else if (coin_type == HIDDEN_COIN_TYPE)
 	{
 		animations->Get(ID_ANI_HIDDEN_COIN)->Render(x, y);
 	}
