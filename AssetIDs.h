@@ -399,8 +399,10 @@
 #define ID_SPRITE_BRICK_3 (ID_SPRITE_BRICK + 3)
 #define ID_SPRITE_BRICK_4 (ID_SPRITE_BRICK + 4)
 
-#define ID_ANI_BRICK 30150
+#define ID_SPRITE_BRICK_UNBOXED	(ID_SPRITE_BRICK + 5)
 
+#define ID_ANI_BRICK 30151
+#define ID_ANI_BRICK_UNBOXED 30152
 
 // coin id: 30200 -> 30299
 #define ID_SPRITE_COIN	30200
@@ -705,6 +707,19 @@
 #define ID_ANI_MUSHROOM_STICKER	31851
 #define ID_ANI_STAR_STICKER		31852
 #define ID_ANI_PLANT_STICKER	31853
+
+// button id: 31900 -> 31999
+
+#define ID_SPRITE_BUTTON  31900
+
+#define ID_SPRITE_BUTTON_1  31901
+#define ID_SPRITE_BUTTON_2  31902
+#define ID_SPRITE_BUTTON_3  31903
+
+#define ID_SPRITE_BUTTON_4  31904
+
+#define ID_ANI_BUTTON_NOT_COLLECTED 31951
+#define ID_ANI_BUTTON_COLLECTED		31952
 
 //======================================Intro part======================================
 #define ID_SPRITE_CURTAIN	50000

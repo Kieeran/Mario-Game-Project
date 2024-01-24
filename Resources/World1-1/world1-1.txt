@@ -21,6 +21,7 @@ Resources\World1-1\HardBlock.txt
 Resources\World1-1\BlackObject.txt
 Resources\World1-1\Card.txt
 Resources\World1-1\Sticker.txt
+Resources\World1-1\Button.txt
 
 Resources\Effects.txt
 Resources\Hud.txt
@@ -291,19 +292,19 @@ Resources\Hud.txt
 1	1944	165	1
 1	1960	165	1
 1	1976	165	1
-1	1992	165	1
-1	2008	165	1
+#1	1992	165	1
+#1	2008	165	1
 
 1	1928	149	1
 1	1944	149	1
 1	1960	149	1
 1	1976	149	1
-1	1992	149	1
+#1	1992	149	1
 
 1	1944	133	1
 1	1960	133	1
 1	1976	133	1
-1	1992	133	1
+1	1992	133	2
 
 1	2056	165	1
 1	2072	165	1
@@ -469,7 +470,7 @@ Resources\Hud.txt
 # Mario
 #0	50	165
 #0	550	61
-0	2022	160
+0	2007	150
 #0	1200	156
 #0	400	80
 #0	1500	100

@@ -105,17 +105,20 @@ void CTail::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 
 void CTail::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
-	return;
+	
 }
 
 void CTail::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
-	return;
+
 }
 
 void CTail::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 {
 	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-	brick->SetState(BRICK_STATE_DELETE);
-	return;
+
+	if (brick->GetBrickType() == NORMAL_BRICK)
+		brick->SetState(BRICK_STATE_DELETE);
+	else
+		brick->SetState(BRICK_STATE_UNBOXED);
 }
