@@ -199,11 +199,13 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 {
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	CGoomba* goomba = dynamic_cast<CGoomba*>(e->obj);
 	if (state == KOOPAS_STATE_ROLLING)
 	{
 		if (goomba->GetState() != GOOMBA_STATE_DIE)
 		{
+			mario->AddScore(goomba->GetX(), goomba->GetY(), 100);
 			goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
 		}
 	}

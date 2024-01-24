@@ -156,7 +156,7 @@ void CPiranhaPlant::Render()
 	if (aniId == -1) return;
 	animations->Get(aniId)->Render(x, y);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPiranhaPlant::OnNoCollision(DWORD dt)

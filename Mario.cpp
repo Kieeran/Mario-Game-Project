@@ -255,11 +255,13 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 		}
 		else if (koopas->GetState() == KOOPAS_STATE_WALKING)
 		{
+			AddScore(koopas->GetX(), koopas->GetY(), 100);
 			koopas->SetState(KOOPAS_STATE_HIDING);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
 		}
 		else if (koopas->GetState() == KOOPAS_STATE_HIDING || koopas->GetState() == KOOPAS_STATE_SHAKING)
 		{
+			AddScore(koopas->GetX(), koopas->GetY(), 100);
 			koopas->SetState(KOOPAS_STATE_ROLLING);
 			koopas->SetY(koopas->GetY() - 2.0f);
 			vy = -MARIO_JUMP_DEFLECT_SPEED;
@@ -340,6 +342,7 @@ void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 {
+	AddScore(x, y, 1000);
 	SetLevelHigher();
 	e->obj->Delete();
 }
