@@ -103,7 +103,7 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			if (detector->GetY() > y) {
 
 				vx = -vx;
-				detector->SetY(y - 10.0f);
+				detector->SetY(y - DETECTOR_DEFLECT_HIGH);
 			}
 		}
 	}
