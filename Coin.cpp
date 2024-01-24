@@ -52,7 +52,7 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (coin_type == SHOWED_COIN_TYPE && !isMoving)
 	{
-		if (GetTickCount64() - waiting_time > 2000 && waiting_time > 0)
+		if (GetTickCount64() - waiting_time > TIME_COIN_TURN_TO_BRICK && waiting_time > 0)
 		{
 			waiting_time = 0;
 			CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();

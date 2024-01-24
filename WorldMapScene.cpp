@@ -108,11 +108,12 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 	{
 		if (player != NULL)
 		{
-			//DebugOut(L"[ERROR] MARIO object was created before!\n");
+			DebugOut(L"[ERROR] Player object was created before!\n");
 			return;
 		}
 		obj = new CWorldMapPlayer(x, y);
 		player = (CWorldMapPlayer*)obj;
+		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
 	}
 	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
@@ -141,7 +142,7 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 
 void CWorldMapScene::LoadAssets(LPCWSTR assetFile)
 {
-	DebugOut(L"[INFO] Start loading assets from : %s \n", assetFile);
+	DebugOut(L"[INFO] Start loading assets from: %s \n", assetFile);
 
 	ifstream f;
 	f.open(assetFile);
@@ -171,12 +172,12 @@ void CWorldMapScene::LoadAssets(LPCWSTR assetFile)
 
 	f.close();
 
-	DebugOut(L"[INFO] Done loading assets from %s\n", assetFile);
+	DebugOut(L"[INFO] Done loading assets from: %s\n", assetFile);
 }
 
 void CWorldMapScene::Load()
 {
-	DebugOut(L"[INFO] Start loading scene from : %s \n", sceneFilePath);
+	DebugOut(L"[INFO] Start loading scene from: %s \n", sceneFilePath);
 
 	ifstream f;
 	f.open(sceneFilePath);
@@ -206,7 +207,7 @@ void CWorldMapScene::Load()
 
 	f.close();
 
-	DebugOut(L"[INFO] Done loading scene  %s\n", sceneFilePath);
+	DebugOut(L"[INFO] Done loading scene form: %s\n", sceneFilePath);
 }
 
 void CWorldMapScene::Update(DWORD dt)

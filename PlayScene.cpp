@@ -112,11 +112,11 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_MARIO:
-		if (player != NULL)
+		/*if (player != NULL)
 		{
 			DebugOut(L"[ERROR] MARIO object was created before!\n");
 			return;
-		}
+		}*/
 		obj = new CMario(x, y, objects.size() - 1);
 		player = (CMario*)obj;
 
@@ -356,6 +356,8 @@ void CPlayScene::Update(DWORD dt)
 
 	if (cx < 0) cx = 0;
 	if (cx > 2456.0f) cx = 2456.0f;
+
+	if (cy > 0) cy = 0;
 
 	/*if (!mario->GetIsFlying() || (mario->GetIsFlying() && mario->IsNotFlying()))
 		cy = 0;*/
