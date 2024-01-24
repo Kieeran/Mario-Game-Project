@@ -182,22 +182,6 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 	if (e->ny >= 0)// hit by Goomba
 	{
 		SetLevelLower();
-		/*if (untouchable == 0)
-		{
-			if (goomba->GetState() != GOOMBA_STATE_DIE)
-			{
-				if (level > MARIO_LEVEL_SMALL)
-				{
-					level = MARIO_LEVEL_SMALL;
-					StartUntouchable();
-				}
-				else
-				{
-					DebugOut(L">>> Mario DIE >>> \n");
-					SetState(MARIO_STATE_DIE);
-				}
-			}
-		}*/
 	}
 	else
 	{
@@ -206,6 +190,7 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
+				AddScore(goomba->GetX(), goomba->GetY(), 100);
 				goomba->SetState(GOOMBA_STATE_DIE);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
@@ -361,6 +346,7 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
+	AddScore(x, y, 1000);
 	SetLevelHigher();
 	e->obj->Delete();
 }
@@ -412,7 +398,7 @@ void CMario::AddScore(float x, float y, int scoreAdd)
 {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CEffects* effect = new CEffects(x, y, scoreAdd);
-	scene->AddObject(effect);
+	scene->AddObject(effect, ADD_OBJECT_BACK);
 	score += scoreAdd;
 }
 
