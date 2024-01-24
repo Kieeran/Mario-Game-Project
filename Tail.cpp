@@ -105,7 +105,7 @@ void CTail::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 
 void CTail::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
-	
+
 }
 
 void CTail::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
@@ -120,5 +120,8 @@ void CTail::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	if (brick->GetBrickType() == NORMAL_BRICK)
 		brick->SetState(BRICK_STATE_DELETE);
 	else
-		brick->SetState(BRICK_STATE_UNBOXED);
+	{
+		if (brick->GetState() == BRICK_STATE_NORMAL)
+			brick->SetState(BRICK_STATE_UNBOXED);
+	}
 }

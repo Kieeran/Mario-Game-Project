@@ -19,27 +19,40 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	if (isUnboxed)
+	if (state != BRICK_STATE_NORMAL_FOREVER && state != BRICK_STATE_DELETE)
 	{
-		if (brickType == BRICK_WITH_BUTTON)
+		if (isUnboxed)
 		{
-			CButton* button = new CButton(x, y - 16.0f);
-			scene->AddObject(button, mario->GetIndex());
+			if (brickType == BRICK_WITH_BUTTON)
+			{
+				CButton* button = new CButton(x, y - 16.0f);
+				scene->AddObject(button, mario->GetIndex());
+			}
+
+			isUnboxed = false;
+		}
+		else
+		{
+			for (size_t i = 0; i < scene->GetListObject().size(); i++)
+			{
+				if (dynamic_cast<CButton*>(scene->GetListObject()[i]))
+				{
+					//DebugOut(L"BUTTON\n");
+					CButton* button = dynamic_cast<CButton*>(scene->GetListObject()[i]);
+					if (button->GetIsPressed() && brickType == NORMAL_BRICK)
+						SetState(BRICK_STATE_GOLD);
+				}
+			}
 		}
 
-		isUnboxed = false;
-	}
-	else
-	{
-		for (size_t i = 0; i < scene->GetListObject().size(); i++)
+		if (isGold)
 		{
-			if (dynamic_cast<CButton*>(scene->GetListObject()[i]))
-			{
-				//DebugOut(L"BUTTON\n");
-				CButton* button = dynamic_cast<CButton*>(scene->GetListObject()[i]);
-				if (button->GetIsPressed() && brickType == NORMAL_BRICK)
-					SetState(BRICK_STATE_GOLD);
-			}
+			CCoin* coin = new CCoin(x, y);
+			coin->SetIsMoving(false);
+			coin->SetWaitingTime(GetTickCount64());
+			scene->AddObject(coin, mario->GetIndex());
+			Delete();
+			isGold = false;
 		}
 	}
 
@@ -49,22 +62,13 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isBroken = false;
 	}
 
-	if (isGold)
-	{
-		CCoin* coin = new CCoin(x, y);
-		coin->SetIsMoving(false);
-		scene->AddObject(coin, mario->GetIndex());
-		Delete();
-		isGold = false;
-	}
-
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 
 void CBrick::Render()
 {
-	if (state == BRICK_STATE_NORMAL)
+	if (state == BRICK_STATE_NORMAL || state == BRICK_STATE_NORMAL_FOREVER)
 		CAnimations::GetInstance()->Get(ID_ANI_BRICK)->Render(x, y);
 	else
 		CAnimations::GetInstance()->Get(ID_ANI_BRICK_UNBOXED)->Render(x, y);

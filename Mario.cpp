@@ -231,14 +231,12 @@ void CMario::OnCollisionWithBrick(LPCOLLISIONEVENT e)
 	{
 		if (level > MARIO_LEVEL_SMALL)
 		{
-			if (brick->GetState() == BRICK_STATE_NORMAL)
+			if (brick->GetBrickType() == NORMAL_BRICK)
+				brick->SetState(BRICK_STATE_DELETE);
+			else
 			{
-				if (brick->GetBrickType() == NORMAL_BRICK)
-					brick->SetState(BRICK_STATE_DELETE);
-				else
-				{
+				if (brick->GetState() == BRICK_STATE_NORMAL)
 					brick->SetState(BRICK_STATE_UNBOXED);
-				}
 			}
 		}
 	}

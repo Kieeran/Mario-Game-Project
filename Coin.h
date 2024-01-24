@@ -16,6 +16,8 @@
 #define COIN_STATE_UNBOXING	100
 #define COIN_STATE_NOT_UNBOX 200
 
+#define TIME_COIN_TURN_TO_BRICK	10000
+
 class CCoin : public CGameObject
 {
 protected:
@@ -25,6 +27,8 @@ protected:
 	float Origin_Y;
 
 	bool isMoving;
+
+	ULONGLONG waiting_time;
 
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
@@ -38,4 +42,5 @@ public:
 	CCoin(float x, float y, int coin_type = SHOWED_COIN_TYPE);
 
 	void SetIsMoving(bool b) { isMoving = b; }
+	void SetWaitingTime(ULONGLONG t) { waiting_time = t; }
 };

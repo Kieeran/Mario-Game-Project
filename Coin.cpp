@@ -1,4 +1,7 @@
 #include "Coin.h"
+#include "Brick.h"
+#include "Playscene.h"
+
 #include "debug.h"
 
 CCoin::CCoin(float x, float y, int coin_type) :CGameObject()
@@ -13,6 +16,7 @@ CCoin::CCoin(float x, float y, int coin_type) :CGameObject()
 	Origin_Y = y;
 
 	isMoving = true;
+	waiting_time = 0;
 }
 void CCoin::Render()
 {
@@ -44,6 +48,19 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy += ay * dt;
 		if (y > Origin_Y)
 			Delete();
+	}
+
+	if (coin_type == SHOWED_COIN_TYPE && !isMoving)
+	{
+		if (GetTickCount64() - waiting_time > 2000 && waiting_time > 0)
+		{
+			waiting_time = 0;
+			CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+			CBrick* brick = new CBrick(x, y, NORMAL_BRICK);
+			brick->SetState(BRICK_STATE_NORMAL_FOREVER);
+			scene->AddObject(brick);
+			Delete();
+		}
 	}
 
 	CGameObject::Update(dt, coObjects);
