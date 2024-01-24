@@ -7,4 +7,6 @@ CDataGame::CDataGame()
 	isAllowGoUp = false;
 	isAllowGoDown = false;
 	level = MARIO_LEVEL_SMALL;
+	score = 0;
+	lives = 4;
 }

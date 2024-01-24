@@ -105,7 +105,9 @@ void CTail::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 
 void CTail::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
-
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	e->obj->Delete();
+	mario->AddScore(e->obj->GetX(), e->obj->GetY(), 100);
 }
 
 void CTail::OnCollisionWithKoopas(LPCOLLISIONEVENT e)

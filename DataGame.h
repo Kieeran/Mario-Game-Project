@@ -9,6 +9,8 @@ private:
 	bool isAllowGoDown;
 
 	int level;
+	int score;
+	int lives;
 public:
 	CDataGame();
 
@@ -23,4 +25,6 @@ public:
 	void SetAllowGoDown(bool d) { isAllowGoDown = d; }
 
 	int GetLevel() { return level; }
+	int GetScore() { return score; }
+	int GetLives() { return lives; }
 };

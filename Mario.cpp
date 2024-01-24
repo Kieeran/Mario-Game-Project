@@ -15,6 +15,7 @@
 #include "Leaf.h"
 #include "Button.h"
 
+#include "Effects.h"
 #include "Collision.h"
 CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 {
@@ -28,6 +29,8 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 
 	tail = NULL;
 	level = dataGame->GetLevel();
+	score = dataGame->GetScore();
+	lives = dataGame->GetLives();
 
 	untouchable_start = 0;
 	untouchable = 0;
@@ -403,6 +406,17 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CPortal* p = (CPortal*)e->obj;
 	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+}
+
+void CMario::AddScore(float x, float y, int scoreAdd)
+{
+	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+	switch (scoreAdd)
+	{
+	case 100:
+		break;
+	}
+	score += scoreAdd;
 }
 
 void CMario::ChangeToWorldMapWhenDie()

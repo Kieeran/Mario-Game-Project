@@ -77,6 +77,8 @@ class CMario : public CGameObject
 
 	int index;
 	int level;
+	int score;
+	int lives;
 	int levelRun;
 	int untouchable;
 
@@ -134,6 +136,7 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	void ChangeToWorldMapWhenDie();
+	void AddScore(float x, float y, int scoreAdd);
 
 	int GetLevel() { return level; }
 	void SetLevel(int l)
