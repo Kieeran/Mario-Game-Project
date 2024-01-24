@@ -6,24 +6,7 @@
 #include "Utils.h"
 #include "Textures.h"
 #include "Sprites.h"
-#include "Portal.h"
-#include "Coin.h"
-#include "Brick.h"
-#include "Platform.h"
 
-#include "Cloud.h"
-#include "BigGrass.h"
-#include "SmallGrass.h"
-#include "MysBox.h"
-#include "Boxes.h"
-#include "Pipe.h"
-#include "Mushroom.h"
-#include "PiranhaPlant.h"
-#include "FireBullet.h"
-#include "Koopas.h"
-#include "HardBlock.h"
-#include "BlackObject.h"
-#include "Card.h"
 #include "Curtain.h"
 #include "IntroObjects.h"
 
@@ -114,137 +97,18 @@ void CIntroScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_CURTAIN: obj = new CCurtain(x, y); break;
 	case OBJECT_TYPE_INTRO_OBJECTS:
 	{
-		//if (player != NULL)
-		//{
-		//	//DebugOut(L"[ERROR] MARIO object was created before!\n");
-		//	return;
-		//}
+		if (player != NULL)
+		{
+			DebugOut(L"[ERROR] Player object was created before!\n");
+			return;
+		}
 
 		int objectType = atoi(tokens[3].c_str());
 		obj = new CIntroObjects(x, y, objectType);
 		player = (CIntroObjects*)obj;
+		DebugOut(L"[INFO] Player object has been created!\n");
 		break;
 	}
-
-	//case OBJECT_TYPE_MARIO:
-	//	if (player != NULL)
-	//	{
-	//		DebugOut(L"[ERROR] MARIO object was created before!\n");
-	//		return;
-	//	}
-	//	obj = new CMario(x, y);
-	//	player = (CMario*)obj;
-
-	//	DebugOut(L"[INFO] Player object has been created!\n");
-	//	break;
-	//case OBJECT_TYPE_BRICK: obj = new CBrick(x, y); break;
-	//case OBJECT_TYPE_COIN: obj = new CCoin(x, y); break;
-	//case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
-	//case OBJECT_TYPE_HARDBLOCK: obj = new CHardBlock(x, y); break;
-	//case OBJECT_TYPE_CARD:	obj = new CCard(x, y); break;
-	//case OBJECT_TYPE_GOOMBA:
-	//{
-	//	int goombaType = atoi(tokens[3].c_str());
-	//	obj = new CGoomba(x, y, goombaType);
-	//	break;
-	//}
-	//case OBJECT_TYPE_KOOPAS:
-	//{
-	//	int koopasType = atoi(tokens[3].c_str());
-	//	obj = new CKoopas(x, y, koopasType);
-	//	break;
-	//}
-	//case OBJECT_TYPE_MYSBOX:
-	//{
-	//	int itemType = atoi(tokens[3].c_str());
-	//	obj = new CMysBox(x, y, itemType, objects.size() - 1);
-	//	break;
-	//}
-	////case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
-	//case OBJECT_TYPE_CLOUD:
-	//{
-	//	int nCloud = atoi(tokens[3].c_str());
-	//	obj = new CCloud(x, y, nCloud);
-	//	break;
-	//}
-	//case OBJECT_TYPE_BIGGRASS:
-	//{
-	//	int spriteId = atoi(tokens[3].c_str());
-	//	obj = new CBigGrass(x, y, spriteId);
-	//	break;
-	//}
-
-	//case OBJECT_TYPE_BOXES:
-	//{
-	//	float length_Cell_Side = atoi(tokens[3].c_str());
-	//	int length_Width = atoi(tokens[4].c_str());
-	//	int length_Height = atoi(tokens[5].c_str());
-	//	int sprite_TopLeft = atoi(tokens[6].c_str());
-	//	int spriteShadow_Top = atoi(tokens[7].c_str());
-	//	obj = new CBoxes(
-	//		x, y,
-	//		length_Cell_Side, length_Width, length_Height,
-	//		sprite_TopLeft, sprite_TopLeft + 1, sprite_TopLeft + 2,
-	//		sprite_TopLeft + 3, sprite_TopLeft + 4, sprite_TopLeft + 5,
-	//		sprite_TopLeft + 6, sprite_TopLeft + 7, sprite_TopLeft + 8,
-	//		spriteShadow_Top, spriteShadow_Top + 1
-	//	);
-	//	break;
-	//}
-	//case OBJECT_TYPE_BLACKBACKGROUND:
-	//{
-	//	int length_Width = atoi(tokens[3].c_str());
-	//	int length_Height = atoi(tokens[4].c_str());
-	//	obj = new CBlackObject(x, y, length_Width, length_Height);
-	//	break;
-	//}
-	//case OBJECT_TYPE_PIPE:
-	//{
-	//	int length_Cell_Side = atoi(tokens[3].c_str());
-	//	int length_Height = atoi(tokens[4].c_str());
-	//	int spriteId_TopLeft = atoi(tokens[5].c_str());
-	//	int flower_type = atoi(tokens[6].c_str());
-	//	obj = new CPipe(
-	//		x, y,
-	//		length_Cell_Side,
-	//		length_Height,
-	//		spriteId_TopLeft, spriteId_TopLeft + 1,
-	//		spriteId_TopLeft + 2, spriteId_TopLeft + 3
-	//	);
-	//	if (flower_type > 0)
-	//	{
-	//		CGameObject* fireflower = new CPiranhaPlant(x, y + 2.0f, flower_type);
-	//		objects.push_back(fireflower);
-	//	}
-	//	break;
-	//}
-	//case OBJECT_TYPE_PLATFORM:
-	//{
-
-	//	float cell_width = (float)atof(tokens[3].c_str());
-	//	float cell_height = (float)atof(tokens[4].c_str());
-	//	int length = atoi(tokens[5].c_str());
-	//	int sprite_begin = atoi(tokens[6].c_str());
-	//	int sprite_middle = atoi(tokens[7].c_str());
-	//	int sprite_end = atoi(tokens[8].c_str());
-
-	//	obj = new CPlatform(
-	//		x, y,
-	//		cell_width, cell_height, length,
-	//		sprite_begin, sprite_middle, sprite_end
-	//	);
-
-	//	break;
-	//}
-	//case OBJECT_TYPE_PORTAL:
-	//{
-	//	float r = (float)atof(tokens[3].c_str());
-	//	float b = (float)atof(tokens[4].c_str());
-	//	int scene_id = atoi(tokens[5].c_str());
-	//	obj = new CPortal(x, y, r, b, scene_id);
-	//}
-	//break;
-
 	default:
 		DebugOut(L"[ERROR] Invalid object type: %d\n", object_type);
 		return;
@@ -372,7 +236,7 @@ void CIntroScene::Unload()
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
-	player = NULL;
+	//player = NULL;
 	objects.clear();
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);

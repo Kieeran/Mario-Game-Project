@@ -7,12 +7,14 @@
 #include "Collision.h"
 CWorldMapPlayer::CWorldMapPlayer(float x, float y) :CGameObject(x, y)
 {
-	CDataGame* data = CGame::GetInstance()->GetDataGame();
-	isAllowGoLeft = data->GetAllowGoLeft();
-	isAllowGoRight = data->GetAllowGoRight();
-	isAllowGoUp = data->GetAllowGoUp();
-	isAllowGoDown = data->GetAllowGoDown();
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+	isAllowGoLeft = dataGame->GetAllowGoLeft();
+	isAllowGoRight = dataGame->GetAllowGoRight();
+	isAllowGoUp = dataGame->GetAllowGoUp();
+	isAllowGoDown = dataGame->GetAllowGoDown();
 	canMove = true;
+
+	level = dataGame->GetLevel();
 
 	vx = 0;
 	vy = 0;

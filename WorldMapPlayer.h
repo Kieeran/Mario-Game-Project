@@ -27,6 +27,8 @@ protected:
 	bool isAllowGoDown;
 
 	bool canMove;
+
+	int level;
 public:
 	CWorldMapPlayer(float x, float y);
 
