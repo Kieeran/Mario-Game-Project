@@ -5,7 +5,7 @@ Resources\World1-1\Coin.txt
 Resources\World1-1\Brick.txt
 Resources\World1-1\Goomba.txt
 Resources\World1-1\Cloud.txt
-Resources\World1-1\Ground.txt
+Resources\World1-1\Platform.txt
 Resources\World1-1\BigGrass.txt
 Resources\World1-1\SmallGrass.txt
 Resources\World1-1\MysBox.txt
@@ -471,8 +471,15 @@ Resources\Hud.txt
 16	8	196	185	3
 16	2738	196	2	3
 
+# Hidden platform
+5 	1928	421	16	16	32	30407	30407	30407
+5 	1928	405	16	16	32	30407	30407	30407
+
 # Hud
 12	151	204
+
+# Portal
+50	526	50	10	10	2
 
 
 

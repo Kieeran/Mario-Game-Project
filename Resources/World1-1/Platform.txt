@@ -1,5 +1,6 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
+# Ground play scene
 30401	0	34	15	49	22
 30402	17	34	32	49	22
 30403	34	34	49	49	22
@@ -8,7 +9,8 @@
 30405	17	51	32	66	22
 30406	34	51	49	66	22
 
+# Ground hidden play scene
+30407	197	34	212	49	22
+
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
-30450	30401	1000	30402	1000	30403	1000
-30451	30404	1000	30405	1000	30406	1000

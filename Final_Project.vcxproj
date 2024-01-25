@@ -215,8 +215,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Goomba.cpp" />
-    <ClCompile Include="Ground.cpp" />
-    <ClCompile Include="Ground.h" />
     <ClCompile Include="HardBlock.cpp" />
     <ClCompile Include="Hud.cpp" />
     <ClCompile Include="Koopas.cpp" />

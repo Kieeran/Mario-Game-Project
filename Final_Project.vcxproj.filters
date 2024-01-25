@@ -263,12 +263,6 @@
     <ClCompile Include="Cloud.cpp">
       <Filter>Header Files\Object\Unchange_Object</Filter>
     </ClCompile>
-    <ClCompile Include="Ground.cpp">
-      <Filter>Header Files\Object\Unchange_Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Ground.h">
-      <Filter>Header Files\Object\Unchange_Object</Filter>
-    </ClCompile>
     <ClCompile Include="Brick.cpp">
       <Filter>Header Files\Object\Change_Object</Filter>
     </ClCompile>
