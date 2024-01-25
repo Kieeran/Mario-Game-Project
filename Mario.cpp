@@ -393,8 +393,16 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
 	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
-	SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
-	dataGame->SetIsInHiddenPlace(true);
+	if (!dataGame->GetIsInHiddenPlace())
+	{
+		SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
+		dataGame->SetIsInHiddenPlace(true);
+	}
+	else
+	{
+		SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
+		dataGame->SetIsInHiddenPlace(false);
+	}
 }
 
 void CMario::AddScore(float x, float y, int scoreAdd)
