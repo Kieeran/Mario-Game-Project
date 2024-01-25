@@ -238,10 +238,10 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_PORTAL:
 	{
-		float r = (float)atof(tokens[3].c_str());
-		float b = (float)atof(tokens[4].c_str());
+		float width = (float)atoi(tokens[3].c_str());
+		float height = (float)atoi(tokens[4].c_str());
 		int scene_id = atoi(tokens[5].c_str());
-		obj = new CPortal(x, y, r, b, scene_id);
+		obj = new CPortal(x, y, width, height, scene_id);
 	}
 	break;
 
@@ -357,7 +357,7 @@ void CPlayScene::Update(DWORD dt)
 	if (cx < 0) cx = 0;
 	if (cx > 2456.0f) cx = 2456.0f;
 
-	if (cy > 0) cy = 0;
+	//if (cy > 0) cy = 0;
 
 	/*if (!mario->GetIsFlying() || (mario->GetIsFlying() && mario->IsNotFlying()))
 		cy = 0;*/

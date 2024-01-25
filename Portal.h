@@ -12,11 +12,11 @@ class CPortal : public CGameObject
 	float width;
 	float height;
 public:
-	CPortal(float l, float t, float r, float b, int scene_id);
+	CPortal(float x, float y, float width, float height, int scene_id);
 	virtual void Render();
 	virtual void GetBoundingBox(float& l, float& t, float& r, float& b);
 
-	void RenderBoundingBox(void);
+	//void RenderBoundingBox(void);
 
 	int GetSceneId() { return scene_id; }
 	int IsBlocking() { return 0; }

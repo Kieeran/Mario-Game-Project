@@ -393,8 +393,10 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
-	CPortal* p = (CPortal*)e->obj;
-	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());
+	/*CPortal* p = (CPortal*)e->obj;
+	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());*/
+
+	SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
 }
 
 void CMario::AddScore(float x, float y, int scoreAdd)
