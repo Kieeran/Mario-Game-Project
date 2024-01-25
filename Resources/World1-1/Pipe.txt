@@ -1,11 +1,16 @@
 # id	left	top	right	bottom	texture_id
 [SPRITES]
+# Green pipe
 30901	0	0	15	15	22
 30902	17	0	32	15	22
-
 30903	0	17	15	32	22
 30904	17	17	32	32	22
 
+# Black pipe
+30905	68	17	83	32	22
+30906	85	17	100	32	22
+30907	68	0	83	15	22
+30908	85	0	100	15	22
+
 # ani_id	sprite1_id	time1	sprite2_id	time2	...
 [ANIMATIONS]
-30950	30901	1000	30902	1000	30903	1000	30904	1000
