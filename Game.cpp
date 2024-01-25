@@ -434,12 +434,10 @@ void CGame::ProcessKeyboard()
 
 #define MAX_GAME_LINE 1024
 
-
 #define GAME_FILE_SECTION_UNKNOWN -1
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
 #define GAME_FILE_SECTION_TEXTURES 3
-
 
 void CGame::_ParseSection_SETTINGS(string line)
 {

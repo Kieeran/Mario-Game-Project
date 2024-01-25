@@ -105,8 +105,11 @@ void CIntroScene::_ParseSection_OBJECTS(string line)
 
 		int objectType = atoi(tokens[3].c_str());
 		obj = new CIntroObjects(x, y, objectType);
-		player = (CIntroObjects*)obj;
-		DebugOut(L"[INFO] Player object has been created!\n");
+		if (objectType == ARROW)
+		{
+			player = (CIntroObjects*)obj;
+			DebugOut(L"[INFO] Player object has been created!\n");
+		}
 		break;
 	}
 	default:
@@ -236,7 +239,7 @@ void CIntroScene::Unload()
 	for (int i = 0; i < objects.size(); i++)
 		delete objects[i];
 
-	//player = NULL;
+	player = NULL;
 	objects.clear();
 
 	DebugOut(L"[INFO] Scene %d unloaded! \n", id);

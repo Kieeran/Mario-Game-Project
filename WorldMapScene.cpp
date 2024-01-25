@@ -8,7 +8,6 @@
 #include "Textures.h"
 #include "Sprites.h"
 
-
 #include "Platform.h"
 #include "Card.h"
 #include "Map.h"
@@ -103,7 +102,6 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-
 	case OBJECT_TYPE_WORLD_MAP_PLAYER:
 	{
 		if (player != NULL)

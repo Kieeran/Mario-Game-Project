@@ -22,7 +22,7 @@ CWorldMapPlayer::CWorldMapPlayer(float x, float y) :CGameObject(x, y)
 
 void CWorldMapPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	//CGameObject::Update(dt, coObjects);
+	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
 }
 

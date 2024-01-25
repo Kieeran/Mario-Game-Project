@@ -408,11 +408,11 @@ void CMario::AddScore(float x, float y, int scoreAdd)
 void CMario::ChangeToWorldMapWhenDie()
 {
 	//if (GetTickCount64() - change_scene_die_start > TIME_CHANGE_SCENE)
-	if (GetTickCount64() - change_scene_die_start > 2000)
+	if (GetTickCount64() - change_scene_die_start > 2000 && change_scene_die_start > 0)
 	{
 		level = MARIO_LEVEL_SMALL;
-		//CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
-		CGame::GetInstance()->SwitchScene();
+		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
+		change_scene_die_start = 0;
 	}
 }
 

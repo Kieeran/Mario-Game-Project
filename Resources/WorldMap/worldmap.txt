@@ -83,10 +83,10 @@ Resources\Hud.txt
 20	251	156
 
 # Hammer bros
-#22	210	130
+22	210	130
 
 # Help effect
-#40	235	109
+40	235	109
 
 # Node in map
 24	54	60	0100

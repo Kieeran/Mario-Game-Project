@@ -35,7 +35,9 @@ void CWorldMapKeyEventHandler::OnKeyDown(int KeyCode)
 		break;
 	case DIK_S:
 		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_PLAY);
-		CGame::GetInstance()->SwitchScene();
+		break;
+	case DIK_ESCAPE:
+		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_INTRO);
 		break;
 	}
 }
