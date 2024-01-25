@@ -366,6 +366,15 @@ void CPlayScene::Update(DWORD dt)
 			if (cy > -50.0f) cy = -50.0f;
 		}*/
 
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+
+	if (dataGame->GetIsInHiddenPlace())
+	{
+		cy = 276.0f;
+		if (cx < 1936.0f) cx = 1936.0f;
+		if (cx > 2112.0f) cx = 2112.0f;
+	}
+
 	CGame::GetInstance()->SetCamPos(cx, cy);
 
 	PurgeDeletedObjects();

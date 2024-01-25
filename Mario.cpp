@@ -21,7 +21,6 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 {
 	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 
-
 	isSitting = false;
 	maxVx = 0.0f;
 	ax = 0.0f;
@@ -393,10 +392,9 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
-	/*CPortal* p = (CPortal*)e->obj;
-	CGame::GetInstance()->InitiateSwitchScene(p->GetSceneId());*/
-
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 	SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
+	dataGame->SetIsInHiddenPlace(true);
 }
 
 void CMario::AddScore(float x, float y, int scoreAdd)

@@ -8,6 +8,8 @@ private:
 	bool isAllowGoUp;
 	bool isAllowGoDown;
 
+	bool isInHiddenPlace;
+
 	int level;
 	int score;
 	int lives;
@@ -27,4 +29,7 @@ public:
 	int GetLevel() { return level; }
 	int GetScore() { return score; }
 	int GetLives() { return lives; }
+
+	bool GetIsInHiddenPlace() { return isInHiddenPlace; }
+	void SetIsInHiddenPlace(bool b) { isInHiddenPlace = b; }
 };

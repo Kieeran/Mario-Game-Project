@@ -14,6 +14,7 @@ void CPipe::Render()
 		s->Get(this->spriteIdBotLeft)->Draw(xx, yy + this->lenthCellSide * i);
 		s->Get(this->spriteIdBotRight)->Draw(xx + this->lenthCellSide, yy + this->lenthCellSide * i);
 	}
+	//RenderBoundingBox();
 }
 
 void CPipe::GetBoundingBox(float& l, float& t, float& r, float& b)
