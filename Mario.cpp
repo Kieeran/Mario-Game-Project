@@ -26,6 +26,10 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	maxVx = 0.0f;
 	ax = 0.0f;
 	ay = MARIO_GRAVITY;
+	momentum = 0;
+
+	state = MARIO_STATE_IDLE;
+	nx = 1;
 
 	tail = NULL;
 	coin = dataGame->GetCoin();
@@ -111,6 +115,22 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
+	if (state == MARIO_STATE_PHYSICS_MOVE)
+	{
+
+		vx += momentum * dt;
+		if (vx * momentum > 0)
+		{
+			momentum = 0;
+			SetState(MARIO_STATE_IDLE);
+		}
+	}
+
+	if (state == MARIO_STATE_PHYSICS_MOVE)
+	{
+		vx += momentum * dt;
+	}
+
 	if (isUsePipe)
 	{
 		if (isAtPortalEntrance)
@@ -128,19 +148,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		isUsePipe = false;
 	}
 
-	/*CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
-	if (!dataGame->GetIsInHiddenPlace())
-	{
-		SetPosition(POSITION_X_IN_HIDDEN_MAP, POSITION_Y_IN_HIDDEN_MAP);
-		dataGame->SetIsInHiddenPlace(true);
-	}
-	else
-	{
-		SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
-		dataGame->SetIsInHiddenPlace(false);
-	}*/
-
-	if (!isRunning || vx == 0)
+	if (!isRunning || vx == 0 || IsBrace() || (!isOnPlatform && levelRun != LEVEL_RUN_MAX) || state == MARIO_STATE_PHYSICS_MOVE)
 	{
 		speed_start = GetTickCount64();
 		if (GetTickCount64() - speed_stop > TIME_SPEED && speed_stop > 0)
@@ -679,7 +687,7 @@ int CMario::GetAniIdBig()
 	{
 		if (!isHolding)
 		{
-			if (abs(ax) == MARIO_ACCEL_RUN_X)
+			if (levelRun == LEVEL_RUN_MAX)
 			{
 				if (nx > 0)
 					aniId = ID_ANI_MARIO_BIG_JUMP_RUN_RIGHT;
@@ -727,18 +735,18 @@ int CMario::GetAniIdBig()
 				{
 					if (ax < 0)
 						aniId = ID_ANI_MARIO_BIG_BRACE_RIGHT;
-					else if (ax == MARIO_ACCEL_RUN_X)
+					else if (levelRun == LEVEL_RUN_MAX)
 						aniId = ID_ANI_MARIO_BIG_RUNNING_RIGHT;
-					else if (ax == MARIO_ACCEL_WALK_X)
+					else
 						aniId = ID_ANI_MARIO_BIG_WALKING_RIGHT;
 				}
 				else // vx < 0
 				{
 					if (ax > 0)
 						aniId = ID_ANI_MARIO_BIG_BRACE_LEFT;
-					else if (ax == -MARIO_ACCEL_RUN_X)
+					else if (levelRun == LEVEL_RUN_MAX)
 						aniId = ID_ANI_MARIO_BIG_RUNNING_LEFT;
-					else if (ax == -MARIO_ACCEL_WALK_X)
+					else
 						aniId = ID_ANI_MARIO_BIG_WALKING_LEFT;
 				}
 			}
@@ -760,7 +768,6 @@ int CMario::GetAniIdBig()
 					aniId = ID_ANI_MARIO_BIG_HOLD_RUN_LEFT;
 			}
 		}
-
 	}
 
 	if (isKicking)
@@ -786,8 +793,7 @@ int CMario::GetAniIdSmall()
 	{
 		if (!isHolding)
 		{
-			//if (abs(ax) == MARIO_ACCEL_RUN_X)
-			if (abs(vx) >= MAX_MARIO_RUNNING_SPEED)
+			if (levelRun == LEVEL_RUN_MAX)
 			{
 				if (nx > 0)
 					aniId = ID_ANI_MARIO_SMALL_JUMP_RUN_RIGHT;
@@ -809,7 +815,6 @@ int CMario::GetAniIdSmall()
 			else
 				aniId = ID_ANI_MARIO_SMALL_HOLD_JUMP_LEFT;
 		}
-
 	}
 	else	// Is on platform
 	{
@@ -835,10 +840,8 @@ int CMario::GetAniIdSmall()
 				{
 					if (ax < 0)
 						aniId = ID_ANI_MARIO_SMALL_BRACE_RIGHT;
-					//else if (ax == MARIO_ACCEL_RUN_X)
-					else if (abs(vx) >= MAX_MARIO_RUNNING_SPEED)
+					else if (levelRun == LEVEL_RUN_MAX)
 						aniId = ID_ANI_MARIO_SMALL_RUNNING_RIGHT;
-					//else if (ax == MARIO_ACCEL_WALK_X)
 					else
 						aniId = ID_ANI_MARIO_SMALL_WALKING_RIGHT;
 				}
@@ -846,10 +849,8 @@ int CMario::GetAniIdSmall()
 				{
 					if (ax > 0)
 						aniId = ID_ANI_MARIO_SMALL_BRACE_LEFT;
-					//else if (ax == -MARIO_ACCEL_RUN_X)
-					else if (abs(vx) >= MAX_MARIO_RUNNING_SPEED)
+					else if (levelRun == LEVEL_RUN_MAX)
 						aniId = ID_ANI_MARIO_SMALL_RUNNING_LEFT;
-					//else if (ax == -MARIO_ACCEL_WALK_X)
 					else
 						aniId = ID_ANI_MARIO_SMALL_WALKING_LEFT;
 				}
@@ -1107,7 +1108,7 @@ void CMario::SetState(int state)
 		if (isSitting) break;
 		if (isOnPlatform)
 		{
-			if (abs(vx) == MAX_MARIO_RUNNING_SPEED)
+			if (levelRun == LEVEL_RUN_MAX)
 				vy = -MARIO_JUMP_RUN_SPEED_Y;
 			else
 				vy = -MARIO_JUMP_SPEED_Y;
@@ -1158,6 +1159,14 @@ void CMario::SetState(int state)
 			state = MARIO_STATE_IDLE;
 			y -= MARIO_SIT_HEIGHT_ADJUST;
 		}
+		break;
+
+	case MARIO_STATE_PHYSICS_MOVE:
+		ax = 0.0f;
+		if (vx > 0)
+			momentum = -MARIO_MOMENTUM;
+		else
+			momentum = MARIO_MOMENTUM;
 		break;
 
 	case MARIO_STATE_IDLE:

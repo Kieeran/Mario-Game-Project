@@ -84,6 +84,12 @@ void CSampleKeyHandler::OnKeyUp(int KeyCode)
 			//mario->StartKicking();
 		}
 		break;
+	case DIK_LEFT:
+		mario->SetState(MARIO_STATE_PHYSICS_MOVE);
+		break;
+	case DIK_RIGHT:
+		mario->SetState(MARIO_STATE_PHYSICS_MOVE);
+		break;
 	}
 }
 
@@ -109,6 +115,9 @@ void CSampleKeyHandler::KeyState(BYTE* states)
 		else
 			mario->SetState(MARIO_STATE_WALKING_LEFT);
 	}
-	else
-		mario->SetState(MARIO_STATE_IDLE);
+	/*else
+	{
+		if (mario->GetState() != MARIO_STATE_IDLE && !mario->GetMomentumMove())
+			mario->SetState(MARIO_STATE_PHYSICS_MOVE);
+	}*/
 }
