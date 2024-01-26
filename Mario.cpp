@@ -65,6 +65,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	isUsePipe = false;
 	isAtPortalEntrance = false;
 	isAtPortalExit = false;
+	isPrepareEndScene = false;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -74,7 +75,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOut(L"%d\n", state);
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
-	if (x > 2740.0f) x = 2740.0f;
+	if (!isPrepareEndScene)
+		if (x > 2740.0f) x = 2740.0f;
 
 	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 
@@ -1171,6 +1173,11 @@ void CMario::SetState(int state)
 		break;
 
 	case MARIO_STATE_END_SCENE:
+		isPrepareEndScene = true;
+		maxVx = MAX_MARIO_WALKING_SPEED;
+		ax = MARIO_ACCEL_WALK_X;
+		isRunning = false;
+		nx = 1;
 		change_scene_not_die_start = GetTickCount64();
 		break;
 	}

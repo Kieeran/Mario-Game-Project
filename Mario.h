@@ -121,6 +121,7 @@ class CMario : public CGameObject
 	bool isUsePipe;
 	bool isAtPortalEntrance;
 	bool isAtPortalExit;
+	bool isPrepareEndScene;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -204,6 +205,8 @@ public:
 	int GetClock() { return clock; }
 	int GetScore() { return score; }
 	int GetLives() { return lives; }
+
+	bool GetIsPrepareEndScene() { return isPrepareEndScene; }
 
 	bool IsNotFlying() { return levelRun <= LEVEL_RUN_MAX - 4; }
 	bool GetIsAtPortalEntrance() { return isAtPortalEntrance; }

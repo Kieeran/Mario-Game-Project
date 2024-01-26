@@ -36,12 +36,18 @@ void CCard::Render()
 	{
 	case STAR_CARD:
 		aniId = ID_ANI_STAR_CARD;
+		if (isCollected)
+			aniId = ID_ANI_STAR_WHITE_CARD;
 		break;
 	case MUSHROOM_CARD:
 		aniId = ID_ANI_MUSHROOM_CARD;
+		if (isCollected)
+			aniId = ID_ANI_MUSHROOM_WHITE_CARD;
 		break;
 	case PLANT_CARD:
 		aniId = ID_ANI_PLANT_CARD;
+		if (isCollected)
+			aniId = ID_ANI_PLANT_WHITE_CARD;
 		break;
 	}
 	animations->Get(aniId)->Render(x, y);
