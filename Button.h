@@ -24,4 +24,9 @@ public:
 
 	bool GetIsPressed() { return isPressed; }
 	void SetIsPressed(bool b) { isPressed = b; }
+
+	int IsDirectionColliable(float nx, float ny)
+	{
+		return nx == 0 && ny == -1;
+	}
 };
