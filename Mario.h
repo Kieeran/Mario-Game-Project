@@ -92,6 +92,7 @@ class CMario : public CGameObject
 	int level;
 	int score;
 	int lives;
+	int coin;
 	int levelRun;
 	int untouchable;
 
@@ -107,7 +108,7 @@ class CMario : public CGameObject
 	ULONGLONG time_one_second;
 
 	BOOLEAN isOnPlatform;
-	int coin;
+
 	CTail* tail;
 
 	bool isHolding;
@@ -195,6 +196,8 @@ public:
 
 	int GetIndex() { return index; }
 	int GetClock() { return clock; }
+	int GetScore() { return score; }
+	int GetLives() { return lives; }
 
 	bool IsNotFlying() { return levelRun <= LEVEL_RUN_MAX - 4; }
 };

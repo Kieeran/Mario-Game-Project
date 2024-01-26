@@ -31,6 +31,9 @@ void CHud::Render()
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
 	DisplayTime(mario->GetClock());
+	DisplayScore(mario->GetScore());
+	DisplayCoin(mario->GetCoinNum());
+	DisplayLives(mario->GetLives());
 
 	if (mario->GetLevelRun() > 0)
 	{
@@ -43,13 +46,7 @@ void CHud::Render()
 		}
 		if (mario->GetLevelRun() == LEVEL_RUN_MAX)
 			animations->Get(ID_ANI_POWER_HUD_2)->Render(x + POWER_MAX_DISPLAY_X_COORD, y + POWER_MAX_DISPLAY_Y_COORD);
-
 	}
-
-	//DisplayTime(0);
-	//DisplayScore(1000);
-	//DisplayLives(2);
-	//DisplayCoin(21);
 }
 
 void CHud::DrawNumber(int  num, float x, float y)

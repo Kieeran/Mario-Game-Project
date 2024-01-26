@@ -14,6 +14,7 @@ private:
 	int card2;
 	int card3;
 
+	int coin;
 	int level;
 	int score;
 	int lives;
@@ -33,6 +34,7 @@ public:
 	int GetLevel() { return level; }
 	int GetScore() { return score; }
 	int GetLives() { return lives; }
+	int GetCoin() { return coin; }
 
 	int GetCard1() { return card1; }
 	int GetCard2() { return card2; }

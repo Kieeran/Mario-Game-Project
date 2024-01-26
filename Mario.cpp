@@ -28,6 +28,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	ay = MARIO_GRAVITY;
 
 	tail = NULL;
+	coin = dataGame->GetCoin();
 	level = dataGame->GetLevel();
 	score = dataGame->GetScore();
 	lives = dataGame->GetLives();
@@ -49,7 +50,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	time_one_second = 0;
 
 	this->index = index;
-	coin = 0;
+
 	levelRun = 0;
 	clock = 300;
 

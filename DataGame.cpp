@@ -5,6 +5,7 @@ CDataGame::CDataGame()
 	level = MARIO_LEVEL_SMALL;
 	score = 0;
 	lives = 4;
+	coin = 0;
 
 	card1 = 0;
 	card2 = 0;
