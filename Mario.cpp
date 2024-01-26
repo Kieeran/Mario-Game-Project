@@ -478,18 +478,6 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 		isAtPortalEntrance = true;
 	else if (portal->GetPortalType() == EXIT_PORTAL)
 		isAtPortalExit = true;
-
-	/*CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
-	if (!dataGame->GetIsInHiddenPlace())
-	{
-		SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
-		dataGame->SetIsInHiddenPlace(true);
-	}
-	else
-	{
-		SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
-		dataGame->SetIsInHiddenPlace(false);
-	}*/
 }
 
 void CMario::AddScore(float x, float y, int scoreAdd)
@@ -550,20 +538,31 @@ int CMario::GetAniIdTail()
 		{
 			if (!isFlying)
 			{
-				if (vy < 0)
+				if (levelRun == LEVEL_RUN_MAX)
 				{
 					if (nx > 0)
-						aniId = ID_ANI_MARIO_TAIL_JUMPING_RIGHT;
+						aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_RIGHT;
 					else
-						aniId = ID_ANI_MARIO_TAIL_JUMPING_LEFT;
+						aniId = ID_ANI_MARIO_TAIL_JUMP_RUN_LEFT;
 				}
 				else
 				{
-					if (nx > 0)
-						aniId = ID_ANI_MARIO_TAIL_LANDING_RIGHT;
+					if (vy < 0)
+					{
+						if (nx > 0)
+							aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_RIGHT;
+						else
+							aniId = ID_ANI_MARIO_TAIL_JUMP_WALK_LEFT;
+					}
 					else
-						aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
+					{
+						if (nx > 0)
+							aniId = ID_ANI_MARIO_TAIL_LANDING_RIGHT;
+						else
+							aniId = ID_ANI_MARIO_TAIL_LANDING_LEFT;
+					}
 				}
+
 			}
 			else
 			{
@@ -615,18 +614,18 @@ int CMario::GetAniIdTail()
 				{
 					if (ax < 0)
 						aniId = ID_ANI_MARIO_TAIL_BRACING_RIGHT;
-					else if (ax == MARIO_ACCEL_RUN_X)
+					else if (levelRun == LEVEL_RUN_MAX)
 						aniId = ID_ANI_MARIO_TAIL_RUNNING_RIGHT;
-					else if (ax == MARIO_ACCEL_WALK_X)
+					else
 						aniId = ID_ANI_MARIO_TAIL_WALKING_RIGHT;
 				}
 				else // vx < 0
 				{
 					if (ax > 0)
 						aniId = ID_ANI_MARIO_TAIL_BRACING_LEFT;
-					else if (ax == -MARIO_ACCEL_RUN_X)
+					else if (levelRun == LEVEL_RUN_MAX)
 						aniId = ID_ANI_MARIO_TAIL_RUNNING_LEFT;
-					else if (ax == -MARIO_ACCEL_WALK_X)
+					else
 						aniId = ID_ANI_MARIO_TAIL_WALKING_LEFT;
 				}
 			}
@@ -664,14 +663,6 @@ int CMario::GetAniIdTail()
 			aniId = ID_ANI_MARIO_TAIL_KICKING_RIGHT;
 		else
 			aniId = ID_ANI_MARIO_TAIL_KICKING_LEFT;
-	}
-
-	if (aniId == -1)
-	{
-		if (nx > 0)
-			aniId = ID_ANI_MARIO_TAIL_ATTACKING_RIGHT;
-		else
-			aniId = ID_ANI_MARIO_TAIL_ATTACKING_LEFT;
 	}
 
 	return aniId;
@@ -778,8 +769,6 @@ int CMario::GetAniIdBig()
 			aniId = ID_ANI_MARIO_BIG_KICK_LEFT;
 	}
 
-	if (aniId == -1) aniId = ID_ANI_MARIO_BIG_IDLE_RIGHT;
-
 	return aniId;
 }
 
@@ -883,8 +872,6 @@ int CMario::GetAniIdSmall()
 			aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
 	}
 
-	if (aniId == -1) aniId = ID_ANI_MARIO_SMALL_IDLE_RIGHT;
-
 	return aniId;
 }
 
@@ -904,6 +891,9 @@ void CMario::Render()
 
 	else if (level == MARIO_LEVEL_SMALL)
 		aniId = GetAniIdSmall();
+
+	if (aniId == -1)
+		return;
 
 	if (!isChanging && !isTailAttack)
 		animations->Get(aniId)->Render(x, y);
