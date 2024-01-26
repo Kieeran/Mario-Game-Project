@@ -17,7 +17,7 @@ void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	if (!checkObjectInCamera(this)) return;
 
-	if (effectType >= SCORE_100_EFFECT && effectType <= SCORE_8000_EFFECT)
+	if (effectType != HELP_EFFECT)
 	{
 		vy = -SPEED_EFFECT;
 		if (GetTickCount64() - delete_start > TIME_EFFECT_DELETE && delete_start > 0)
@@ -43,6 +43,9 @@ void CEffects::Render()
 	{
 	case HELP_EFFECT:
 		aniId = ID_ANI_HELP_EFFECT;
+		break;
+	case UP_EFFECT:
+		aniId = ID_ANI_1UP_EFFECT;
 		break;
 	case SCORE_100_EFFECT:
 		aniId = ID_ANI_100_SCORES_EFFECT;

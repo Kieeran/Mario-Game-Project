@@ -429,8 +429,16 @@ void CMario::OnCollisionWithLeaf(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithMushroom(LPCOLLISIONEVENT e)
 {
-	AddScore(x, y, 1000);
-	SetLevelHigher();
+	CMushroom* mushroom = dynamic_cast<CMushroom*>(e->obj);
+	if (mushroom->GetMushroomType() == RED_MUSHROOM_TYPE)
+		SetLevelHigher();
+	else
+	{
+		lives += 1;
+		CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+		CEffects* effect = new CEffects(x, y, UP_EFFECT);
+		scene->AddObject(effect, ADD_OBJECT_BACK);
+	}
 	e->obj->Delete();
 }
 

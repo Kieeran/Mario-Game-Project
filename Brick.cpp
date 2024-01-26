@@ -1,12 +1,14 @@
 #include "Brick.h"
 #include "Button.h"
 #include "Coin.h"
+#include "Mushroom.h"
 
 #include "Playscene.h"
 
-CBrick::CBrick(float x, float y, int brickType) : CGameObject(x, y)
+CBrick::CBrick(float x, float y, int brickType, int index) : CGameObject(x, y)
 {
 	this->brickType = brickType;
+	this->index = index;
 
 	isBroken = false;
 	isUnboxed = false;
@@ -29,6 +31,12 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				CButton* button = new CButton(x, y - 16.0f);
 				scene->AddObject(button, mario->GetIndex());
+			}
+
+			else if (brickType == BRICK_WITH_MUSHROOM)
+			{
+				CMushroom* mushroom = new CMushroom(x, y, GREEN_MUSHROOM_TYPE);
+				scene->AddObject(mushroom, index);
 			}
 
 			isUnboxed = false;

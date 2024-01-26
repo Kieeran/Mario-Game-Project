@@ -71,7 +71,7 @@ void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			waiting_time = 0;
 			CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
-			CBrick* brick = new CBrick(x, y, NORMAL_BRICK);
+			CBrick* brick = new CBrick(x, y, NORMAL_BRICK, scene->GetListObject().size() - 1);
 			brick->SetState(BRICK_STATE_NORMAL_FOREVER);
 			scene->AddObject(brick);
 			Delete();

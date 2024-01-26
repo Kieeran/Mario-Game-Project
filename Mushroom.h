@@ -42,4 +42,6 @@ protected:
 public:
 	CMushroom(float x, float y, int mushroomType);
 	void SetState(int state);
+
+	int GetMushroomType() { return mushroomType; }
 };

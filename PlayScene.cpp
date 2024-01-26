@@ -151,7 +151,7 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_BRICK:
 	{
 		int brickType = atoi(tokens[3].c_str());
-		obj = new CBrick(x, y, brickType);
+		obj = new CBrick(x, y, brickType, objects.size() - 1);
 		break;
 	}
 	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;

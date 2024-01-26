@@ -23,12 +23,13 @@ class CBrick : public CGameObject
 {
 protected:
 	int brickType;
+	int index;
 
 	bool isBroken;
 	bool isGold;
 	bool isUnboxed;
 public:
-	CBrick(float x, float y, int brickType);
+	CBrick(float x, float y, int brickType, int index);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);

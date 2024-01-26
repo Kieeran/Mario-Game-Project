@@ -7,6 +7,7 @@
 
 #define UNKNOWN_EFFECT	-1
 #define HELP_EFFECT		40
+#define UP_EFFECT		41
 #define SCORE_100_EFFECT	100
 #define SCORE_200_EFFECT	200
 #define SCORE_400_EFFECT	400
