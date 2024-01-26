@@ -60,11 +60,11 @@
 #define	SPEED_LEVEL_RUN	0.021f
 #define LEVEL_RUN_MAX	7
 
-#define POSITION_X_HIDDEN_MAP 2073.0f
-#define POSITION_Y_HIDDEN_MAP 350.0f
+#define POSITION_X_IN_HIDDEN_MAP 2064.0f
+#define POSITION_Y_IN_HIDDEN_MAP 340.0f
 
-#define POSITION_X_OUT_HIDDEN_MAP 496.0f
-#define POSITION_Y_OUT_HIDDEN_MAP 80.0f
+#define POSITION_X_OUT_HIDDEN_MAP 2286.0f
+#define POSITION_Y_OUT_HIDDEN_MAP 130.0f
 
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITTING_BBOX_HEIGHT) / 2)
 
@@ -118,6 +118,9 @@ class CMario : public CGameObject
 	bool isChanging;
 	bool isLower;
 	bool isFlying;
+	bool isUsePipe;
+	bool isAtPortalEntrance;
+	bool isAtPortalExit;
 
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithCoin(LPCOLLISIONEVENT e);
@@ -190,6 +193,9 @@ public:
 	bool GetIsOnPlatform() { return isOnPlatform; }
 	void SetIsOnPlatform(bool p) { isOnPlatform = p; }
 
+	bool GetIsUsePipe() { return isUsePipe; }
+	void SetIsUsePipe(bool b) { isUsePipe = b; }
+
 	bool GetIsFlying() { return isFlying; }
 
 	int GetLevelRun() { return levelRun; }
@@ -200,4 +206,6 @@ public:
 	int GetLives() { return lives; }
 
 	bool IsNotFlying() { return levelRun <= LEVEL_RUN_MAX - 4; }
+	bool GetIsAtPortalEntrance() { return isAtPortalEntrance; }
+	bool GetIsAtPortalExit() { return isAtPortalExit; }
 };

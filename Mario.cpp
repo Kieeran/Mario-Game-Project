@@ -62,6 +62,9 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	isChanging = false;
 	isLower = false;
 	isFlying = false;
+	isUsePipe = false;
+	isAtPortalEntrance = false;
+	isAtPortalExit = false;
 }
 
 void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -72,6 +75,8 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
 	if (x > 2740.0f) x = 2740.0f;
+
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 
 	if (isChanging)
 	{
@@ -103,6 +108,35 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			ay = MARIO_GRAVITY;
 		}
 	}
+
+	if (isUsePipe)
+	{
+		if (isAtPortalEntrance)
+		{
+			SetPosition(POSITION_X_IN_HIDDEN_MAP, POSITION_Y_IN_HIDDEN_MAP);
+			dataGame->SetIsInHiddenPlace(true);
+			isAtPortalEntrance = false;
+		}
+		else if (isAtPortalExit)
+		{
+			SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
+			dataGame->SetIsInHiddenPlace(false);
+			isAtPortalExit = false;
+		}
+		isUsePipe = false;
+	}
+
+	/*CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+	if (!dataGame->GetIsInHiddenPlace())
+	{
+		SetPosition(POSITION_X_IN_HIDDEN_MAP, POSITION_Y_IN_HIDDEN_MAP);
+		dataGame->SetIsInHiddenPlace(true);
+	}
+	else
+	{
+		SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
+		dataGame->SetIsInHiddenPlace(false);
+	}*/
 
 	if (!isRunning || vx == 0)
 	{
@@ -428,7 +462,14 @@ void CMario::OnCollisionWithMysBox(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 {
-	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+	CPortal* portal = dynamic_cast<CPortal*>(e->obj);
+
+	if (portal->GetPortalType() == ENTRANCE_PORTAL)
+		isAtPortalEntrance = true;
+	else if (portal->GetPortalType() == EXIT_PORTAL)
+		isAtPortalExit = true;
+
+	/*CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 	if (!dataGame->GetIsInHiddenPlace())
 	{
 		SetPosition(POSITION_X_HIDDEN_MAP, POSITION_Y_HIDDEN_MAP);
@@ -438,7 +479,7 @@ void CMario::OnCollisionWithPortal(LPCOLLISIONEVENT e)
 	{
 		SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
 		dataGame->SetIsInHiddenPlace(false);
-	}
+	}*/
 }
 
 void CMario::AddScore(float x, float y, int scoreAdd)

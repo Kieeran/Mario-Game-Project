@@ -2,12 +2,15 @@
 
 #include "GameObject.h"
 
+#define ENTRANCE_PORTAL	1
+#define EXIT_PORTAL		2
+
 /*
 	Object that triggers scene switching
 */
 class CPortal : public CGameObject
 {
-	int scene_id;	// target scene to switch to 
+	int portalType;
 
 	float width;
 	float height;
@@ -18,6 +21,6 @@ public:
 
 	//void RenderBoundingBox(void);
 
-	int GetSceneId() { return scene_id; }
+	int GetPortalType() { return portalType; }
 	int IsBlocking() { return 0; }
 };

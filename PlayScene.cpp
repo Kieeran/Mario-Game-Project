@@ -357,14 +357,7 @@ void CPlayScene::Update(DWORD dt)
 	if (cx < 0) cx = 0;
 	if (cx > 2456.0f) cx = 2456.0f;
 
-	//if (cy > 0) cy = 0;
-
-	/*if (!mario->GetIsFlying() || (mario->GetIsFlying() && mario->IsNotFlying()))
-		cy = 0;*/
-		/*else
-		{
-			if (cy > -50.0f) cy = -50.0f;
-		}*/
+	if (cy > 0) cy = 0;
 
 	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 

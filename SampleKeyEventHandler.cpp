@@ -13,10 +13,18 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	if (mario->GetIsChanging()) return;
 	switch (KeyCode)
 	{
+	case DIK_UP:
+		if (!mario->GetIsUsePipe() && mario->GetIsAtPortalExit())
+			mario->SetIsUsePipe(true);
+		break;
 	case DIK_DOWN:
 		if (!mario->GetIsHolding() && mario->GetState() == MARIO_STATE_IDLE &&
 			!mario->GetIsTailAttack() && !mario->GetIsTailAttack())
 			mario->SetState(MARIO_STATE_SIT);
+
+		if (!mario->GetIsUsePipe() && mario->GetIsAtPortalEntrance())
+			mario->SetIsUsePipe(true);
+
 		break;
 	case DIK_S:
 		if (mario->GetIsOnPlatform())
