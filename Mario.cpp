@@ -14,6 +14,7 @@
 #include "Koopas.h"
 #include "Leaf.h"
 #include "Button.h"
+#include "Card.h"
 
 #include "Effects.h"
 #include "Collision.h"
@@ -30,6 +31,10 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	level = dataGame->GetLevel();
 	score = dataGame->GetScore();
 	lives = dataGame->GetLives();
+
+	card1 = dataGame->GetCard1();
+	card2 = dataGame->GetCard2();
+	card3 = dataGame->GetCard3();
 
 	untouchable_start = 0;
 	untouchable = 0;
@@ -58,8 +63,10 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	//DebugOut(L"%d\n", levelRun);
 	//DebugOut(L"%d\n", isRunning);
+	//DebugOut(L"%d\n", state);
 	//avoid mario from droping out of the world at the left edge at the beginning of the stage
 	if (x < 20.0f) x = 20.0f;
+	if (x > 2740.0f) x = 2740.0f;
 
 	if (isChanging)
 	{
@@ -74,6 +81,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == MARIO_STATE_DIE)
 		ChangeToWorldMapWhenDie();
+
+	if (state == MARIO_STATE_END_SCENE)
+		ChangeToWorldMapWhenNotDie();
 
 	if (abs(vx) > abs(maxVx)) vx = maxVx;
 
@@ -173,6 +183,8 @@ void CMario::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithBrick(e);
 	else if (dynamic_cast<CButton*>(e->obj))
 		OnCollisionWithButton(e);
+	else if (dynamic_cast<CCard*>(e->obj))
+		OnCollisionWithCard(e);
 }
 
 void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -238,6 +250,22 @@ void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e)
 	CButton* button = dynamic_cast<CButton*>(e->obj);
 	button->SetIsPressed(true);
 	//DebugOut(L"Collision with button \n");
+}
+
+void CMario::OnCollisionWithCard(LPCOLLISIONEVENT e)
+{
+	CCard* card = dynamic_cast<CCard*>(e->obj);
+
+	card->SetState(CARD_STATE_COLLECTED);
+	if (card1 == 0)
+		card1 = card->GetCard();
+	else if (card2 == 0)
+		card2 = card->GetCard();
+	else if (card3 == 0)
+		card3 = card->GetCard();
+
+	SetState(MARIO_STATE_END_SCENE);
+	//DebugOut(L"%d\n", state);
 }
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
@@ -415,12 +443,22 @@ void CMario::AddScore(float x, float y, int scoreAdd)
 
 void CMario::ChangeToWorldMapWhenDie()
 {
-	//if (GetTickCount64() - change_scene_die_start > TIME_CHANGE_SCENE)
-	if (GetTickCount64() - change_scene_die_start > 2000 && change_scene_die_start > 0)
+	if (GetTickCount64() - change_scene_die_start > TIME_CHANGE_SCENE && change_scene_die_start > 0)
 	{
 		level = MARIO_LEVEL_SMALL;
-		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
 		change_scene_die_start = 0;
+		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
+
+	}
+}
+
+void CMario::ChangeToWorldMapWhenNotDie()
+{
+	if (GetTickCount64() - change_scene_not_die_start > TIME_CHANGE_SCENE && change_scene_not_die_start > 0)
+	{
+		DebugOut(L"Change play scene to world map sceneeeeeeeeeeeee\n");
+		change_scene_not_die_start = 0;
+		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
 	}
 }
 
@@ -1065,7 +1103,12 @@ void CMario::SetState(int state)
 		vx = 0;
 		ax = 0;
 		break;
+
+	case MARIO_STATE_END_SCENE:
+		change_scene_not_die_start = GetTickCount64();
+		break;
 	}
 
 	CGameObject::SetState(state);
+	DebugOut(L"%d\n", state);
 }

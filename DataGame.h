@@ -10,6 +10,10 @@ private:
 
 	bool isInHiddenPlace;
 
+	int card1;
+	int card2;
+	int card3;
+
 	int level;
 	int score;
 	int lives;
@@ -29,6 +33,10 @@ public:
 	int GetLevel() { return level; }
 	int GetScore() { return score; }
 	int GetLives() { return lives; }
+
+	int GetCard1() { return card1; }
+	int GetCard2() { return card2; }
+	int GetCard3() { return card3; }
 
 	bool GetIsInHiddenPlace() { return isInHiddenPlace; }
 	void SetIsInHiddenPlace(bool b) { isInHiddenPlace = b; }

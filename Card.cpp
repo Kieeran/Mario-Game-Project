@@ -15,6 +15,14 @@ void CCard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			change_start = GetTickCount64();
 		}
 	}
+	else
+	{
+		if (GetTickCount64() - delete_start > TIME_DELETE_CARD && delete_start > 0)
+		{
+			delete_start = 0;
+			Delete();
+		}
+	}
 
 	CGameObject::Update(dt, coObjects);
 	CCollision::GetInstance()->Process(this, dt, coObjects);
@@ -46,4 +54,17 @@ void CCard::GetBoundingBox(float& l, float& t, float& r, float& b)
 	t = y - CARD_BBOX_HEIGHT / 2;
 	r = l + CARD_BBOX_WIDTH;
 	b = t + CARD_BBOX_HEIGHT;
+}
+
+void CCard::SetState(int state)
+{
+	switch (state) {
+	case CARD_STATE_COLLECTED:
+		isCollected = true;
+		vy = -SPEED_CARD;
+		delete_start = GetTickCount64();
+		break;
+	}
+
+	CGameObject::SetState(state);
 }

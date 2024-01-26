@@ -36,6 +36,7 @@
 #define MARIO_STATE_SIT_RELEASE		601
 #define MARIO_STATE_TAIL_ATTACK		700
 #define MARIO_STATE_FLY				800
+#define MARIO_STATE_END_SCENE		900
 
 #define GROUND_Y 160.0f
 
@@ -68,7 +69,7 @@
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITTING_BBOX_HEIGHT) / 2)
 
 #define MARIO_UNTOUCHABLE_TIME	2500
-#define TIME_CHANGE_SCENE	5000
+#define TIME_CHANGE_SCENE	2000
 #define TIME_KICK_ANIMATION	 100
 #define TIME_PREPARE_RUN  700
 #define TIME_SPEED	150
@@ -79,6 +80,10 @@ class CMario : public CGameObject
 	float maxVx;
 	float ax;				// acceleration on x 
 	float ay;				// acceleration on y 
+
+	int card1;
+	int card2;
+	int card3;
 
 	int index;
 	int level;
@@ -94,6 +99,7 @@ class CMario : public CGameObject
 	ULONGLONG speed_stop;
 	ULONGLONG prepare_start;
 	ULONGLONG change_scene_die_start;
+	ULONGLONG change_scene_not_die_start;
 
 	BOOLEAN isOnPlatform;
 	int coin;
@@ -118,6 +124,7 @@ class CMario : public CGameObject
 	void OnCollisionWithKoopas(LPCOLLISIONEVENT e);
 	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithButton(LPCOLLISIONEVENT e);
+	void OnCollisionWithCard(LPCOLLISIONEVENT e);
 
 	int GetAniIdTail();
 	int GetAniIdBig();
@@ -141,6 +148,7 @@ public:
 	void OnCollisionWith(LPCOLLISIONEVENT e);
 
 	void ChangeToWorldMapWhenDie();
+	void ChangeToWorldMapWhenNotDie();
 	void AddScore(float x, float y, int scoreAdd);
 
 	int GetLevel() { return level; }
