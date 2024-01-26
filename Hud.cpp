@@ -37,7 +37,6 @@ void CHud::Render()
 
 	if (mario->GetLevelRun() > 0)
 	{
-
 		for (int i = 0; i < mario->GetLevelRun(); i++)
 		{
 			if (i == LEVEL_RUN_MAX - 1)
