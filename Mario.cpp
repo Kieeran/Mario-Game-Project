@@ -44,10 +44,14 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	speed_stop = 0;
 	prepare_start = 0;
 	change_scene_die_start = 0;
+	change_scene_not_die_start = 0;
+
+	time_one_second = 0;
 
 	this->index = index;
 	coin = 0;
 	levelRun = 0;
+	clock = 300;
 
 	isOnPlatform = false;
 	isHolding = false;
@@ -78,6 +82,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vx += ax * dt;
 		vy += ay * dt;
 	}
+
+	if ((state != MARIO_STATE_DIE) || !isChanging)
+		DownTimeClock1Second();
 
 	if (state == MARIO_STATE_DIE)
 		ChangeToWorldMapWhenDie();
@@ -459,6 +466,23 @@ void CMario::ChangeToWorldMapWhenNotDie()
 		DebugOut(L"Change play scene to world map sceneeeeeeeeeeeee\n");
 		change_scene_not_die_start = 0;
 		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
+	}
+}
+
+void CMario::DownTimeClock1Second()
+{
+	if (clock > 0)
+	{
+		if (GetTickCount64() - time_one_second > TIME_ONE_SECOND)
+		{
+			clock--;
+			time_one_second = GetTickCount64();
+		}
+	}
+	else
+	{
+		clock = 0;
+		SetState(MARIO_STATE_DIE);
 	}
 }
 

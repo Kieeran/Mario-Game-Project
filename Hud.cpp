@@ -28,6 +28,24 @@ void CHud::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_HUD)->Render(x, y);
 
+	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	DisplayTime(mario->GetClock());
+
+	if (mario->GetLevelRun() > 0)
+	{
+
+		for (int i = 0; i < mario->GetLevelRun(); i++)
+		{
+			if (i == LEVEL_RUN_MAX - 1)
+				continue;
+			animations->Get(ID_ANI_POWER_HUD_1)->Render(x + POWER_DISPLAY_X_COORD + DISTANCE_EVERY_LEVEL_RUN * i, y + POWER_DISPLAY_Y_COORD);
+		}
+		if (mario->GetLevelRun() == LEVEL_RUN_MAX)
+			animations->Get(ID_ANI_POWER_HUD_2)->Render(x + POWER_MAX_DISPLAY_X_COORD, y + POWER_MAX_DISPLAY_Y_COORD);
+
+	}
+
 	//DisplayTime(0);
 	//DisplayScore(1000);
 	//DisplayLives(2);
@@ -122,16 +140,4 @@ void CHud::DisplayCoin(int num)
 		DrawNumber(num / 10, x + COIN_DISPLAY_X_COORD, y + COIN_DISPLAY_Y_COORD);
 		DrawNumber(num % 10, x + COIN_DISPLAY_X_COORD + NUMBER_SIZE, y + COIN_DISPLAY_Y_COORD);
 	}
-
-	/*string s = to_string(num);
-
-	while (s.length() < TIME_DISPLAY_WIDTH)
-	{
-		s = '0' + s;
-	}
-
-	for (int i = 0; i < TIME_DISPLAY_WIDTH; i++)
-	{
-		DrawNumber(s[i] - '0', x + TIME_DISPLAY_X_COORD + NUMBER_SIZE * i, y + TIME_DISPLAY_Y_COORD);
-	}*/
 }

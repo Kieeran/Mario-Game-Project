@@ -72,7 +72,9 @@
 #define TIME_CHANGE_SCENE	2000
 #define TIME_KICK_ANIMATION	 100
 #define TIME_PREPARE_RUN  700
+#define TIME_ONE_SECOND	1000
 #define TIME_SPEED	150
+
 
 class CMario : public CGameObject
 {
@@ -85,6 +87,7 @@ class CMario : public CGameObject
 	int card2;
 	int card3;
 
+	int clock;
 	int index;
 	int level;
 	int score;
@@ -100,6 +103,8 @@ class CMario : public CGameObject
 	ULONGLONG prepare_start;
 	ULONGLONG change_scene_die_start;
 	ULONGLONG change_scene_not_die_start;
+
+	ULONGLONG time_one_second;
 
 	BOOLEAN isOnPlatform;
 	int coin;
@@ -150,6 +155,7 @@ public:
 	void ChangeToWorldMapWhenDie();
 	void ChangeToWorldMapWhenNotDie();
 	void AddScore(float x, float y, int scoreAdd);
+	void DownTimeClock1Second();
 
 	int GetLevel() { return level; }
 	void SetLevel(int l)
@@ -188,6 +194,7 @@ public:
 	int GetLevelRun() { return levelRun; }
 
 	int GetIndex() { return index; }
+	int GetClock() { return clock; }
 
 	bool IsNotFlying() { return levelRun <= LEVEL_RUN_MAX - 4; }
 };
