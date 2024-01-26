@@ -47,6 +47,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	hold_start = 0;
 	speed_start = 0;
 	speed_stop = 0;
+	use_pipe_start = 0;
 	prepare_start = 0;
 	change_scene_die_start = 0;
 	change_scene_not_die_start = 0;
@@ -67,6 +68,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	isLower = false;
 	isFlying = false;
 	isUsePipe = false;
+	momentumMove = false;
 	isAtPortalEntrance = false;
 	isAtPortalExit = false;
 	isPrepareEndScene = false;
@@ -77,7 +79,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	//DebugOut(L"%d\n", levelRun);
 	//DebugOut(L"%d\n", isRunning);
 	//DebugOut(L"%d\n", state);
-	//avoid mario from droping out of the world at the left edge at the beginning of the stage
+	//avoid mario from droping out of the world at the left edge and the right edge of the stage
 	if (x < 20.0f) x = 20.0f;
 	if (!isPrepareEndScene)
 		if (x > 2740.0f) x = 2740.0f;
@@ -117,35 +119,34 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == MARIO_STATE_PHYSICS_MOVE)
 	{
-
 		vx += momentum * dt;
 		if (vx * momentum > 0)
 		{
 			momentum = 0;
+			momentumMove = false;
 			SetState(MARIO_STATE_IDLE);
 		}
 	}
 
-	if (state == MARIO_STATE_PHYSICS_MOVE)
-	{
-		vx += momentum * dt;
-	}
-
 	if (isUsePipe)
 	{
-		if (isAtPortalEntrance)
+		if (GetTickCount64() - use_pipe_start > TIME_USE_PIPE && use_pipe_start > 0)
 		{
-			SetPosition(POSITION_X_IN_HIDDEN_MAP, POSITION_Y_IN_HIDDEN_MAP);
-			dataGame->SetIsInHiddenPlace(true);
-			isAtPortalEntrance = false;
+			if (isAtPortalEntrance)
+			{
+				SetPosition(POSITION_X_IN_HIDDEN_MAP, POSITION_Y_IN_HIDDEN_MAP);
+				dataGame->SetIsInHiddenPlace(true);
+				isAtPortalEntrance = false;
+			}
+			else if (isAtPortalExit)
+			{
+				SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
+				dataGame->SetIsInHiddenPlace(false);
+				isAtPortalExit = false;
+			}
+			isUsePipe = false;
+			ay = MARIO_GRAVITY;
 		}
-		else if (isAtPortalExit)
-		{
-			SetPosition(POSITION_X_OUT_HIDDEN_MAP, POSITION_Y_OUT_HIDDEN_MAP);
-			dataGame->SetIsInHiddenPlace(false);
-			isAtPortalExit = false;
-		}
-		isUsePipe = false;
 	}
 
 	if (!isRunning || vx == 0 || IsBrace() || (!isOnPlatform && levelRun != LEVEL_RUN_MAX) || state == MARIO_STATE_PHYSICS_MOVE)
@@ -665,6 +666,9 @@ int CMario::GetAniIdTail()
 			aniId = ID_ANI_MARIO_TAIL_KICKING_LEFT;
 	}
 
+	if (isUsePipe)
+		aniId = ID_ANI_MARIO_TAIL_USE_PIPE;
+
 	return aniId;
 }
 
@@ -769,6 +773,9 @@ int CMario::GetAniIdBig()
 			aniId = ID_ANI_MARIO_BIG_KICK_LEFT;
 	}
 
+	if (isUsePipe)
+		aniId = ID_ANI_MARIO_BIG_USE_PIPE;
+
 	return aniId;
 }
 
@@ -871,6 +878,9 @@ int CMario::GetAniIdSmall()
 		else
 			aniId = ID_ANI_MARIO_SMALL_KICK_LEFT;
 	}
+
+	if (isUsePipe)
+		aniId = ID_ANI_MARIO_SMALL_USE_PIPE;
 
 	return aniId;
 }
@@ -1151,8 +1161,20 @@ void CMario::SetState(int state)
 		}
 		break;
 
+	case MARIO_STATE_USE_PIPE:
+		isUsePipe = true;
+		vx = 0;
+		ay = 0;
+		momentum = 0;
+		use_pipe_start = GetTickCount64();
+		if (isAtPortalEntrance)
+			vy = MARIO_SPEED_USE_PIPE;
+		else if (isAtPortalExit)
+			vy = -MARIO_SPEED_USE_PIPE;
+		break;
 	case MARIO_STATE_PHYSICS_MOVE:
 		ax = 0.0f;
+		momentumMove = true;
 		if (vx > 0)
 			momentum = -MARIO_MOMENTUM;
 		else

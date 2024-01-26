@@ -39,7 +39,8 @@
 #define MARIO_STATE_SIT_RELEASE		601
 #define MARIO_STATE_TAIL_ATTACK		700
 #define MARIO_STATE_FLY				800
-#define MARIO_STATE_END_SCENE		900
+#define MARIO_STATE_USE_PIPE		900
+#define MARIO_STATE_END_SCENE		1000
 
 #define GROUND_Y 160.0f
 
@@ -62,12 +63,13 @@
 
 #define	SPEED_LEVEL_RUN	0.021f
 #define LEVEL_RUN_MAX	7
+#define MARIO_SPEED_USE_PIPE 0.02
 
 #define POSITION_X_IN_HIDDEN_MAP 2064.0f
 #define POSITION_Y_IN_HIDDEN_MAP 340.0f
 
 #define POSITION_X_OUT_HIDDEN_MAP 2286.0f
-#define POSITION_Y_OUT_HIDDEN_MAP 130.0f
+#define POSITION_Y_OUT_HIDDEN_MAP 110.0f
 
 #define MARIO_SIT_HEIGHT_ADJUST ((MARIO_BIG_BBOX_HEIGHT - MARIO_BIG_SITTING_BBOX_HEIGHT) / 2)
 
@@ -75,6 +77,7 @@
 #define TIME_CHANGE_SCENE	2000
 #define TIME_KICK_ANIMATION	 100
 #define TIME_PREPARE_RUN  700
+#define TIME_USE_PIPE  1000
 #define TIME_ONE_SECOND	1000
 #define TIME_SPEED	150
 
@@ -106,6 +109,7 @@ class CMario : public CGameObject
 	ULONGLONG speed_start;
 	ULONGLONG speed_stop;
 	ULONGLONG prepare_start;
+	ULONGLONG use_pipe_start;
 	ULONGLONG change_scene_die_start;
 	ULONGLONG change_scene_not_die_start;
 
@@ -118,6 +122,7 @@ class CMario : public CGameObject
 	bool isHolding;
 	bool isKicking;
 	bool isRunning;
+	bool momentumMove;
 	bool isTailAttack;
 	bool isChanging;
 	bool isLower;
@@ -154,10 +159,10 @@ public:
 
 	int IsCollidable()
 	{
-		return (state != MARIO_STATE_DIE);
+		return state != MARIO_STATE_DIE && !isUsePipe;
 	}
 
-	int IsBlocking() { return (state != MARIO_STATE_DIE && untouchable == 0); }
+	int IsBlocking() { return state != MARIO_STATE_DIE && untouchable == 0 && !isUsePipe; }
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);

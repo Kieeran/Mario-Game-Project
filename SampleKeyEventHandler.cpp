@@ -16,17 +16,18 @@ void CSampleKeyHandler::OnKeyDown(int KeyCode)
 	switch (KeyCode)
 	{
 	case DIK_UP:
-		if (!mario->GetIsUsePipe() && mario->GetIsAtPortalExit())
-			mario->SetIsUsePipe(true);
+		if (!mario->GetIsUsePipe() && (mario->GetIsAtPortalExit()))
+			mario->SetState(MARIO_STATE_USE_PIPE);
 		break;
 	case DIK_DOWN:
+		if (!mario->GetIsUsePipe() && mario->GetIsAtPortalEntrance())
+		{
+			mario->SetState(MARIO_STATE_USE_PIPE);
+			break;
+		}
 		if (!mario->GetIsHolding() && mario->GetState() == MARIO_STATE_IDLE &&
 			!mario->GetIsTailAttack() && !mario->GetIsTailAttack())
 			mario->SetState(MARIO_STATE_SIT);
-
-		if (!mario->GetIsUsePipe() && mario->GetIsAtPortalEntrance())
-			mario->SetIsUsePipe(true);
-
 		break;
 	case DIK_S:
 		if (mario->GetIsOnPlatform())
