@@ -2,6 +2,8 @@
 #include "AssetIDs.h"
 void CCloud::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (nCloud > 0)
 	{
 		CSprites* s = CSprites::GetInstance();

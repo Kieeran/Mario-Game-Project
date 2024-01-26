@@ -16,6 +16,8 @@ CBrick::CBrick(float x, float y, int brickType) : CGameObject(x, y)
 
 void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
@@ -68,6 +70,8 @@ void CBrick::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CBrick::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (state == BRICK_STATE_NORMAL || state == BRICK_STATE_NORMAL_FOREVER)
 		CAnimations::GetInstance()->Get(ID_ANI_BRICK)->Render(x, y);
 	else

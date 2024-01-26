@@ -25,6 +25,8 @@ CCoin::CCoin(float x, float y, int coin_type) :CGameObject()
 }
 void CCoin::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	if (coin_type == SHOWED_COIN_TYPE)
 	{
@@ -48,6 +50,7 @@ void CCoin::OnNoCollision(DWORD dt)
 
 void CCoin::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
 
 	if (coin_type == HIDDEN_COIN_TYPE)
 	{

@@ -51,6 +51,7 @@ void CLeaf::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
 
 void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
 
 	if (vy < MAX_VY)
 	{
@@ -78,6 +79,8 @@ void CLeaf::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CLeaf::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	int aniId = -1;
 
 	if (vx <= 0)

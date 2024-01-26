@@ -2,6 +2,8 @@
 
 void CCard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (!isCollected)
 	{
 		if (GetTickCount64() - change_start > TIME_CHANGE_CARD && change_start > 0)
@@ -30,6 +32,8 @@ void CCard::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CCard::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations* animations = CAnimations::GetInstance();
 	int aniId = -1;
 	switch (card)

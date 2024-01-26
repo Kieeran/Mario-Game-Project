@@ -17,6 +17,10 @@ using namespace std;
 #define MAX_FRAME_RATE 100
 #define KEYBOARD_BUFFER_SIZE 1024
 #define KEYBOARD_STATE_SIZE 256
+
+#define SCREEN_WIDTH 320
+#define SCREEN_HEIGHT 270
+
 #define TYPE_WORLD_UNKNOWN 0
 #define TYPE_WORLD_INTRO 1
 #define TYPE_WORLD_MAP 2
@@ -109,6 +113,9 @@ public:
 
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 	void GetCamPos(float& x, float& y) { x = cam_x; y = cam_y; }
+
+	float GetCamX() { return cam_x; }
+	float GetCamY() { return cam_y; }
 
 	CDataGame* GetDataGame() { return dataGame; }
 

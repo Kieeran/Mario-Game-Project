@@ -2,6 +2,8 @@
 
 void CSticker::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	int aniId = -1;
 	switch (stickerType)
 	{

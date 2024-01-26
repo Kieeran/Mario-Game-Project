@@ -369,7 +369,6 @@ void CPlayScene::Update(DWORD dt)
 	}
 
 	CGame::GetInstance()->SetCamPos(cx, cy);
-	DebugOut(L"CamX = %f\tCamY = %f\n", cx, cy);
 
 	PurgeDeletedObjects();
 }

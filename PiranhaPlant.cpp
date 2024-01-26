@@ -134,6 +134,7 @@ int CPiranhaPlant::GetAniIdGreenFirePiranhaPlant()
 
 void CPiranhaPlant::Render()
 {
+	if (!checkObjectInCamera(this)) return;
 	//if (state == PIRANHA_PLANT_STATE_SLEEP) return;
 
 	CAnimations* animations = CAnimations::GetInstance();
@@ -167,6 +168,9 @@ void CPiranhaPlant::OnNoCollision(DWORD dt)
 void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();
+
+	if (!checkObjectInCamera(this)) return;
+
 	float heightMax = -1;
 	float riseupSpeed = -1;
 	if (plantType == RED_FIRE_PIRANHA_PLANT)

@@ -51,6 +51,8 @@ void CMushroom::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
 
 void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (state == MUSHROOM_STATE_WALKING)
 	{
 		vx += ax * dt;
@@ -74,6 +76,8 @@ void CMushroom::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CMushroom::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (mushroomType == RED_MUSHROOM_TYPE)
 		CAnimations::GetInstance()->Get(ID_ANI_RED_MUSHROOM)->Render(x, y);
 	else

@@ -9,6 +9,8 @@ CButton::CButton(float x, float y) : CGameObject(x, y)
 
 void CButton::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (x != Origin_X)
 		x = Origin_X;
 	if (y != Origin_Y)
@@ -31,6 +33,8 @@ void CButton::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CButton::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (!isPressed)
 		CAnimations::GetInstance()->Get(ID_ANI_BUTTON_NOT_COLLECTED)->Render(x, y);
 	else

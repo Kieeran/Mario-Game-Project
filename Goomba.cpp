@@ -79,6 +79,9 @@ void CGoomba::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
 void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+	if (!checkObjectInCamera(this)) return;
+
 	if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)
 	{
 		jump_start = GetTickCount64();
@@ -94,7 +97,7 @@ void CGoomba::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			isDeleted = true;
 		}
-		else if(state == GOOMBA_STATE_DIE_UPSIDE_DOWN && GetTickCount64() - die_start > GOOMBA_DIE_UPSIDE_TIMEOUT)
+		else if (state == GOOMBA_STATE_DIE_UPSIDE_DOWN && GetTickCount64() - die_start > GOOMBA_DIE_UPSIDE_TIMEOUT)
 		{
 			isDeleted = true;
 		}
@@ -180,6 +183,8 @@ int CGoomba::GetAniGoombaRed()
 
 void CGoomba::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	int aniId = GetAniGoombaYellow();
 	if (goombaType == GOOMBA_TYPE_RED)
 	{

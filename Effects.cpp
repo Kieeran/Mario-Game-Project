@@ -15,6 +15,8 @@ void CEffects::OnNoCollision(DWORD dt)
 
 void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (effectType >= SCORE_100_EFFECT && effectType <= SCORE_8000_EFFECT)
 	{
 		vy = -SPEED_EFFECT;
@@ -31,6 +33,8 @@ void CEffects::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CEffects::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (effectType == UNKNOWN_EFFECT) return;
 
 	CAnimations* animations = CAnimations::GetInstance();

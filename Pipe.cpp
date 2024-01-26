@@ -2,6 +2,8 @@
 
 void CPipe::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (this->lengthHeight <= 0)return;
 	CSprites* s = CSprites::GetInstance();
 	float xx = x - lenthCellSide / 2;

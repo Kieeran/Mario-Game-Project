@@ -2,6 +2,8 @@
 
 void CBigGrass::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CSprites* s = CSprites::GetInstance();
 	s->Get(spriteId)->Draw(x, y);
 }

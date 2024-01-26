@@ -11,6 +11,8 @@ CDetector::CDetector(float x, float y)
 
 void CDetector::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 	if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
 
@@ -42,6 +44,8 @@ void CDetector::GetBoundingBox(float& l, float& t, float& r, float& b)
 
 void CDetector::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	CAnimations::GetInstance()->Get(ID_ANI_DETECTOR)->Render(x, y);
 	//RenderBoundingBox();
 }

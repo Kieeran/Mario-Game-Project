@@ -44,6 +44,8 @@ CFireBullet::CFireBullet(float x, float y) : CGameObject(x, y)
 
 void CFireBullet::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (y > OUT_OF_MAP_Y) return;
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_FIREBULLET)->Render(x, y);
@@ -57,6 +59,8 @@ void CFireBullet::OnNoCollision(DWORD dt)
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (GetTickCount64() - start_delete > TIME_BULLET_DELETE) {
 		isDeleted = true;
 	}

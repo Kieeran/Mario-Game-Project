@@ -38,4 +38,18 @@ void CGameObject::RenderBoundingBox()
 	CGame::GetInstance()->Draw(x - cx, y - cy, bbox, &rect, BBOX_ALPHA);
 }
 
+bool CGameObject::checkObjectInCamera(CGameObject* obj)
+{
+	float cam_x = CGame::GetInstance()->GetCamX();
+	float cam_y = CGame::GetInstance()->GetCamY();
+	float w = 32.0f;
+	float h = 32.0f;
+
+	if (obj->x < cam_x - w || obj->x > cam_x + SCREEN_WIDTH + w)
+		return false;
+	if (obj->y < cam_y - h || obj->y > cam_y + SCREEN_HEIGHT + h)
+		return false;
+	return true;
+}
+
 CGameObject::~CGameObject() {}

@@ -77,6 +77,8 @@ void CKoopas::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
+	if (!checkObjectInCamera(this)) return;
+
 	/*if (abs(x - mario->GetX()) >= DISTANCE_SET_ACTIVE)return;
 	if (abs(x - mario->GetX()) >= 100) return;*/
 
@@ -320,6 +322,8 @@ int CKoopas::GetAniIdGreenKoopas()
 
 void CKoopas::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (y > OUT_OF_MAP_Y)return;
 	int aniId = -1;
 

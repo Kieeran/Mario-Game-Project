@@ -15,6 +15,8 @@ CMysBox::CMysBox(float x, float y, int itemType, int index, int mushroomType) :C
 
 void CMysBox::Render()
 {
+	if (!checkObjectInCamera(this)) return;
+
 	int aniId = ID_ANI_MYSBOX_CARRY_OBJECT;
 	if (state == MYSBOX_STATE_EMPTY)
 	{
@@ -31,6 +33,8 @@ void CMysBox::OnNoCollision(DWORD dt)
 
 void CMysBox::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!checkObjectInCamera(this)) return;
+
 	if (this->GetState() == MYSBOX_STATE_EMPTY && this->Unbox)
 	{
 		vy += ay * dt;

@@ -6,6 +6,8 @@ void CBlackObject::Render()
 
 	if (lengthWidth < 0)
 	{
+		if (!checkObjectInCamera(this)) return;
+
 		if (lengthHeight < 0)
 		{
 			s->Get(ID_SPRITE_CARD_BOX)->Draw(x, y);
