@@ -9,14 +9,23 @@
 31303	34	101	49	132	10
 31304	51	101	66	132	10
 
-# Red koopa hiding
+# Red koopa hiding & shaking
 31305	85	17	100	32	10
 31306	85	34	100	49	10
+
+# Red koopa hiding & shaking upside
+31324	204	0	219	15	10
+31325	204	17	219	32	10
 
 # Red koopa rolling
 31307	51	51	66	66	10
 31308	68	51	83	66	10
 31309	85	51	100	66	10
+
+# Red koopa rolling upside
+31328	51	134	66	149	10
+31329	68	134	83	149	10
+31330	85	134	100	149	10
 
 #===================Green koopa===================
 # Green koopa walking left
@@ -27,14 +36,23 @@
 31313	0	101	15	132	10
 31314	17	101	32	132	10
 
-# Green koopa hiding
+# Green koopa hiding & shaking
 31315	34	17	49	32	10
 31316	34	34	49	49	10
+
+# Green koopa hiding & shaking upside
+31326	204	34	219	49	10
+31327	204	51	219	66	10
 
 # Green koopa rolling
 31317	0	51	15	66	10
 31318	17	51	32	66	10
 31319	34	51	49	66	10
+
+# Red koopa rolling upside
+31331	0	134	15	149	10
+31332	17	134	32	149	10
+31333	34	134	49	149	10
 
 # Para-Koopas
 # Para-Koopas flying left
@@ -58,8 +76,17 @@
 # Red koopa shaking
 31353	31305	50	31306	50
 
+# Red koopa hiding upside
+31362	31324	100
+
+# Red koopa shaking upside
+31363	31324	50	31325	50
+
 # Red koopa rolling
 31354	31307	100	31308	100	31309	100
+
+# Red koopa rolling upside
+31366	31328	100	31329	100	31330	100
 
 #=====================Green koopa====================
 # Green koopa walking left & right
@@ -72,8 +99,17 @@
 # Green koopa shaking
 31358	31315	100	31316	100
 
+# Green koopa hiding upside
+31364	31326	100
+
+# Green koopa shaking upside
+31365	31326	50	31327	50
+
 # Green koopa rolling
 31359	31317	100	31318	100	31319	100
+
+# Green koopa rolling upside
+31367	31331	100	31332	100	31333	100
 
 # Para-Koopas flying left & right
 31360	31320	150	31321	150

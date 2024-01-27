@@ -6,7 +6,7 @@
 #include "Platform.h"
 
 #define GOOMBA_GRAVITY 0.001f
-#define GOOMBA_WALKING_SPEED 0.05f
+#define GOOMBA_WALKING_SPEED 0.045f
 
 #define GOOMBA_TIME_SMALL_JUMP	750
 #define GOOMBA_TIME_FLYING	1850

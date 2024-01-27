@@ -98,6 +98,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy += ay * dt;
 	}
 
+	if (y > POSITION_Y_DIE)
+		SetState(MARIO_STATE_DIE);
+
 	if ((state != MARIO_STATE_DIE) || !isChanging)
 		DownTimeClock1Second();
 

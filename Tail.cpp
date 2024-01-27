@@ -112,7 +112,9 @@ void CTail::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 
 void CTail::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 {
-
+	DebugOut(L"Tail hit koopa\n");
+	CKoopas* koopa = dynamic_cast<CKoopas*>(e->obj);
+	koopa->SetState(KOOPAS_STATE_UPSIDE);
 }
 
 void CTail::OnCollisionWithBrick(LPCOLLISIONEVENT e)

@@ -17,8 +17,9 @@
 
 #define KOOPAS_GRAVITY 0.0004f
 #define KOOPAS_WALKING_SPEED 0.04f
-#define KOOPAS_ROLLING_SPEED 0.25f
+#define KOOPAS_ROLLING_SPEED 0.2f
 #define KOOPAS_JUMP_DEFLECT_SPEED 0.18f
+#define KOOPA_JUMP_IS_ATTACKED 0.2f
 
 #define DETECTOR_DEFLECT_HIGH 5.0f
 
@@ -40,6 +41,7 @@
 #define KOOPAS_STATE_SHAKING	400
 #define KOOPAS_STATE_ROLLING	500
 #define KOOPAS_STATE_FLYING		600
+#define KOOPAS_STATE_UPSIDE		700
 
 class CKoopas : public CGameObject
 {
@@ -57,6 +59,7 @@ protected:
 
 	bool isShaking;
 	bool isOnPlatform;
+	bool isUpSide;
 	bool isHeld;
 
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
@@ -87,5 +90,5 @@ public:
 	bool GetIsHeld() { return isHeld; }
 	void SetIsHeld(bool isHeld) { this->isHeld = isHeld; }
 
-	//ULONGLONG GetDefendStart() { return defend_start; }
+	bool GetIsUpSide() { return isUpSide; }
 };
