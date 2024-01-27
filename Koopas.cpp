@@ -198,6 +198,8 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMysbox(e);
 	else if (dynamic_cast<CPlatform*>(e->obj))
 		OnCollisionWithPlatform(e);
+	else if (dynamic_cast<CBrick*>(e->obj))
+		OnCollisionWithBrick(e);
 	else if (dynamic_cast<CMario*>(e->obj))
 		OnCollisionWithPlayer(e);
 }
@@ -212,6 +214,18 @@ void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			mario->AddScore(goomba->GetX(), goomba->GetY(), 100);
 			goomba->SetState(GOOMBA_STATE_DIE_UPSIDE_DOWN);
+		}
+	}
+}
+
+void CKoopas::OnCollisionWithBrick(LPCOLLISIONEVENT e)
+{
+	CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+	if (state == KOOPAS_STATE_ROLLING)
+	{
+		if (e->ny == 0)
+		{
+			brick->SetState(BRICK_STATE_DELETE);
 		}
 	}
 }

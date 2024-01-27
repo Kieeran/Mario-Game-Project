@@ -9,6 +9,7 @@
 #include "Coin.h"
 #include "Mushroom.h"
 #include "Leaf.h"
+#include "Brick.h"
 #include "Platform.h"
 
 #define RED_KOOPA	1
@@ -72,6 +73,7 @@ protected:
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithMysbox(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
+	void OnCollisionWithBrick(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlayer(LPCOLLISIONEVENT e);
 
 	int GetAniIdRedKoopas();
