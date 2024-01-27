@@ -116,8 +116,13 @@ void CWorldMapScene::_ParseSection_OBJECTS(string line)
 	}
 	case OBJECT_TYPE_MAP: obj = new CMap(x, y); break;
 	case OBJECT_TYPE_DANCING_SHRUB: obj = new CDancingShrub(x, y); break;
-	case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
 	case OBJECT_TYPE_HAMMER_BROS: obj = new CHammerBros(x, y); break;
+	case OBJECT_TYPE_HUD:
+	{
+		int hudType = atoi(tokens[3].c_str());
+		obj = new CHud(x, y, hudType);
+		break;
+	}
 	case OBJECT_TYPE_WORLD_MAP_NODE:
 	{
 		string direction = tokens[3].c_str();

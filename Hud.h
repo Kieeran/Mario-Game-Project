@@ -9,6 +9,9 @@
 
 #include "string"
 
+#define WORLDMAP_SCENE_HUD	1
+#define PLAY_SCENE_HUD		2
+
 #define ID_SPRITE_HUD	100100
 #define ID_ANI_HUD		100150
 
@@ -67,8 +70,10 @@
 
 class CHud : public CGameObject
 {
+protected:
+	int hudType;
 public:
-	CHud(float x, float y);
+	CHud(float x, float y, int hudType);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b) {}

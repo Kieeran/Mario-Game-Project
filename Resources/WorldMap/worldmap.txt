@@ -15,7 +15,7 @@ Resources\Hud.txt
 19	145	98
 
 # Hud
-12	145	200
+12	145	200	1
 
 # Dancing shrub
 20	37	27

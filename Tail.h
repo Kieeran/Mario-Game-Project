@@ -15,7 +15,7 @@ protected:
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void Render() {
-		RenderBoundingBox();
+		//RenderBoundingBox();
 	}
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 

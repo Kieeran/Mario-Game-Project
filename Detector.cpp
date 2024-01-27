@@ -46,6 +46,6 @@ void CDetector::Render()
 {
 	if (!checkObjectInCamera(this)) return;
 
-	CAnimations::GetInstance()->Get(ID_ANI_DETECTOR)->Render(x, y);
+	//CAnimations::GetInstance()->Get(ID_ANI_DETECTOR)->Render(x, y);
 	//RenderBoundingBox();
 }

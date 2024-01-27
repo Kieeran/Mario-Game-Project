@@ -126,7 +126,12 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 	case OBJECT_TYPE_SMALLGRASS: obj = new CSmallGrass(x, y); break;
 	case OBJECT_TYPE_HARDBLOCK: obj = new CHardBlock(x, y); break;
 	case OBJECT_TYPE_CARD:	obj = new CCard(x, y); break;
-	case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
+	case OBJECT_TYPE_HUD:
+	{
+		int hudType = atoi(tokens[3].c_str());
+		obj = new CHud(x, y, hudType);
+		break;
+	}
 	case OBJECT_TYPE_GOOMBA:
 	{
 		int goombaType = atoi(tokens[3].c_str());
@@ -154,7 +159,6 @@ void CPlayScene::_ParseSection_OBJECTS(string line)
 		obj = new CBrick(x, y, brickType, objects.size() - 1);
 		break;
 	}
-	//case OBJECT_TYPE_HUD: obj = new CHud(x, y); break;
 	case OBJECT_TYPE_CLOUD:
 	{
 		int nCloud = atoi(tokens[3].c_str());

@@ -1,22 +1,25 @@
 #include "Hud.h"
 
-CHud::CHud(float x, float y) : CGameObject(x, y)
+CHud::CHud(float x, float y, int hudType) :CGameObject(x, y)
 {
-	//CGame::GetInstance()->GetCamPos(x, y);
+	this->hudType = hudType;
 }
 
 void CHud::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-
-	if (mario->GetX() >= 152.0f && mario->GetX() <= 2608)
-		x = mario->GetX();
-	else
+	if (hudType == PLAY_SCENE_HUD)
 	{
-		if (mario->GetX() < 152.0f)
-			x = 152.0f;
-		else if (mario->GetX() > 2608)
-			x = 2608.0f;
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+		if (mario->GetX() >= 152.0f && mario->GetX() <= 2608)
+			x = mario->GetX();
+		else
+		{
+			if (mario->GetX() < 152.0f)
+				x = 152.0f;
+			else if (mario->GetX() > 2608)
+				x = 2608.0f;
+		}
 	}
 
 	CGameObject::Update(dt, coObjects);
@@ -28,12 +31,17 @@ void CHud::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_HUD)->Render(x, y);
 
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
 	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
-	DisplayTime(mario->GetClock());
-	DisplayScore(mario->GetScore());
-	DisplayCoin(mario->GetCoinNum());
-	DisplayLives(mario->GetLives());
+	if (hudType == PLAY_SCENE_HUD)
+		DisplayTime(mario->GetClock());
+	else
+		DisplayTime(0);
+
+	DisplayScore(dataGame->GetScore());
+	DisplayCoin(dataGame->GetCoin());
+	DisplayLives(dataGame->GetLives());
 
 	if (mario->GetLevelRun() > 0)
 	{
