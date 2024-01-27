@@ -21,7 +21,7 @@ CTail::CTail(float x, float y) :CGameObject(x, y)
 void CTail::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	vx += ax * dt;
-	if (abs(x - Origin_X) > 8.0f)
+	if (abs(x - Origin_X) > 10.0f)
 	{
 		Delete();
 		//vx = 0;

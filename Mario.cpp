@@ -1131,7 +1131,10 @@ void CMario::SetState(int state)
 
 	case MARIO_STATE_TAIL_ATTACK:
 		isTailAttack = true;
-		tail = new CTail(x, y + 7.0f);
+		if (nx > 0)
+			tail = new CTail(x - 3.0f, y + 7.0f);
+		else
+			tail = new CTail(x + 3.0f, y + 7.0f);
 		scene->AddObject(tail, ADD_OBJECT_BACK);
 		break;
 

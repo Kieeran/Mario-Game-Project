@@ -11,7 +11,7 @@ CPortal::CPortal(float x, float y, float width, float height, int portalType) :C
 
 void CPortal::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPortal::GetBoundingBox(float& l, float& t, float& r, float& b)

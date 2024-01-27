@@ -218,6 +218,7 @@ void CGoomba::SetState(int state)
 		die_start = GetTickCount64();
 		vx = 0;
 		vy = -GOOMBA_JUMP_DEFLECT_SPEED;
+		ax = 0;
 		break;
 	}
 }
