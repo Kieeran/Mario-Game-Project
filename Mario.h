@@ -101,7 +101,6 @@ class CMario : public CGameObject
 	int lives;
 	int coin;
 	int levelRun;
-	int untouchable;
 
 	ULONGLONG untouchable_start;
 	ULONGLONG kick_start;
@@ -123,6 +122,7 @@ class CMario : public CGameObject
 	bool isKicking;
 	bool isRunning;
 	bool momentumMove;
+	bool isUntouchable;
 	bool isTailAttack;
 	bool isChanging;
 	bool isLower;
@@ -162,7 +162,7 @@ public:
 		return state != MARIO_STATE_DIE && !isUsePipe;
 	}
 
-	int IsBlocking() { return state != MARIO_STATE_DIE && untouchable == 0 && !isUsePipe; }
+	int IsBlocking() { return state != MARIO_STATE_DIE && !isUntouchable && !isUsePipe; }
 
 	void OnNoCollision(DWORD dt);
 	void OnCollisionWith(LPCOLLISIONEVENT e);
@@ -183,7 +183,7 @@ public:
 
 	void SetLevelHigher();
 	void SetLevelLower();
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount64(); }
+	void StartUntouchable() { isUntouchable = true; untouchable_start = GetTickCount64(); }
 	void StartKicking() { isKicking = true; kick_start = GetTickCount64(); }
 
 	void GetBoundingBox(float& left, float& top, float& right, float& bottom);
@@ -219,6 +219,7 @@ public:
 	int GetLives() { return lives; }
 
 	bool GetIsPrepareEndScene() { return isPrepareEndScene; }
+	bool GetIsUntouchable() { return isUntouchable; }
 
 	bool IsNotFlying() { return levelRun <= LEVEL_RUN_MAX - 4; }
 	bool GetIsAtPortalEntrance() { return isAtPortalEntrance; }

@@ -42,7 +42,6 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	card3 = dataGame->GetCard3();
 
 	untouchable_start = 0;
-	untouchable = 0;
 	kick_start = 0;
 	hold_start = 0;
 	speed_start = 0;
@@ -65,6 +64,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	isRunning = false;
 	isTailAttack = false;
 	isChanging = false;
+	isUntouchable = false;
 	isLower = false;
 	isFlying = false;
 	isUsePipe = false;
@@ -180,7 +180,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (GetTickCount64() - untouchable_start > MARIO_UNTOUCHABLE_TIME && untouchable_start > 0)
 	{
 		untouchable_start = 0;
-		untouchable = 0;
+		isUntouchable = false;
 	}
 
 	if (GetTickCount64() - kick_start > TIME_KICK_ANIMATION && kick_start > 0)
@@ -353,7 +353,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 	}
 	else if (e->nx != 0)	//collision from left to right or from right to left
 	{
-		if (untouchable == 0)
+		if (!isUntouchable)
 		{
 			if (koopas->GetState() == KOOPAS_STATE_WALKING || koopas->GetState() == KOOPAS_STATE_ROLLING ||
 				koopas->GetState() == KOOPAS_STATE_FLYING)
@@ -381,7 +381,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
-	if (untouchable == 0)
+	if (!isUntouchable)
 	{
 		if (level > MARIO_LEVEL_SMALL)
 		{
@@ -398,19 +398,8 @@ void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 
 void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e)
 {
-	if (untouchable == 0)
-	{
-		if (level > MARIO_LEVEL_SMALL)
-		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
-		}
-		else
-		{
-			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
-		}
-	}
+	if (!isUntouchable)
+		SetLevelLower();
 }
 
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)

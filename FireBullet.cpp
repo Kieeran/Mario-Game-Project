@@ -55,7 +55,21 @@ void CFireBullet::OnNoCollision(DWORD dt)
 {
 	x += vx * dt;
 	y += vy * dt;
-};
+}
+
+void CFireBullet::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+	if (dynamic_cast<CMario*>(e->obj))
+		OnCollisionWithPlayer(e);
+}
+void CFireBullet::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
+{
+	CMario* mario = dynamic_cast<CMario*>(e->obj);
+	if (!mario->GetIsUntouchable())
+	{
+		mario->SetLevelLower();
+	}
+}
 
 void CFireBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {

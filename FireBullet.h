@@ -67,6 +67,9 @@ protected:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 	void GetBoundingBox(float& l, float& t, float& r, float& b);
 	void OnNoCollision(DWORD dt);
+	void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlayer(LPCOLLISIONEVENT e);
+
 	int MarioLocation();
 	bool Barycentric_Coordinates(float x, float y, float x1, float y1, float x2, float y2, float x3, float y3);
 public:
