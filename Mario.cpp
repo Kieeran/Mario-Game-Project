@@ -302,7 +302,6 @@ void CMario::OnCollisionWithButton(LPCOLLISIONEVENT e)
 {
 	CButton* button = dynamic_cast<CButton*>(e->obj);
 	button->SetIsPressed(true);
-	//DebugOut(L"Collision with button \n");
 }
 
 void CMario::OnCollisionWithCard(LPCOLLISIONEVENT e)
@@ -318,7 +317,6 @@ void CMario::OnCollisionWithCard(LPCOLLISIONEVENT e)
 		card3 = card->GetCard();
 
 	SetState(MARIO_STATE_END_SCENE);
-	//DebugOut(L"%d\n", state);
 }
 
 void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
@@ -382,18 +380,7 @@ void CMario::OnCollisionWithKoopas(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithPiranhaPlant(LPCOLLISIONEVENT e)
 {
 	if (!isUntouchable)
-	{
-		if (level > MARIO_LEVEL_SMALL)
-		{
-			level = MARIO_LEVEL_SMALL;
-			StartUntouchable();
-		}
-		else
-		{
-			DebugOut(L">>> Mario DIE >>> \n");
-			SetState(MARIO_STATE_DIE);
-		}
-	}
+		SetLevelLower();
 }
 
 void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e)
@@ -405,7 +392,6 @@ void CMario::OnCollisionWithFireBullet(LPCOLLISIONEVENT e)
 void CMario::OnCollisionWithCoin(LPCOLLISIONEVENT e)
 {
 	e->obj->Delete();
-	//DebugOut(L">>> Show coin delete >>> \n");
 	coin++;
 }
 
@@ -493,7 +479,6 @@ void CMario::ChangeToWorldMapWhenDie()
 		level = MARIO_LEVEL_SMALL;
 		change_scene_die_start = 0;
 		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
-
 	}
 }
 
