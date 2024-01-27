@@ -197,6 +197,8 @@ void CKoopas::OnCollisionWith(LPCOLLISIONEVENT e)
 		OnCollisionWithMysbox(e);
 	else if (dynamic_cast<CPlatform*>(e->obj))
 		OnCollisionWithPlatform(e);
+	else if (dynamic_cast<CMario*>(e->obj))
+		OnCollisionWithPlayer(e);
 }
 
 void CKoopas::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
@@ -219,6 +221,70 @@ void CKoopas::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
 	{
 		isOnPlatform = true;
 	}
+}
+
+void CKoopas::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
+{
+	CMario* mario = dynamic_cast<CMario*>(e->obj);
+
+	if (e->ny <= 0)
+	{
+		if (state != KOOPAS_STATE_HIDING && state != KOOPAS_STATE_SHAKING)
+			mario->SetLevelLower();
+	}
+
+	//if (e->ny < 0)	//collision from top to bottom
+	//{
+	//	if (koopas->GetState() == KOOPAS_STATE_FLYING)
+	//	{
+	//		koopas->SetState(KOOPAS_STATE_WALKING);
+	//		koopas->SetY(koopas->GetY() - 2.0f);
+	//		vy = -MARIO_JUMP_DEFLECT_SPEED;
+	//	}
+	//	else if (koopas->GetState() == KOOPAS_STATE_WALKING)
+	//	{
+	//		AddScore(koopas->GetX(), koopas->GetY(), 100);
+	//		koopas->SetState(KOOPAS_STATE_HIDING);
+	//		vy = -MARIO_JUMP_DEFLECT_SPEED;
+	//	}
+	//	else if (koopas->GetState() == KOOPAS_STATE_HIDING || koopas->GetState() == KOOPAS_STATE_SHAKING)
+	//	{
+	//		AddScore(koopas->GetX(), koopas->GetY(), 100);
+	//		koopas->SetState(KOOPAS_STATE_ROLLING);
+	//		koopas->SetY(koopas->GetY() - 2.0f);
+	//		vy = -MARIO_JUMP_DEFLECT_SPEED;
+	//	}
+	//}
+	//else if (e->ny > 0)
+	//{
+	//	SetLevelLower();
+	//}
+	//else if (e->nx != 0)	//collision from left to right or from right to left
+	//{
+	//	if (untouchable == 0)
+	//	{
+	//		if (koopas->GetState() == KOOPAS_STATE_WALKING || koopas->GetState() == KOOPAS_STATE_ROLLING ||
+	//			koopas->GetState() == KOOPAS_STATE_FLYING)
+	//		{
+	//			SetLevelLower();
+	//		}
+	//		else if (koopas->GetState() == KOOPAS_STATE_HIDING || koopas->GetState() == KOOPAS_STATE_SHAKING)
+	//		{
+	//			if (!isRunning)
+	//			{
+	//				koopas->SetIsHeld(false);
+	//				StartKicking();
+	//				koopas->SetState(KOOPAS_STATE_ROLLING);
+	//			}
+	//			else
+	//			{
+	//				isHolding = true;
+	//				koopas->SetIsHeld(true);
+	//				hold_start = GetTickCount64();
+	//			}
+	//		}
+	//	}
+	//}
 }
 
 void CKoopas::OnCollisionWithMysbox(LPCOLLISIONEVENT e)

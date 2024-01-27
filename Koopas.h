@@ -69,6 +69,7 @@ protected:
 	void OnCollisionWithGoomba(LPCOLLISIONEVENT e);
 	void OnCollisionWithMysbox(LPCOLLISIONEVENT e);
 	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlayer(LPCOLLISIONEVENT e);
 
 	int GetAniIdRedKoopas();
 	int GetAniIdGreenKoopas();
