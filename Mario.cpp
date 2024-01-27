@@ -98,7 +98,7 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		vy += ay * dt;
 	}
 
-	if (y > POSITION_Y_DIE)
+	if (MarioInDeadZone())
 		SetState(MARIO_STATE_DIE);
 
 	if ((state != MARIO_STATE_DIE) || !isChanging)
@@ -907,7 +907,7 @@ void CMario::Render()
 	if (aniId == -1)
 		return;
 
-	if (!isChanging && !isTailAttack)
+	if (!isChanging && !isTailAttack && !MarioInDeadZone())
 		animations->Get(aniId)->Render(x, y);
 
 	else
@@ -1046,7 +1046,7 @@ void CMario::SetLevelLower()
 	}
 	else
 	{
-		//DebugOut(L">>> Mario DIE >>> \n");
+		DebugOut(L">>> Mario DIE >>> \n");
 		SetState(MARIO_STATE_DIE);
 	}
 	isLower = true;

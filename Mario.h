@@ -65,7 +65,7 @@
 #define LEVEL_RUN_MAX	7
 #define MARIO_SPEED_USE_PIPE 0.02
 
-#define POSITION_Y_DIE	200.0f
+#define POSITION_Y_DIE	190.0f
 
 #define POSITION_X_IN_HIDDEN_MAP 2064.0f
 #define POSITION_Y_IN_HIDDEN_MAP 340.0f
@@ -176,6 +176,7 @@ public:
 	void DownTimeClock1Second();
 
 	bool IsBrace() { return ax * vx < 0; }
+	bool MarioInDeadZone() { return y > POSITION_Y_DIE; }
 
 	int GetLevel() { return level; }
 	void SetLevel(int l)
