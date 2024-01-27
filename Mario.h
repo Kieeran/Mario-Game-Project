@@ -128,6 +128,7 @@ class CMario : public CGameObject
 	bool isLower;
 	bool isFlying;
 	bool isUsePipe;
+	bool isComboGoombaKill;
 	bool isAtPortalEntrance;
 	bool isAtPortalExit;
 	bool isPrepareEndScene;

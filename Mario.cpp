@@ -69,6 +69,7 @@ CMario::CMario(float x, float y, int index) :CGameObject(x, y)
 	isFlying = false;
 	isUsePipe = false;
 	momentumMove = false;
+	isComboGoombaKill = false;
 	isAtPortalEntrance = false;
 	isAtPortalExit = false;
 	isPrepareEndScene = false;
@@ -127,6 +128,9 @@ void CMario::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetState(MARIO_STATE_IDLE);
 		}
 	}
+
+	if (isOnPlatform)
+		isComboGoombaKill = false;
 
 	if (isUsePipe)
 	{
@@ -254,7 +258,11 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 		{
 			if (goomba->GetState() != GOOMBA_STATE_DIE)
 			{
-				AddScore(goomba->GetX(), goomba->GetY(), 100);
+				if (isComboGoombaKill)
+					AddScore(goomba->GetX(), goomba->GetY(), 200);
+				else
+					AddScore(goomba->GetX(), goomba->GetY(), 100);
+
 				goomba->SetState(GOOMBA_STATE_DIE);
 				vy = -MARIO_JUMP_DEFLECT_SPEED;
 			}
@@ -275,7 +283,16 @@ void CMario::OnCollisionWithGoomba(LPCOLLISIONEVENT e)
 					vy = -MARIO_JUMP_DEFLECT_SPEED;
 				}
 			}
+
+			if (isComboGoombaKill)
+				AddScore(goomba->GetX(), goomba->GetY(), 200);
+			else
+				AddScore(goomba->GetX(), goomba->GetY(), 100);
+
 		}
+
+		if (!isOnPlatform && !isComboGoombaKill)
+			isComboGoombaKill = true;
 	}
 }
 
