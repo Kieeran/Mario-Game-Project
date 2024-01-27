@@ -31,28 +31,33 @@ void CHud::Render()
 	CAnimations* animations = CAnimations::GetInstance();
 	animations->Get(ID_ANI_HUD)->Render(x, y);
 
-	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
-
 	if (hudType == PLAY_SCENE_HUD)
-		DisplayTime(mario->GetClock());
-	else
-		DisplayTime(0);
-
-	DisplayScore(dataGame->GetScore());
-	DisplayCoin(dataGame->GetCoin());
-	DisplayLives(dataGame->GetLives());
-
-	if (mario->GetLevelRun() > 0)
 	{
-		for (int i = 0; i < mario->GetLevelRun(); i++)
+		CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		DisplayTime(mario->GetClock());
+		DisplayScore(mario->GetScore());
+		DisplayCoin(mario->GetCoinNum());
+		DisplayLives(mario->GetLives());
+		if (mario->GetLevelRun() > 0)
 		{
-			if (i == LEVEL_RUN_MAX - 1)
-				continue;
-			animations->Get(ID_ANI_POWER_HUD_1)->Render(x + POWER_DISPLAY_X_COORD + DISTANCE_EVERY_LEVEL_RUN * i, y + POWER_DISPLAY_Y_COORD);
+			for (int i = 0; i < mario->GetLevelRun(); i++)
+			{
+				if (i == LEVEL_RUN_MAX - 1)
+					continue;
+				animations->Get(ID_ANI_POWER_HUD_1)->Render(x + POWER_DISPLAY_X_COORD + DISTANCE_EVERY_LEVEL_RUN * i, y + POWER_DISPLAY_Y_COORD);
+			}
+			if (mario->GetLevelRun() == LEVEL_RUN_MAX)
+				animations->Get(ID_ANI_POWER_HUD_2)->Render(x + POWER_MAX_DISPLAY_X_COORD, y + POWER_MAX_DISPLAY_Y_COORD);
 		}
-		if (mario->GetLevelRun() == LEVEL_RUN_MAX)
-			animations->Get(ID_ANI_POWER_HUD_2)->Render(x + POWER_MAX_DISPLAY_X_COORD, y + POWER_MAX_DISPLAY_Y_COORD);
+	}
+		
+	else
+	{
+		CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+		DisplayTime(0);
+		DisplayScore(dataGame->GetScore());
+		DisplayCoin(dataGame->GetCoin());
+		DisplayLives(dataGame->GetLives());
 	}
 }
 

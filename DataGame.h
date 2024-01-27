@@ -40,6 +40,14 @@ public:
 	int GetCard2() { return card2; }
 	int GetCard3() { return card3; }
 
+	void SaveCoin(int c) { coin = c; }
+	void SaveLevel(int l) { level = l; }
+	void SaveScore(int s) { score = s; }
+	void SaveLives(int l) { lives = l; }
+	void SaveCard1(int c) { card1 = c; }
+	void SaveCard2(int c) { card2 = c; }
+	void SaveCard3(int c) { card3 = c; }
+
 	bool GetIsInHiddenPlace() { return isInHiddenPlace; }
 	void SetIsInHiddenPlace(bool b) { isInHiddenPlace = b; }
 };

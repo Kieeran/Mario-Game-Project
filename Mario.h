@@ -178,6 +178,8 @@ public:
 	bool IsBrace() { return ax * vx < 0; }
 	bool MarioInDeadZone() { return y > POSITION_Y_DIE; }
 
+	void SaveDataGame();
+
 	int GetLevel() { return level; }
 	void SetLevel(int l)
 	{

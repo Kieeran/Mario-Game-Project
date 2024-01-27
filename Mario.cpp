@@ -498,6 +498,7 @@ void CMario::ChangeToWorldMapWhenDie()
 	{
 		level = MARIO_LEVEL_SMALL;
 		change_scene_die_start = 0;
+		SaveDataGame();
 		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
 	}
 }
@@ -506,10 +507,22 @@ void CMario::ChangeToWorldMapWhenNotDie()
 {
 	if (GetTickCount64() - change_scene_not_die_start > TIME_CHANGE_SCENE && change_scene_not_die_start > 0)
 	{
-		DebugOut(L"Change play scene to world map sceneeeeeeeeeeeee\n");
 		change_scene_not_die_start = 0;
+		SaveDataGame();
 		CGame::GetInstance()->InitiateSwitchScene(TYPE_WORLD_MAP);
 	}
+}
+
+void CMario::SaveDataGame()
+{
+	CDataGame* dataGame = CGame::GetInstance()->GetDataGame();
+	dataGame->SaveCoin(coin);
+	dataGame->SaveLevel(level);
+	dataGame->SaveScore(score);
+	dataGame->SaveLives(lives);
+	dataGame->SaveCard1(card1);
+	dataGame->SaveCard2(card2);
+	dataGame->SaveCard3(card3);
 }
 
 void CMario::DownTimeClock1Second()
@@ -1194,6 +1207,7 @@ void CMario::SetState(int state)
 	case MARIO_STATE_DIE:
 		vy = -MARIO_JUMP_DEFLECT_SPEED;
 		change_scene_die_start = GetTickCount64();
+		lives--;
 		vx = 0;
 		ax = 0;
 		break;
