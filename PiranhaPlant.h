@@ -53,6 +53,9 @@ protected:
 
 	void OnNoCollision(DWORD dt);
 
+	void OnCollisionWith(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlayer(LPCOLLISIONEVENT e);
+
 	int GetAniIdRedFirePiranhaPlant();
 	int GetAniIdGreenFirePiranhaPlant();
 

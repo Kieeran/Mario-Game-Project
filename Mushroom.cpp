@@ -44,7 +44,7 @@ void CMushroom::OnCollisionWith(LPCOLLISIONEVENT e)
 
 void CMushroom::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
 {
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CMario* mario = dynamic_cast<CMario*>(e->obj);
 	mario->SetLevelHigher();
 	e->obj->Delete();
 }

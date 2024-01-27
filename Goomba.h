@@ -58,7 +58,9 @@ protected:
 	void OnNoCollision(DWORD dt);
 
 	void OnCollisionWith(LPCOLLISIONEVENT e);
+
 	void OnCollisionWithPlatform(LPCOLLISIONEVENT e);
+	void OnCollisionWithPlayer(LPCOLLISIONEVENT e);
 
 	int GetAniGoombaYellow();
 	int GetAniGoombaRed();

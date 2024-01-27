@@ -165,6 +165,18 @@ void CPiranhaPlant::OnNoCollision(DWORD dt)
 	y += vy * dt;
 }
 
+void CPiranhaPlant::OnCollisionWith(LPCOLLISIONEVENT e)
+{
+	if (dynamic_cast<CMario*>(e->obj))
+		OnCollisionWithPlayer(e);
+}
+void CPiranhaPlant::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
+{
+	CMario* mario = dynamic_cast<CMario*>(e->obj);
+	if (!mario->GetIsUntouchable())
+		mario->SetLevelLower();
+}
+
 void CPiranhaPlant::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CPlayScene* scene = (CPlayScene*)CGame::GetInstance()->GetCurrentScene();

@@ -67,7 +67,20 @@ void CGoomba::OnCollisionWith(LPCOLLISIONEVENT e)
 	}
 	if (dynamic_cast<CPlatform*>(e->obj))
 		OnCollisionWithPlatform(e);
+	else if (dynamic_cast<CMario*>(e->obj))
+		OnCollisionWithPlayer(e);
 }
+
+void CGoomba::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
+{
+	CMario* mario = dynamic_cast<CMario*>(e->obj);
+	if (!mario->GetIsUntouchable())
+	{
+		if (e->ny <= 0)
+			mario->SetLevelLower();
+	}
+}
+
 void CGoomba::OnCollisionWithPlatform(LPCOLLISIONEVENT e)
 {
 	if (e->ny < 0)

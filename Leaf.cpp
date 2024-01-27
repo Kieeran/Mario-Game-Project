@@ -26,25 +26,13 @@ void CLeaf::OnNoCollision(DWORD dt)
 
 void CLeaf::OnCollisionWith(LPCOLLISIONEVENT e)
 {
-	//if (!e->obj->IsBlocking()) return;
-	if (dynamic_cast<CLeaf*>(e->obj)) return;
-	//if (dynamic_cast<CMysBox*>(e->obj)) return;
-	//if (dynamic_cast<CPlatform*>(e->obj)) return;
-	/*if (e->ny != 0)
-	{
-		vy = 0;
-	}
-	else if (e->nx != 0)
-	{
-		vx = -vx;
-	}*/
 	if (dynamic_cast<CMario*>(e->obj))
 		OnCollisionWithPlayer(e);
 }
 
 void CLeaf::OnCollisionWithPlayer(LPCOLLISIONEVENT e)
 {
-	CMario* mario = (CMario*)((LPPLAYSCENE)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+	CMario* mario = dynamic_cast<CMario*>(e->obj);
 	mario->SetLevelHigher();
 	e->obj->Delete();
 }
